@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>用户中心</title>
+		<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.min.css">
+		<link rel="stylesheet" href="./css/client.css">
+		<style type="text/css">
+
+		</style>
+	</head>
+	<body>
+		<div class="navbar navbar-static-top">
+			<div class="navbar-inner">
+				<ul class="nav pull-right">
+					<li><a href="#">登录</a></li>
+					<li><a href="#">注册</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="container-fluid main-staticbar-fixed">
+			<div class="row-fluid">
+				<div class="span2 uc-sidebar">
+					<div class="uc-avatar">
+						<div class="uc-avatar-title">会员中心</div>
+						<div class="uc-avater-img">
+							<img src="../img/avatar.jpg" alt="">
+						</div>
+						<div class="uc-avater-name">冬瓜妹妹</div>
+					</div>
+					<div class="uc-usertitle">
+						<ul>
+							<li><i class="icon-leaf"></i> 蔬菜大王</li>
+							<li><i class="icon-eye-open"></i> 最爱评价</li>
+						</ul>
+					</div>
+					<div class="uc-menubar">
+						<ul class="nav nav-pills nav-stacked">
+							<li class=""><a href="uc-orders.html">查看订单</a></li>
+							<li><a href="#">管理积分</a></li>
+							<li><a href="#">预约订餐</a></li>
+							<li><a href="#">个人信息</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="span10">
+					<iframe id="mainFrame" src="uc-info.html" frameborder="0" width="100%" height="100%" style="vertical-align: top; overflow-y:hidden;"></iframe>
+				</div>
+			</div>
+		</div>
+
+
+		<script type="text/javascript" src="../js/jquery-1.8.0.js"></script>
+		<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../js/1000funs.js"></script>
+		<script type="text/javascript">
+
+			jQuery(function($) {
+				bindClick();
+				initMenuSelect();
+				initHeight();
+			});
+			
+			/**
+			 * 初始化菜单选中
+			 */
+			function initMenuSelect() {
+				var menu = getParam(window.location.href, "m");
+				if(menu) {
+					$menu = $(".uc-menubar .nav > li").eq(menu);
+					$menu.addClass("active").siblings().removeClass("active");
+					setFrameURL($menu.children("a").attr("href"));
+				}
+			}
+			
+			/**
+			 * 绑定点击事件
+			 */
+			function bindClick() {
+				$(".uc-menubar .nav > li").click(function() {
+					var $this = $(this);
+					$this.addClass("active").siblings().removeClass("active");
+					reload( $(".uc-menubar .nav > li").index($this) );
+					return false;
+				});
+			}
+			
+			
+			function reload(index) {
+				// url重载时传多一个参数，指示第i个tab页，初始化的时候，根据这个参数，初始加载第i个tab页。
+				var url = setParam(window.location.href, "m", index);
+				window.location = url;
+			}
+
+			function setFrameURL(url) {
+				$("#mainFrame").attr("src", url);
+			}
+			
+			/**
+			 * 初始化iframe高度
+			 */
+			function initHeight () {
+				var iframeDoc = document.getElementById("mainFrame").contentWindow.document;
+				$(iframeDoc).ready(function() {
+					var height = iframeDoc.body.clientHeight;
+					$("#mainFrame").attr("height", height);
+				});
+			}
+
+		</script>
+	</body>
+</html>

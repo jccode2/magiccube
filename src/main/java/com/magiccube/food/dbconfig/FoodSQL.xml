@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- @author Xingling -->
+
+<!-- 用户 -->
+<mapper namespace="com.magiccube.food">
+
+	<!-- 插入Food信息 -->
+	<insert id="insertFood" parameterType="com.magiccube.food.model.FoodVO" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO food(code,food_name,detail,image,type,deleted) VALUES
+		(#{code},#{foodName},#{detail},#{image},#{type},false)
+	</insert>
+	
+	<!-- 插入Food_Re_Shop信息 -->
+	<insert id="insertFoodReShop" parameterType="com.magiccube.food.model.FoodVO">
+		INSERT INTO food_re_shop(shop_id,food_id,group_id,origin_price,current_price,stock,droped,deleted) VALUES
+		(#{shopId},#{id},#{groupId},#{originPrice},#{currentPrice},#{stock},#{droped},false)
+	</insert>
+	
+	<!-- 插入Food_Group信息-->
+	<insert id="insertFoodGroup" parameterType="com.magiccube.food.model.FoodGroupVO" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO food_group(group_name,image,detail,type,deleted) VALUES
+		(#{groupName},#{image},#{detail},#{type},false)
+	</insert>
+	
+	<!-- 插入PackageItem信息 -->
+	<insert id="insertPackageItem" parameterType="com.magiccube.food.model.PackageItemVO" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO package_item(package_id,food_id,deleted) VALUES
+		(#{packageId},#{foodId},false)
+	</insert>
+	
+	<!-- 更新group信息 -->
+	<update id="updateGroup" parameterType="com.magiccube.food.model.FoodGroupVO">
+		update food_group 
+		<set>
+			<if test="groupName != null">group_name=#{groupName},</if>
+			<if test="detail != null">detail=#{detail},</if>
+			<if test="image != null">image=#{image}</if>
+		</set>
+		where id = #{id};
+	</update>
+	
+	<!-- 更新food信息 -->
+	<update id="updateFood" parameterType="com.magiccube.food.model.FoodVO">
+		update food 
+		<set>
+			<if test="foodName != null">food_name=#{foodName},</if>
+			<if test="detail != null">detail=#{detail},</if>
+			<if test="image != null">image=#{image}</if>
+		</set>
+		where id = #{id};
+	</update>
+	
+	<!-- 删除group分组 -->
+	<update id="deleteGroup" parameterType="int">
+		UPDATE food_group set deleted = true where id = #{id};
+	</update>
+	
+	<!-- 删除food -->
+	<update id="deleteFood" parameterType="int">
+		UPDATE food set deleted = true where id = #{id};
+	</update>
+		
+	<!-- 删除一个食物关联 -->
+	<delete id="deleteFoodReShop" parameterType="com.magiccube.food.model.FoodVO">
+		delete from food_re_shop where shop_id = #{shopId} and food_id = #{id};
+	</delete>
+	
+	<!-- 删除PackageItem信息 -->
+	<delete id="deletePackageItem" parameterType="int">
+		delete from package_item where package_id = #{packageId};
+	</delete>
+
+	<!-- 根据shopId在架的所有单品-->
+	<select id="queryFoodsByShopId" parameterType="int"
+		resultType="com.magiccube.food.model.FoodVO">
+		SELECT f.id,f.food_name,
+		f.image,frs.origin_price,
+		frs.current_price,frs.group_id,
+		fg.group_name
+		FROM food f,food_re_shop frs,food_group fg 
+		WHERE frs.shop_id=#{shopId} 
+		AND f.id=frs.food_id 
+		AND frs.group_id = fg.id 
+		AND f.type=1 
+		AND f.deleted=false 
+		AND frs.droped=false 
+		AND frs.deleted=false
+	</select>
+	
+	<select id="getFood" parameterType="int"
+		resultType="com.magiccube.food.model.FoodVO">
+		SELECT * FROM food WHERE id = #{id}
+	</select>
+	
+	<!-- 为FoodVO查询id -->
+	<select id="queryIdForFoodVO" parameterType="com.magiccube.food.model.FoodVO"
+		resultType="int">
+		SELECT id FROM food WHERE food.code=#{code} AND food.food_name=#{foodName} AND food.deleted=false
+	</select>
+
+
+	<!-- 查询food表的总行数 -->
+	<select id="q" resultType="int">
+		SELECT COUNT(*) FROM food where deleted=false
+	</select>
+	
+	<!-- 查询所有的分组及食物(外连接,包括空分组也会查出来) -->
+	<select id="queryAllGroupAndFoods" parameterType="com.magiccube.food.model.FoodQueryCondition"
+		resultType="com.magiccube.food.model.FoodVO">
+		<!--  -->
+		select 
+		    t.*, g.id group_id, g.group_name, g.image group_image, g.detail group_detail
+		from
+		    (select 
+		        f.*, fs.group_id gid, fs.origin_price, fs.current_price, fs.stock
+		    from
+		        food_re_shop fs
+		    join food f ON (fs.food_id = f.id)
+		    where
+		        fs.deleted = false and f.deleted = false and shop_id = #{shopId} and f.type = #{type} and fs.droped = false) t
+		        right join
+		    food_group g ON (t.gid = g.id)
+		where
+		    <!-- g.type = #{type} -->
+		    g.deleted = false
+		order by g.group_name desc
+		
+		
+		<!-- 
+		select 
+		    f.*,
+		    fs.group_id,
+		    g.group_name, 
+		    fs.origin_price,
+		    fs.current_price,
+		    fs.stock
+		from
+		    food_re_shop fs 
+		    join food f ON (fs.food_id = f.id)
+		    join food_group g ON (fs.group_id = g.id)
+		where
+		    fs.deleted = false and f.deleted = false and g.deleted = false
+		    and shop_id = #{shopId} and f.type = #{type} and g.type = #{type}
+		order by g.group_name
+		 -->
+	</select>
+	
+	<select id="queryAvailableGroupAndFoods" parameterType="com.magiccube.food.model.FoodQueryCondition"
+		resultType="com.magiccube.food.model.FoodVO">
+		select 
+		    f.*, fs.group_id, fs.origin_price, fs.current_price, fs.stock, g.group_name, g.image group_image, g.detail group_detail
+		from
+		    food_re_shop fs 
+		    join food f ON (fs.food_id = f.id)
+		    join food_group g ON (fs.group_id = g.id)
+		where
+		    fs.deleted = false and f.deleted = false and g.deleted = false
+		    and shop_id = #{shopId} and f.type = #{type}
+		order by g.group_name desc;
+	</select>
+	
+	<!-- 根据类型(套餐还是配餐)查询所有分组信息 -->
+	<select id="queryGroups" parameterType="int" resultType="com.magiccube.food.model.FoodGroupVO">
+		select * from food_group g where g.deleted = false and g.type = #{type} order by g.group_name
+	</select>
+	
+	<!-- 查询所有分组信息(不区分类型信息) -->
+	<select id="queryAllGroups" resultType="com.magiccube.food.model.FoodGroupVO">
+		select * from food_group g where g.deleted = false order by g.group_name
+	</select>
+	
+	<!-- 查询所有单品食物 -->
+	<select id="querySingleFoodsCount" resultType="int">
+		select count(0) from food where deleted = false and type = 1
+	</select>
+	
+	<!-- 查询所有单品食物 -->
+	<select id="querySingleFoods" parameterType="com.magiccube.food.model.FoodQueryCondition" resultType="com.magiccube.food.model.FoodVO">
+		select * from food where deleted = false and type = 1 order by food_name limit #{pageFrom}, #{pageSize} 
+	</select>
+	
+	<!-- 根据类型查询可用的食物(因为每种食物在每个商店只能被添加一次) -->
+	<select id="queryAvailableFoods" parameterType="com.magiccube.food.model.FoodQueryCondition" resultType="com.magiccube.food.model.FoodVO">
+		select * 
+		from food f where deleted = false 
+			and type = #{type} and id not in
+			(select f.id id
+				from food_re_shop fs join food f on (fs.food_id = f.id)
+			 	where fs.deleted = false and f.deleted = false
+			  		and shop_id = #{shopId} and f.type = #{type})
+		order by food_name;
+	</select>
+	
+</mapper>

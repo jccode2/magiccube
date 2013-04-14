@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="GB2312"?>
+<emails>
+	<email sendServer="smtp.qq.com" sendMail="2589430737@qq.com" sendAccount="2589430737" sendPassword="1000funs"
+		mailServerEncoding="GB2312" />
+</emails>

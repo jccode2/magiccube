@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- @author huangkelin -->
+
+<!-- 用户 -->
+<mapper namespace="com.magiccube.packages">
+
+	<!-- 插入Package信息 -->
+	<insert id="insertPackage" parameterType="com.magiccube.packages.model.PackageVO">
+		INSERT INTO package(code,package_name,detail,image,deleted) VALUES
+		(#{code},#{packageName},#{detail},#{image},false)
+	</insert>
+	
+	<!-- 插入Package_Re_Shop信息 -->
+	<insert id="insertPackageReShop" parameterType="com.magiccube.packages.model.PackageVO">
+		INSERT INTO package_re_shop(shop_id,package_id,group_id,origin_price,current_price,stock,droped,deleted) VALUES
+		(#{shopId},#{id},#{groupId},#{originPrice},#{currentPrice},#{stock},#{droped},false)
+	</insert>
+	
+	<!-- 插入Package_Group信息-->
+	<insert id="insertPackageGroup" parameterType="com.magiccube.packages.model.PackageGroupVO">
+		INSERT INTO package_group(group_name,image,detail,deleted) VALUES
+		(#{groupName},#{detail},#{image},false)
+	</insert>
+
+	<!-- 根据shopId在架的所有Package -->
+	<select id="queryPackagesByShopId" parameterType="int"
+		resultType="com.magiccube.packages.model.PackageVO">
+		SELECT f.id,f.food_name packageName,
+		f.image,frs.origin_price,
+		frs.current_price,frs.group_id,
+		fg.group_name
+		FROM food f,food_re_shop frs,food_group fg 
+		WHERE frs.shop_id=#{shopId} 
+		AND f.id=frs.food_id 
+		AND frs.group_id = fg.id 
+		AND f.type=2
+		AND f.deleted=false 
+		AND frs.droped=false 
+		AND frs.deleted=false
+	</select>
+	
+	<!-- 为PackageVO查询id -->
+	<select id="queryIdForPackageVO" parameterType="com.magiccube.packages.model.PackageVO"
+		resultType="int">
+		SELECT id FROM package WHERE package.code=#{code} AND package.package_name=#{packageName} AND package.deleted=false
+	</select>
+
+
+	<!-- 查询package表的总行数 -->
+	<select id="queryCountOfPackage" resultType="int">
+		SELECT COUNT(*) FROM package where deleted=false
+	</select>
+	
+</mapper>

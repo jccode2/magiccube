@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- @author junchang -->
+
+<mapper namespace="com.magiccube.config">
+
+	<!-- 插入Config信息 -->
+	<insert id="insertConfig" parameterType="com.magiccube.config.model.ConfigVO">
+		INSERT INTO config(name,value,class_name) VALUES
+		(#{name},#{value},#{className})
+	</insert>
+	
+	<!-- 更新Config信息 -->
+	<insert id="updateConfig" parameterType="com.magiccube.config.model.ConfigVO">
+		UPDATE config SET value = #{value} where name = #{name}
+	</insert>
+	
+	<!-- 查询Config配置信息 -->
+	<select id="getConfig" parameterType="java.lang.String" resultType="com.magiccube.config.model.ConfigVO">
+		SELECT * FROM config WHERE name = #{name}
+	</select>
+	
+</mapper>

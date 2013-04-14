@@ -1,0 +1,162 @@
+
+@import "mixins.less";
+
+@border-color: #E3E3E3;
+
+.plate .active{
+	background-color: #0088cc;
+	color: white;
+}
+
+.notActive{
+	background-color: #f7f7f9;
+	color: black;
+}
+
+.plate{
+	border: 1px solid rgba(0, 0, 0, 0.3);
+	width: 280px;
+	margin-bottom: 10px;
+}
+
+.plate_title{
+	text-align: center;
+	font-size: 18px;
+	height: 30px; 
+	padding-top: 7px;
+}
+
+.plate_bottom{
+	border-top: 1px solid rgba(0, 0, 0, 0.3); 
+}
+
+.input_num{
+	width: 11px;
+}
+
+
+
+.submit-order-main {
+	// margin: 0px 25px;
+	border: 1px solid @border-color;
+	.border-radius(4px);
+	.box-shadow(0 1px 1px rgba(0, 0, 0, .05) inset);
+
+	.row {
+		// margin-left: 0px;
+	}
+}
+
+.submit-order-title {
+	font-size: 20px;
+	height: 50px;
+	line-height: 50px;
+	border-bottom: 1px solid @border-color;
+}
+
+.food-dishs {
+	border-bottom: 1px solid @border-color;
+	padding: 10px 0px;
+
+	ul.plates {
+		padding: 0 0 0 20px;
+		margin: 0px 0px 0px 20px;
+		list-style: none inside none;
+
+		li {
+			display: inline-block;
+			.ie7-inline-block();
+			margin-right: 20px;
+		}
+	}
+}
+
+.order-total {
+	border-bottom: 1px solid @border-color;
+	height: 50px;
+	line-height: 50px;
+
+	.total-amount {
+		font-weight: bold;
+	}
+
+	.preferential {
+		margin: 15px;
+		color: #1C86EE;
+	}
+
+	.actual-payment {
+		font-size:30px;
+	}
+}
+
+.user-info-form {
+	margin: 10px 0px;
+}
+
+// ---------- User Center -------
+
+@uc-sidebar-border-color: #bbb;
+
+.main-staticbar-fixed {
+	margin-top: 20px;
+}
+
+.uc-sidebar {
+	border: 1px solid #bbb;
+	padding: 0 5px;
+	.border-radius(5px);
+}
+
+.uc-avatar-title {
+	height: 28px;
+	line-height: 28px;
+	background: #049cdb;
+	font-weight: bold;
+	padding-left: 5px;
+	margin: 0px -5px;
+
+	.border-radius(5px 5px 0px 0px);
+}
+
+.uc-avater-img {
+	margin: 5px 0px;
+	text-align: center;
+
+	img {
+		display: inline;
+	}
+}
+
+.uc-avater-name {
+	text-align: center;
+}
+
+.uc-usertitle, .uc-menubar {
+	ul {
+		padding: 0px;
+		margin: 0px;
+		list-style: none outside none;
+
+		li {
+			text-align: center;
+		}
+	}
+}
+
+.uc-usertitle {
+	margin: 5px 0px;
+	padding: 0px 0px 10px;
+	border-top: 2px solid @uc-sidebar-border-color;
+	border-bottom: 2px solid @uc-sidebar-border-color;
+
+	ul li {
+		height: 30px;
+		line-height: 30px;
+	}
+}
+
+.uc-menubar {
+	// height: 250px;
+	padding: 0px 0px 10px;
+}

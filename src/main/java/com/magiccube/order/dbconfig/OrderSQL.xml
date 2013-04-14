@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!--订单 -->
+<mapper namespace="com.magiccube.order">
+
+	<!-- 插入Order数据 -->
+	<insert id="insertOrder" parameterType="com.magiccube.order.model.OrderVO">
+		<selectKey resultType="int" keyProperty="id" order="AFTER">  
+	        SELECT LAST_INSERT_ID() AS ID
+	    </selectKey>  
+		INSERT INTO
+		orders(code,shop_id,create_time,except_time,user_id,user_remark,address,contact,phone,order_status,manager_id,manager_remark,sender_id,payment_type,total_price,deleted)
+		VALUES
+		(#{code},#{shopId},#{createTime},#{exceptTime},#{userId},#{userRemark},#{address},#{contact},#{phone},#{orderStatus},#{managerId},#{managerRemark},#{senderId},#{paymentType},#{totalPrice},false)
+	</insert>
+	
+	<!-- 插入OrderItem数据 -->
+	<insert id="insertOrderItem" parameterType="com.magiccube.order.model.OrderItemVO">
+		INSERT INTO
+		order_item(order_id,item_id,amount,plate,deleted)
+		VALUES
+		(#{orderId},#{itemId},#{amount},#{plate},false)
+	</insert>
+	
+	<!-- 更新Order状态 -->
+	<update id="updateOrderStatus" parameterType="com.magiccube.order.model.OrderVO">
+		update orders set order_status = #{orderStatus} where id = #{id};
+	</update>
+
+	<!-- 根据userId查询用户未评价的订单 order_status=1表示订单状态：已处理-->
+	<select id="queryUnEvaluateOrder" parameterType="int"
+		resultType="com.magiccube.order.model.OrderVO">
+		SELECT * FROM orders o WHERE
+		o.user_id=#{userId} AND o.order_status=0 AND o.deleted=false 
+	</select>
+	
+	<!-- 根据shopId查询某个店铺的订单列表(连同食物一起查出来)
+		TODO: 下面几个SQL也要改. 这里应该不区分item_type，不管自选还是套餐，应该都要查出来.
+	 -->
+	<select id="queryOrdersWithFood" parameterType="com.magiccube.order.model.OrderQueryCondition" resultType="com.magiccube.order.model.OrderVOWithFood">
+		select o.*, i.id as food_id, i.amount as amount, i.plate, f.food_name, f.image as food_image, fs.current_price price
+		from order_item i, orders o, food f, food_re_shop fs
+		where i.deleted = false and o.deleted = false and f.deleted = false and fs.deleted = false
+		  and o.id = i.order_id and i.item_id = f.id and o.shop_id = fs.shop_id and f.id = fs.food_id
+		  <!-- and i.item_type = #{itemType}  --> 
+		  and o.shop_id = #{shopId} <!-- and o.user_id = #{userId}  -->
+		  and o.order_status in
+		  <foreach collection="orderStatusList" item="item" index="index" open="(" close=")" separator=",">
+		  	#{item}
+		  </foreach>
+		  <if test="keyword != null">
+		  	and concat(o.address,o.contact,o.phone) like concat('%',#{keyword},'%')
+		  </if>
+		order by o.id, i.plate, f.food_name
+	</select>
+	
+	<!-- 根据shopId查询某个店铺的待处理的订单列表总数 -->
+	<select id="queryOrdersCount" parameterType="com.magiccube.order.model.OrderQueryCondition" resultType="int">
+		select count(0) 
+		  from orders 
+		 where deleted = false and shop_id = #{shopId} <!-- and user_id = #{userId}  -->
+		   and order_status in 
+		   	  <foreach collection="orderStatusList" item="item" index="index" open="(" close=")" separator=",">
+			  	#{item}
+			  </foreach>
+			<if test="keyword != null">
+				and concat(address,contact,phone) like concat('%',#{keyword},'%')
+			</if>
+	</select>
+	
+	<!-- 根据shopId查询某个店铺的订单列表(分页查询)(连同食物一起查出来) -->
+	<select id="queryOrdersWithFoodByPage" parameterType="com.magiccube.order.model.OrderQueryCondition" resultType="com.magiccube.order.model.OrderVOWithFood">
+		select o.*, i.id as food_id, i.amount as amount, i.plate, f.food_name, f.image as food_image, fs.current_price price
+		from order_item i, 
+		     (select * from orders 
+		     	where deleted = false 
+		     		and shop_id = #{shopId} <!-- and user_id = #{userId} -->
+			     	 and order_status in
+					  <foreach collection="orderStatusList" item="item" index="index" open="(" close=")" separator=",">
+					  	#{item}
+					  </foreach>
+				<if test="keyword != null">
+					and concat(address,contact,phone) like concat('%',#{keyword},'%')
+				</if>
+		     	limit #{pageFrom}, #{pageSize}
+		     ) o, 
+		     food f, food_re_shop fs
+		where i.deleted = false and f.deleted = false and fs.deleted = false
+		  and o.id = i.order_id and i.item_id = f.id 
+		  and o.shop_id = fs.shop_id and f.id = fs.food_id
+		order by o.id, i.plate, f.food_name
+	</select>
+
+	<!-- 根据orderId查询某个订单(包括所有的食物) -->
+	<select id="getOrderWithFood" parameterType="int" resultType="com.magiccube.order.model.OrderVOWithFood">
+		select o.*, i.id as food_id, i.amount as amount, i.plate, f.food_name, f.image as food_image, fs.current_price price
+		from order_item i, orders o, food f, food_re_shop fs
+		where i.deleted = false and o.deleted = false and f.deleted = false and fs.deleted = false
+		  and o.id = i.order_id and i.item_id = f.id and o.shop_id = fs.shop_id and f.id = fs.food_id
+		  and o.id = #{orderId}
+		order by i.plate, f.food_name;
+	</select>
+
+</mapper>

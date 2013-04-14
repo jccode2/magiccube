@@ -1,0 +1,127 @@
+.plate .active {
+  background-color: #0088cc;
+  color: white;
+}
+.notActive {
+  background-color: #f7f7f9;
+  color: black;
+}
+.plate {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  width: 280px;
+  margin-bottom: 10px;
+}
+.plate_title {
+  text-align: center;
+  font-size: 18px;
+  height: 30px;
+  padding-top: 7px;
+}
+.plate_bottom {
+  border-top: 1px solid rgba(0, 0, 0, 0.3);
+}
+.input_num {
+  width: 11px;
+}
+.submit-order-main {
+  border: 1px solid #e3e3e3;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
+}
+.submit-order-title {
+  font-size: 20px;
+  height: 50px;
+  line-height: 50px;
+  border-bottom: 1px solid #e3e3e3;
+}
+.food-dishs {
+  border-bottom: 1px solid #e3e3e3;
+  padding: 10px 0px;
+}
+.food-dishs ul.plates {
+  padding: 0 0 0 20px;
+  margin: 0px 0px 0px 20px;
+  list-style: none inside none;
+}
+.food-dishs ul.plates li {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  margin-right: 20px;
+}
+.order-total {
+  border-bottom: 1px solid #e3e3e3;
+  height: 50px;
+  line-height: 50px;
+}
+.order-total .total-amount {
+  font-weight: bold;
+}
+.order-total .preferential {
+  margin: 15px;
+  color: #1C86EE;
+}
+.order-total .actual-payment {
+  font-size: 30px;
+}
+.user-info-form {
+  margin: 10px 0px;
+}
+.main-staticbar-fixed {
+  margin-top: 20px;
+}
+.uc-sidebar {
+  border: 1px solid #bbb;
+  padding: 0 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+.uc-avatar-title {
+  height: 28px;
+  line-height: 28px;
+  background: #049cdb;
+  font-weight: bold;
+  padding-left: 5px;
+  margin: 0px -5px;
+  -webkit-border-radius: 5px 5px 0px 0px;
+  -moz-border-radius: 5px 5px 0px 0px;
+  border-radius: 5px 5px 0px 0px;
+}
+.uc-avater-img {
+  margin: 5px 0px;
+  text-align: center;
+}
+.uc-avater-img img {
+  display: inline;
+}
+.uc-avater-name {
+  text-align: center;
+}
+.uc-usertitle ul,
+.uc-menubar ul {
+  padding: 0px;
+  margin: 0px;
+  list-style: none outside none;
+}
+.uc-usertitle ul li,
+.uc-menubar ul li {
+  text-align: center;
+}
+.uc-usertitle {
+  margin: 5px 0px;
+  padding: 0px 0px 10px;
+  border-top: 2px solid #bbbbbb;
+  border-bottom: 2px solid #bbbbbb;
+}
+.uc-usertitle ul li {
+  height: 30px;
+  line-height: 30px;
+}
+.uc-menubar {
+  padding: 0px 0px 10px;
+}

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
+	xsi:schemaLocation="
+		     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		     http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		     http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.org/schema/spring-dwr-3.0.xsd">
+    
+	<context:component-scan base-package="com.magiccube.*" />
+    <mvc:annotation-driven />
+	<mvc:resources mapping="/web/**" location="/web/" />
+    
+	
+	<!-- SpringMVC配置 -->
+	<bean class="com.magiccube.core.springmvc.ChristControllerHandlerMapping" />
+	<bean id="viewNameTranslator" class="com.magiccube.core.springmvc.ChristRequestToViewNameTranslator"/>
+	<!-- <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" /> -->
+	
+	<!-- 默认JSP处理 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/web/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	
+	<bean id="mappingJacksonJsonView" class="org.springframework.web.servlet.view.json.MappingJacksonJsonView"></bean>
+	
+	<!-- File Upload -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
+	
+	
+	<!-- DWR ==================================================================== -->
+	<dwr:controller id="dwrController" debug="true" /><!-- define controller -->
+	<dwr:annotation-config id="dwrAnnotationConfig" /><!-- scan sping context -->
+	<dwr:annotation-scan base-package="com.magiccube.*" scanDataTransferObject="true" scanRemoteProxy="true" /><!-- scan classpath -->
+	<dwr:configuration /><!-- no required. for those aren't managed by spring -->
+ 	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping"><!-- mapping -->
+    	<property name="alwaysUseFullPath" value="true"/>
+    	<property name="mappings">
+	    	<props>
+	    		<prop key="/dwr/**/*">dwrController</prop>
+	    	</props>
+    	</property>
+	</bean>
+	<!-- <dwr:url-mapping /> -->
+	
+	
+</beans>

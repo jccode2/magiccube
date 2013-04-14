@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<!-- @author Xingling -->
+
+<configuration>
+
+	<!-- CamelCase VO 映射 -->
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+	</settings>
+
+	<!-- <typeAliases> 可以为一个vo类取一个别名，后面用的时候可以直接用该vo类的别名 而不用在写 包+类名称 <typeAlias 
+		type="com.test.StudentVO" alias="Student" /> </typeAliases> -->
+	<mappers>
+		<!-- 对应vo类的DAO接口 所对应的xml配置文件的路径信息 -->
+		<!-- <mapper resource="com/test/dbconfig/Student.xml" /> -->
+
+		<mapper resource="com/magiccube/order/dbconfig/OrderSQL.xml" />
+		<!-- <mapper resource="com/magiccube/login/dbconfig/LoginSQL.xml" /> -->
+		<mapper resource="com/magiccube/packages/dbconfig/PackageSQL.xml" />
+		<mapper resource="com/magiccube/user/dbconfig/UserSQL.xml" />	<!-- @author Xingling -->
+		<mapper resource="com/magiccube/food/dbconfig/FoodSQL.xml" />	<!-- @author Xingling -->
+		<mapper resource="com/magiccube/address/dbconfig/AddressSQL.xml" />	<!-- @author Xingling -->
+		<mapper resource="com/magiccube/config/dbconfig/ConfigSQL.xml" />
+
+	</mappers>
+
+
+</configuration>
+

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>用户中心信息</title>
+		<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../bootstrap/css/bootstrap-responsive.min.css">
+		<link rel="stylesheet" href="./css/client.css">
+		<style type="text/css">
+
+		</style>
+	</head>
+	<body>
+		<div class="row-fluid container-fixed">
+			<div class="span12">
+				<div class="hero-unit">
+					<p>您最近的一笔订单已经送出，预计将于12:05分送达，请准备好零钱，享受美丽的午餐^_^。<a id="view-orderlist" class="btn btn-primary in-line">查看订单记录</a></p>
+				</div>
+				<div class="hero-unit">
+					<p>您还有2笔订单没有评价，评价历史订单可以为新的订单带来优惠，不要错过喔^_^。~ <a class="btn btn-primary in-line">点击评价</a></p>
+				</div>
+				<div class="hero-unit">
+					<p>您已经有1307积分啦，积分可以换购xxx，记得随时使用哦。</p>
+				</div>
+				<div class="hero-unit">
+					<p>嗯哼嗯哼</p>
+				</div>
+			</div>
+		</div>
+		
+		
+		<script type="text/javascript" src="../js/jquery-1.8.0.js"></script>
+		<script type="text/javascript" src="../js/1000funs.js"></script>
+		<script type="text/javascript">
+			
+			jQuery(function($) {
+				$("#view-orderlist").click(function() {
+					var url = setParam(window.parent.location.href, "m", 0);
+					window.parent.location = url;
+				});
+			});
+		
+		</script>
+	</body>
+</html>

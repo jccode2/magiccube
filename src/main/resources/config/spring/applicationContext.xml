@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
+	xmlns:lang="http://www.springframework.org/schema/lang"
+	xsi:schemaLocation="
+		     http://www.springframework.org/schema/beans
+		     http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		     http://www.springframework.org/schema/tx
+		     http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+		     http://www.springframework.org/schema/aop
+		     http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		     http://www.springframework.org/schema/context
+		     http://www.springframework.org/schema/context/spring-context.xsd
+		     http://www.directwebremoting.org/schema/spring-dwr     
+        	 http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd
+        	 http://www.springframework.org/schema/lang
+        	 http://www.springframework.org/schema/lang/spring-lang-3.2.xsd">
+	
+	<!-- 这个地方开始放置所有bean的配置信息  -->
+	
+	<!-- 配置数据源 --> 
+	<import resource="database-config.xml"/>
+	
+	<!-- sqlSessionFactory --> 
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">   
+		<property name="configLocation" value="classpath:config/mybatis/SqlMapConfig.xml" />   
+		<property name="dataSource" ref="dataSource" />
+	</bean>  
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">   
+		<constructor-arg index="0" ref="sqlSessionFactory" />  
+	</bean>
+	
+	<!-- 订单模块，注入数据源 -->
+	<bean id="OrderDAOImpl" class="com.magiccube.order.dao.OrderDAO">   
+		<property name="sqlSessionTemplate" ref="sqlSession" />
+	</bean>
+	<bean id="OrderService" class="com.magiccube.order.service.OrderService">   
+		<property name="orderDAO" ref="OrderDAOImpl" />
+	</bean>
+	
+	<!-- 用户模块，注入数据源 -->
+	<bean id="UserDAOImpl" class="com.magiccube.user.dao.UserDAO">   
+		<property name="sqlSessionTemplate" ref="sqlSession" />
+	</bean>
+	<bean id="UserService" class="com.magiccube.user.service.UserService">   
+		<property name="userDAO" ref="UserDAOImpl" />
+	</bean>
+	
+	<!-- 食物模块，注入数据源 -->
+	<bean id="FoodDAOImpl" class="com.magiccube.food.dao.FoodDAO">   
+		<property name="sqlSessionTemplate" ref="sqlSession" />
+	</bean>
+	<bean id="FoodService" class="com.magiccube.food.service.FoodService">   
+		<property name="foodDAO" ref="FoodDAOImpl" />
+	</bean>
+	
+	<!-- 地址模块，注入数据源 -->
+	<bean id="AddressDAOImpl" class="com.magiccube.address.dao.AddressDAO">   
+		<property name="sqlSessionTemplate" ref="sqlSession" />
+	</bean>
+	<bean id="AddressService" class="com.magiccube.address.service.AddressService">   
+		<property name="addressDAO" ref="AddressDAOImpl" />
+	</bean>
+	
+	<!-- 登录模块，注入数据源 -->
+	<bean id="LoginService" class="com.magiccube.login.service.LoginService">   
+		<property name="userDAO" ref="UserDAOImpl" />
+	</bean>
+	
+	<!-- 套餐模块，注入数据源 -->
+	<bean id="PackageDAOImpl" class="com.magiccube.packages.dao.PackageDAO">   
+		<property name="sqlSessionTemplate" ref="sqlSession" />
+	</bean>
+	<bean id="PackageService" class="com.magiccube.packages.service.PackageService">   
+		<property name="packageDAO" ref="PackageDAOImpl" />
+	</bean>
+	
+	<!-- 配置模块，注入数据源 -->
+	<bean id="ConfigDAOImpl" class="com.magiccube.config.dao.ConfigDAO">   
+		<property name="sqlSessionTemplate" ref="sqlSession" />
+	</bean>
+	<bean id="ConfigService" class="com.magiccube.config.service.ConfigService">   
+		<property name="configDAO" ref="ConfigDAOImpl" />
+	</bean>
+	
+	
+	<!-- 配置实现类，注入数据源 -->  
+	<!--
+	<bean id="ITestTableDAOImpl" class="com.test.ITestTableDAOImpl2">   
+		<property name="session" ref="sqlSession" />
+	</bean>  
+	 -->
+	<!--  配置service类，注入上面的实现类 -->  
+	<!--
+	<bean id="ITestTableDAOService" class="com.test.ITestTableDAOService2">   
+		<property name="testImpl" ref="ITestTableDAOImpl" />
+	</bean>
+	 -->
+	
+	<!-- AOP和事务配置  -->
+	<import resource="aop-config.xml"/>
+	
+</beans>

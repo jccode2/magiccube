@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 用户 -->
+<mapper namespace="com.magiccube.user">
+
+	<!-- 插入一行数据 -->
+	<insert id="insertUser" parameterType="com.magiccube.user.model.UserVO">
+		INSERT INTO users(code,user_name,phone,email,password,register_time,score,
+			quota,default_region_id,default_address,user_type,deleted) VALUES
+		(#{code},#{userName},#{phone},#{email},#{password},#{registerTime},#{score},
+			#{quota},#{defaultRegionId},#{defaultAddress},#{userType},false)
+	</insert>
+
+	<!-- 查询该表的总行数 -->
+	<select id="getCount" resultType="int">
+		SELECT COUNT(*) FROM users
+	</select>
+
+	<select id="queryUserByName" parameterType="String"
+		resultType="com.magiccube.user.model.UserVO">
+		SELECT * FROM users WHERE user_name=#{name}
+	</select>
+	
+	<select id="queryUserByNameOrEmailOrPhone" parameterType="String"
+		resultType="com.magiccube.user.model.UserVO">
+		SELECT * FROM users WHERE user_name=#{account} or email=#{account} or phone=#{account}
+	</select>
+
+</mapper>

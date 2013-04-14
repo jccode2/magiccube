@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>餐点管理-食物管理</title>
+		<link rel="stylesheet" href="assert/css/bootstrap.min.css">
+		<link rel="stylesheet" href="assert/css/order.css">
+		<style type="text/css">
+			body {
+				/*padding: 50px 0px;*/
+				/*background-color: #f5f5f5;*/
+			}
+		</style>
+	</head>
+	<body>
+		<div class="row-fluid container-fixed">
+			<div class="span12">
+				<div class="querybar">
+					<div class="row-fluid">
+						<div class="span8">
+						</div>
+						<div class="span4 btn-right">
+							<button type="button" class="btn" id="btn_delete" data-toggle="button">删除</button>
+							<button type="button" class="btn" id="btn_edit" data-toggle="button">编辑</button>
+							<button type="button" class="btn" id="btn_insert" data-toggle="button">新增</button>
+						</div>
+					</div>
+				</div>
+				<div id="groupList" class="common-list group-list">
+					<ul>
+						<li>
+							<div class="list-item">
+								<div class="pic">
+									<img src="assert/img/kuguachaodang.jpg" alt="10元区">
+								</div>
+								<div class="btns hide">
+									<i class="icon2-edit"></i>
+								</div>
+								<div class="text">
+									<p class="header">圆椒排骨</p>
+									<p class="detail">肉排与腌料拌匀。用2汤匙油将肉排炒熟。下洋葱、柿子椒及芡汁炒匀，加盖煮至汁浓</p>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="list-item">
+								<div class="pic">
+									<img src="assert/img/kuguachaodang.jpg" alt="10元区">
+								</div>
+								<div class="btns hide">
+									<i class="icon2-ok"></i>
+								</div>
+								<div class="text">
+									<p class="header">苦瓜炒蛋</p>
+									<p class="detail">9元区放的是9块钱的食物哦9元区放的是9块钱的食物哦</p>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="list-item">
+								<div class="pic">
+									<img src="assert/img/kuguachaodang.jpg" alt="10元区">
+								</div>
+								<div class="btns hide">
+									<i class="icon2-remove"></i>
+								</div>
+								<div class="text">
+									<p class="header">蒜蓉菜心</p>
+									<p class="detail">8元区放的是8块钱的食物哦8元区放的是8块钱的食物哦8元区放的是8块钱的食物哦8元区放的是</p>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="list-item">
+								<div class="pic">
+									<img src="assert/img/kuguachaodang.jpg" alt="10元区">
+								</div>
+								<div class="btns hide">
+									<i class="icon2-ok"></i>
+								</div>
+								<div class="text">
+									<p class="header">青瓜炒猪肝</p>
+									<p class="detail">7元区放的是7块钱的食物哦7元区放的是7块钱的食物哦7元区放的是7块钱的食物哦</p>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="list-item">
+								<div class="pic">
+									<img src="assert/img/kuguachaodang.jpg" alt="10元区">
+								</div>
+								<div class="btns hide">
+									<i class="icon2-ok"></i>
+								</div>
+								<div class="text">
+									<p class="header">萝卜牛腩</p>
+									<p class="detail">7元区放的是7块钱的食物哦7元区放的是7块钱的食物哦7元区放的是7块钱的食物哦</p>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="list-item">
+								<div class="pic">
+									<img src="assert/img/kuguachaodang.jpg" alt="10元区">
+								</div>
+								<div class="btns hide">
+									<i class="icon2-ok"></i>
+								</div>
+								<div class="text">
+									<p class="header">铁板茄子</p>
+									<p class="detail">7元区放的是7块钱的食物哦7元区放的是7块钱的食物哦7元区放的是7块钱的食物哦</p>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="list-item">
+								<div class="pic">
+									<img src="assert/img/kuguachaodang.jpg" alt="10元区">
+								</div>
+								<div class="btns hide">
+									<i class="icon2-ok"></i>
+								</div>
+								<div class="text">
+									<p class="header">西兰花炒鲜鱿</p>
+									<p class="detail">7元区放的是7块钱的食物哦7元区放的是7块钱的食物哦7元区放的是7块钱的食物哦</p>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div id="add_panel" class="panel-bottom hide">
+					<form action="" class="group-list">
+						<div class="pic">
+							<div class="img-wapper"><img src=""></div>
+							<div class="img-tips hide">点击上传图片</div>
+							<input type="file" id="group-upload" name="file" class="hide">
+						</div>
+						<div class="btns">
+							<button class="btn btn-primary btn-large">保存</button>
+						</div>
+						<div class="text">
+							<div class="control-group control-group-mini">
+								<label for="" class="control-label">名称</label>
+								<div class="controls"><input type="text" name="groupName" class="input-block-level"></div>
+							</div>
+							<div class="control-group control-group-mini">
+								<label for="" class="control-label">描述</label>
+								<div class="controls">
+									<input type="text" name="detail" class="input-block-level">
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			
+			</div>
+		</div><!--/ end of container -->
+
+		
+
+
+		<script type="text/javascript" src="assert/js/jquery-1.8.0.js"></script>
+		<script type="text/javascript" src="assert/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="assert/js/jquery.pagination.js"></script>
+		<script type="text/javascript">
+
+			jQuery(function ($) {
+
+				$(".img-wapper").hover(function () {
+					$(this).siblings(".img-tips").removeClass("hide");
+				}, function () {
+					$(this).siblings(".img-tips").addClass("hide");
+				});
+
+				toggle("btn_insert", insertBtnClick);
+
+				toggle("btn_edit", function (checked) {
+					showRowEditBtn(checked, "icon2-edit");
+				});
+
+				toggle("btn_delete", function (checked) {
+					showRowEditBtn(checked, "icon2-remove");
+				})
+				
+				$(window).bind("resize", resetHeight);
+			});
+
+
+			/**
+			 * single toggle button click event
+			 * @param  {string}   id       
+			 * @param  {Function} callback 
+			 */
+			function toggle(id, callback) {
+				$("#"+id).click(function () {
+					var $this = $(this);
+					setTimeout(function() {
+						var checked = $this.hasClass("active");
+						callback(checked);
+					}, 0);
+				});
+			}
+
+			function insertBtnClick (checked) {
+				var $addPanel = $("#add_panel"), 
+					$groupList = $("#groupList"), 
+					winHeight = $(window).height();
+				if(checked) {
+					$groupList.height(winHeight - 200).addClass("overflow");
+					$addPanel.removeClass("hide");
+				} else {
+					$groupList.height(winHeight).removeClass("overflow");
+					$addPanel.addClass("hide");
+				}
+			}
+
+			function resetHeight () {
+				var insertChecked = $("#btn_insert").hasClass("active");
+				if(insertChecked) {
+					$("#groupList").height($(window).height() - 200);
+				}
+			}
+
+			function showRowEditBtn(checked, className) {
+				console.log(checked);
+				var $btns = $("#groupList .btns");
+				if(checked) {
+					$btns.removeClass("hide").children("i").removeClass().addClass(className);
+				} else {
+					$btns.addClass("hide");
+				}
+			}
+
+		</script>
+	</body>
+</html>

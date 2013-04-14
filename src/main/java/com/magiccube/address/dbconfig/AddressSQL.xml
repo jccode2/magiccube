@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- @author Xingling -->
+
+<!-- 用户 -->
+<mapper namespace="com.magiccube.address">
+
+	<!-- 根据当前区域id查询下一级子区域 -->
+	<select id="queryChildRegionById" parameterType="int"
+		resultType="com.magiccube.address.model.RegionVO">
+		SELECT * FROM region WHERE parent_id=#{currentRegionId} AND deleted=false
+	</select>
+	
+	<!-- 根据用户输入的关键字查询包含该关键字的AddressVO集合 -->
+	<select id="queryAddress" parameterType="Map" resultType="com.magiccube.address.model.AddressVO">
+		SELECT * FROM address WHERE (short_name like CONCAT('%','${userInput}','%') or full_name LIKE CONCAT('%','${userInput}','%')) AND deleted=false
+	</select>
+	
+	<!-- 添加用户输入的建议送餐地址 -->
+	<select id="addTempAddress" parameterType="com.magiccube.address.model.AddressVO">
+		INSERT INTO temp_address(short_name,full_name,image,phone,user_ip,input_time,deleted) VALUES
+		(#{shortName},#{fullName},#{image},#{phone},#{userIp},#{inputTime},false)
+	</select>
+	
+</mapper>
