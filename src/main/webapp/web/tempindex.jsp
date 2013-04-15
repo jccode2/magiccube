@@ -35,7 +35,22 @@ body {
 	display: none;
 }
 
+.shopdiv {
+	background-color: rgba(0, 0, 0, 0.9);
+	text-align: center;
+	padding: 30px;
+	margin-bottom: 30px;
+	display: none;
+	position: absolute;
+	width: 100%;
+}
+
 .menuhidden {
+	padding: 30px;
+	margin-bottom: 30px;
+}
+
+.shophidden {
 	padding: 30px;
 	margin-bottom: 30px;
 }
@@ -90,17 +105,41 @@ p {
 <script type="text/javascript">
 	var menuhidden = true;
 	var menuinited = false;
+	var shophidden = true;
+	var shopinited = false;
+	var sayGoodTimes = 0;
+	var loginTimes = 0;
+	var registTimes = 0;
 
 	function userLogin() {
-
+		loginTimes++;
+		if (loginTimes > 3){
+			alert("亲！有那么想登录？！先登录OA玩一下吧！");
+		}else{
+			alert("非常抱歉，网站正在建设中，目前只提供查看菜单功能，感谢您的支持！");
+		}
 	}
 	function userRegist() {
-
+		registTimes++;
+		if(registTimes>5){
+			alert("我感觉到您很闲。。。。。。");
+		}else{
+			alert("非常抱歉，网站正在建设中，目前只提供查看菜单功能，感谢您的支持！");
+		}
 	}
 	function sayGood() {
-
+		sayGoodTimes++;
+		if (sayGoodTimes >= 5) {
+			alert("亲，可以了，感谢您的厚爱，赶紧工作吧～ ^_^");
+		} else {
+			alert("您更赞！");
+		}
 	}
 	function showMenu() {
+		if (!shophidden) {
+			$('#shopdiv').fadeOut("normal", hideShopTable);
+			shophidden = true;
+		}
 		if (menuhidden) {
 			$('#menudiv').slideDown("normal", showMenuTable);
 			if (!menuinited) {
@@ -124,7 +163,44 @@ p {
 	function initPage() {
 		$('#menudiv').hide();
 		$('#menutable').hide();
+		$('#menudiv').hide();
+		$('#menutable').hide();
 	}
+
+	function showShop() {
+		if (shophidden) {
+			$('#shopdiv').fadeIn("normal", showShopTable);
+			if (!shopinited) {
+				$('#shopdiv').show();
+				shopinited = true;
+			}
+			shophidden = false;
+		} else {
+			$('#shopdiv').fadeOut("normal", hideShopTable);
+			shophidden = true;
+		}
+	}
+	function showShopTable() {
+		$('#shopdiv').addClass("shophidden");
+	}
+	function hideShopTable() {
+		$('#shopdiv').removeClass("shophidden");
+	}
+
+	$(function() {
+		$("#shopdiv").click(function(event) {
+			$('#shopdiv').fadeOut("normal", hideShopTable);
+			shophidden = true;
+		});
+	});
+	
+	$(function() {
+		$("#menudiv").click(function(event) {
+			$('#menudiv').slideUp("normal", hideMenuTable);
+			menuhidden = true;
+		});
+	});
+
 </script>
 </head>
 <body onload="initPage();">
@@ -138,18 +214,24 @@ p {
 				<div class="nav-collapse collapse">
 					<ul class="nav">
 						<li class="active"><a href="">首页</a></li>
-						<li><a href="#about">关于我们</a></li>
+						<li><a href="#" onclick="showShop();">关于我们</a></li>
 						<li><a href="#" onclick="showMenu();">查看今天菜单</a></li>
 					</ul>
 					<form class="navbar-form pull-right">
-						<input class="span2" type="text" placeholder="用户名"> <input class="span2" type="password" placeholder="密码">
-						<button type="submit" class="btn" onclick="userLogin();">登录</button>
-						<button type="submit" class="btn" onclick="userRegist();">注册</button>
+						<input class="span2" type="text" placeholder="用户名"/> <input class="span2" type="password" placeholder="密码"/>
+						<button type="button" class="btn" onclick="userLogin();">登录</button>
+						<button type="button" class="btn" onclick="userRegist();">注册</button>
 					</form>
 				</div>
 				<!--/.nav-collapse -->
 			</div>
 		</div>
+	</div>
+	<div id="shopdiv" class="shopdiv">
+		<img src="${webRoot}/web/img/shop1.jpg" class="img-polaroid"> <img src="${webRoot}/web/img/shop2.jpg"
+			class="img-polaroid"
+		>
+		<p class="lead">店铺地址：深圳市福田区景田综合市场裙楼1层130D 订餐QQ：2589430737</p>
 	</div>
 	<div id="menudiv" class="menudiv">
 		<%-- <img src="${webRoot}/web/img/ordermenu.jpg" class="img-polaroid"> --%>
@@ -206,30 +288,30 @@ p {
 			<h3>网站正在建设中，感谢您的支持！</h3>
 			<p>现在，我们正在为大家打造一个全新的用餐环境，请暂时使用QQ订餐，近期我们就会推出网络订餐系统，并带来神秘惊喜！敬请期待。</p>
 			<p>
-				<a href="#" class="btn btn-primary btn-large">赞一下!</a>
+				<a href="#" onclick="sayGood();" class="btn btn-primary btn-large">赞一下!</a>
 			</p>
 		</div>
 		<!-- Example row of columns -->
 		<div class="row">
 			<div class="span4">
-				<h2 class="color:white">随心的搭配方式</h2>
-				<p>我们将提供多种不同口味，不同价格，不同营养成分的食物供您选择，您可以随心搭配自己的午餐、晚餐，让用餐不再单调.</p>
+				<h2 class="color:white">随心的菜品组合</h2>
+				<p>我们将提供多种不同口味，不同价格，不同营养成分的食物供您选择，您可以随意组合自己的午餐、晚餐，让用餐不再单调.</p>
 				<p>
-					<a class="btn" href="#">赞一下！</a>
+					<a class="btn" onclick="sayGood();" href="#">赞一下！</a>
 				</p>
 			</div>
 			<div class="span4">
-				<h2>直观的营养分析</h2>
+				<h2>放心的营养搭配</h2>
 				<p>我们聘请了专业的营养分析师，对每一种食物进行营养成分分析，通过网站，您能够观察到您的食物所含的营养成分及健康建议，这样，您能够为自己合理安排饮食，保持身体健康。</p>
 				<p>
-					<a class="btn" href="#">赞一下！</a>
+					<a class="btn" onclick="sayGood();" href="#">赞一下！</a>
 				</p>
 			</div>
 			<div class="span4">
 				<h2>贴心的饮食管理</h2>
 				<p>如果您完成了免费注册，我们将为您记录每天的用餐情况，您可以很直观地看到自己的用餐喜好，并根据营养成分进行适当调整，对于那些长期支持我们的用户，我们还将提供智能的推荐，根据您的用餐习惯为您推荐对您健康有帮助的食物。</p>
 				<p>
-					<a class="btn" href="#">赞一下！</a>
+					<a class="btn" onclick="sayGood();" href="#">赞一下！</a>
 				</p>
 			</div>
 		</div>
