@@ -110,6 +110,15 @@ public class FoodAction extends BaseAction {
 	}
 	
 	/**
+	 * 更新FoodReShop
+	 * @param foodVO
+	 * @return
+	 */
+	public int updateFoodReShop(FoodVO foodVO) {
+		return foodService.updateFoodReShop(foodVO);
+	}
+	
+	/**
 	 * 查询所有在架食物单品
 	 * @return List<FoodVO>
 	 */

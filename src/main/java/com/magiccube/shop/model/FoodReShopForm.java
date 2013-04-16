@@ -9,6 +9,7 @@ public class FoodReShopForm extends FoodForm {
 	private int stock;
 	private boolean droped;
 	private String itemIds;
+	private String actionType;
 	
 	public int getShopId() {
 		return shopId;
@@ -58,11 +59,18 @@ public class FoodReShopForm extends FoodForm {
 	public void setItemIds(String itemIds) {
 		this.itemIds = itemIds;
 	}
+	public String getActionType() {
+		return actionType;
+	}
+	public void setActionType(String actionType) {
+		this.actionType = actionType;
+	}
 	@Override
 	public String toString() {
 		return "FoodReShopForm [shopId=" + shopId + ", foodId=" + getFoodId()
 				+ ", groupId=" + groupId + ", originPrice=" + originPrice
 				+ ", currentPrice=" + currentPrice + ", stock=" + stock
-				+ ", droped=" + droped + ", itemIds=" + itemIds + "]";
+				+ ", droped=" + droped + ", itemIds=" + itemIds 
+				+ ", actionType=" + actionType + "]";
 	}
 }

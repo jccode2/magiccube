@@ -52,6 +52,19 @@
 		where id = #{id};
 	</update>
 	
+	<!-- 更新FoodReShop信息 -->
+	<update id="updateFoodReShop" parameterType="com.magiccube.food.model.FoodVO">
+		update food_re_shop 
+		<set>
+			<if test="groupId != null">group_id=#{groupId},</if>
+			<if test="originPrice != null">origin_price=#{originPrice},</if>
+			<if test="currentPrice != null">current_price=#{currentPrice},</if>
+			<if test="stock != null">stock=#{stock},</if>
+			<if test="droped != null">droped=#{droped}</if>
+		</set>
+		where shop_id = #{shopId} and food_id = #{id};
+	</update>
+	
 	<!-- 删除group分组 -->
 	<update id="deleteGroup" parameterType="int">
 		UPDATE food_group set deleted = true where id = #{id};
@@ -89,9 +102,10 @@
 		AND frs.deleted=false
 	</select>
 	
-	<select id="getFood" parameterType="int"
+	<select id="getFood" parameterType="com.magiccube.food.model.FoodVO"
 		resultType="com.magiccube.food.model.FoodVO">
-		SELECT * FROM food WHERE id = #{id}
+		select f.*, fs.* from food f, food_re_shop fs
+		where fs.shop_id = #{shopId} and f.id = #{id} and f.id = fs.food_id 
 	</select>
 	
 	<!-- 为FoodVO查询id -->

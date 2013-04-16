@@ -71,9 +71,8 @@ function			method				url
 更新是否自动出单		PUT					/shop/autoprint/{value}	
 出单					PUT					/shop/issue/{id}
 
-新增食物关联			POST				/shop/foodreshop
+新增/更新食物关联			POST				/shop/foodreshop
 删除食物关联			DELETE				/shop/foodreshop/{id}
-更新物关联			POST				/shop/foodreshop/{id}
 
 新增套餐				POST				/shop/package
 删除套餐				DELETE				/shop/package/{id}
@@ -343,7 +342,12 @@ public class ShopController {
 		FoodVO foodVO = new FoodVO();
 		BeanUtils.copyProperties(foodReShopForm, foodVO);
 		foodVO.setShopId(shopId);
-		foodAction.insertFoodReShop(foodVO);
+		String actionType = foodReShopForm.getActionType();
+		if("add".equals(actionType)) {
+			foodAction.insertFoodReShop(foodVO);
+		} else {
+			foodAction.updateFoodReShop(foodVO);
+		}
 		return "redirect:/shop/catering";
 	}
 	

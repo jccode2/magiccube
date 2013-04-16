@@ -31,7 +31,11 @@ public class FoodDAO extends BaseDAO {
 	}
 	
 	public FoodVO getFood(int id) {
-		return (FoodVO)this.sqlSessionTemplate.selectOne("com.magiccube.food.getFood", id);
+		int shopId = 1; //TODO:从环境中取shopId
+		FoodVO queryVO = new FoodVO();
+		queryVO.setId(id);
+		queryVO.setShopId(shopId);
+		return (FoodVO)this.sqlSessionTemplate.selectOne("com.magiccube.food.getFood", queryVO);
 	}
 	
 	public int insertFoodReShop(FoodVO foodVO){
@@ -69,6 +73,15 @@ public class FoodDAO extends BaseDAO {
 	 */
 	public int updateFood(FoodVO foodVO) {
 		return this.sqlSessionTemplate.update("com.magiccube.food.updateFood", foodVO);
+	}
+	
+	/**
+	 * 更新FoodReShop
+	 * @param foodVO
+	 * @return
+	 */
+	public int updateFoodReShop(FoodVO foodVO) {
+		return this.sqlSessionTemplate.update("com.magiccube.food.updateFoodReShop", foodVO);
 	}
 	
 	public int deleteGroup(int id) {

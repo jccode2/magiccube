@@ -81,6 +81,7 @@
 			<div class="modal-body" style="max-height: 350px;">
 				<form id="foodreshopForm" action="${webRoot}/shop/foodreshop" method="post" class="form-horizontal form-dialog">
 					<input type="hidden" name="foodId" id="foodId">
+					<input type="hidden" name="actionType" id="actionType">
 
 					<!-- step 1 -->
 					<div id="step1" class="food-grid">
@@ -152,7 +153,7 @@
 							</div>
 						</div>
 						<div class="pull-right">
-							<label class="checkbox inline"><input type="checkbox" value="">缺货标记</label>
+							<label class="checkbox inline"><input type="checkbox" value="" id="stockout">缺货标记</label>
 							<label class="checkbox inline"><input type="checkbox" id="droped" value="">下架</label>
 							<input type="hidden" id="_droped" name="droped" value="false">
 						</div>

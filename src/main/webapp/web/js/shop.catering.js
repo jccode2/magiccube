@@ -19,7 +19,7 @@ define(function(require, exports, module) {
 			}, 
 			modal: function () {
 				$("#btn_add, .food-add").click(function () {
-					showModal("add");
+					showModal("add", null);
 				});
 			}, 
 			checkboxEvt: function () {
@@ -69,8 +69,6 @@ define(function(require, exports, module) {
 					var $this = $(this), 
 						$item = $this.closest("li"), 
 						foodId = $item.attr("id").substring(5);
-
-					console.log("edit a food: " + foodId);
 
 					editFood(foodId);
 				});
@@ -150,8 +148,12 @@ define(function(require, exports, module) {
 	/**
 	 * show modal window
 	 * @param type "add|edit"
+	 * @param foodVO init form
 	 */
-	function showModal(type) {
+	function showModal(type, foodVO) {
+		initForm(foodVO);
+		setActionType(type);
+
 		if(type === "add") {
 			switchStepView("step1");
 			
@@ -162,6 +164,14 @@ define(function(require, exports, module) {
 		} else {}
 		
 		$("#dialog-add-food").modal("show");
+	}
+
+	/**
+	 * set action type 
+	 * @param type "add|edit"
+	 */
+	function setActionType(type) {
+		$("#actionType").val(type);
 	}
 
 	function initEditImage() {
@@ -178,9 +188,27 @@ define(function(require, exports, module) {
 			
 			// get food detail
 			$.getJSON(webRoot+"/shop/food/"+id, function (json) {
-				$("#detail").val(json['detail']);
+				$("#detail").val(json && json['detail'] || "");
 			});
 		}
+	}
+
+	/**
+	 * init form
+	 */
+	function initForm(foodVO) {
+		var noEmpty = !!foodVO;
+		$("#addfood-photo").attr("src", noEmpty ? webRoot + foodVO["image"] : "");
+		$("#foodId").val(noEmpty ? foodVO["id"] : "");
+		$("#foodName").val(noEmpty ? foodVO["foodName"] : "");
+		$("#groupId").val(noEmpty ? foodVO["groupId"] : "");
+		$("#originPrice").val(noEmpty ? foodVO["originPrice"] : "");
+		$("#currentPrice").val(noEmpty ? foodVO["currentPrice"] : "");
+		$("#stock").val(noEmpty ? foodVO["stock"] : "");
+		$("#detail").val(noEmpty ? foodVO["detail"] : "");
+		$("#stockout").attr("checked", false);
+		$("#droped").attr("checked", noEmpty ? foodVO["droped"] : false);
+		$("#_droped").val(noEmpty ? foodVO["droped"] : false);
 	}
 
 	function deleteFood(foodId) {
@@ -201,7 +229,11 @@ define(function(require, exports, module) {
 	}
 
 	function editFood(foodId) {
-		showModal("edit");
+		var url = webRoot + "/shop/food/" + foodId;
+		$.getJSON(url, function(foodVO) {
+			// initForm(foodVO);
+			showModal("edit", foodVO);
+		});
 	}
 
 

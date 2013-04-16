@@ -32,6 +32,10 @@
 		<p>
 			getAllFoods. <input type="button" id="btn_get_foods" value="getAllFoods" class="btn"/>
 		</p>
+		<p>
+			getFood <input type="text" id="txt-get-food" class="input-small" value="" placeholder="foodId"/>
+			<input type="button" id="btn_get_food" value="getFood" class="btn"/>
+		</p>
 		
 		<script type="text/javascript" src="${webRoot}/web/js/jquery-1.8.0.js"></script>
 		<script type="text/javascript" src="${webRoot}/web/bootstrap/js/bootstrap.min.js"></script>
@@ -108,6 +112,15 @@
 				$("#btn_get_foods").click(function() {
 					$.getJSON("${webRoot}/shop/food", function(json) {
 						showSuccess("<strong>Well done!</strong> data: " + JSON.stringify(json));
+					})
+					.fail(function(xhr) {
+						showError("<strong>Error!</strong> " + xhr.responseText);
+					});
+				});
+
+				$("#btn_get_food").click(function() {
+					$.getJSON("${webRoot}/shop/food/" + $("#txt-get-food").val(), function(json) {
+						showSuccessFix("<strong>Well done!</strong> data: " + JSON.stringify(json));
 					})
 					.fail(function(xhr) {
 						showError("<strong>Error!</strong> " + xhr.responseText);
