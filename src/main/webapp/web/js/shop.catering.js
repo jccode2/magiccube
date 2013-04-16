@@ -153,6 +153,7 @@ define(function(require, exports, module) {
 	function showModal(type, foodVO) {
 		initForm(foodVO);
 		setActionType(type);
+		clearTooltips();
 
 		if(type === "add") {
 			switchStepView("step1");
@@ -211,6 +212,10 @@ define(function(require, exports, module) {
 		$("#_droped").val(noEmpty ? foodVO["droped"] : false);
 	}
 
+	function clearTooltips() {
+		$(".tooltip").remove();
+	}
+
 	function deleteFood(foodId) {
 		var url = webRoot + "/shop/foodreshop/" + foodId;
 		$.ajax({
@@ -231,7 +236,6 @@ define(function(require, exports, module) {
 	function editFood(foodId) {
 		var url = webRoot + "/shop/food/" + foodId;
 		$.getJSON(url, function(foodVO) {
-			// initForm(foodVO);
 			showModal("edit", foodVO);
 		});
 	}

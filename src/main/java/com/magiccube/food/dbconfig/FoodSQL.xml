@@ -207,4 +207,8 @@
 		order by food_name;
 	</select>
 	
+	<select id="queryPackageItems" parameterType="int" resultType="com.magiccube.food.model.PackageItemVO">
+		select * from package_item where package_id = #{packageId}
+	</select>
+	
 </mapper>

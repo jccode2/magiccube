@@ -69,6 +69,15 @@ public class FoodService extends BaseService{
 		return foodDAO.getFood(id);
 	}
 	
+	/**
+	 * 获取一个套餐
+	 * @param id packageId
+	 * @return PackageVO
+	 */
+	public PackageVO getPackage(int id) {
+		return foodDAO.getPackage(id);
+	}
+	
 	public int insertFoodReShop(FoodVO foodVO){
 		return foodDAO.insertFoodReShop(foodVO);
 	}
@@ -92,15 +101,45 @@ public class FoodService extends BaseService{
 		int packageId = insertFood(packageVO);
 		
 		//2. 往package_item表插入相关的关联信息.
-		List<PackageItemVO> items = packageVO.getItems();
-		for(PackageItemVO packageItem : items) {
-			packageItem.setPackageId(packageId);
-			insertPackageItem(packageItem);
-		}
+		insertPackageItems(packageVO.getItems(), packageId);
 		
 		//3. 往food_re_shop表插入相关的关联信息
 		insertFoodReShop(packageVO);
 		return packageId;
+	}
+	
+	/**
+	 * 更新套餐
+	 * @param packageVO
+	 * @return true-成功; false-失败
+	 */
+	public boolean updatePackage(PackageVO packageVO) {
+		//1. 先更新food表
+		updateFood(packageVO);
+		
+		//2. 更新food_re_shop表
+		updateFoodReShop(packageVO);
+		
+		//3. 更新package_item表;先删除再插入
+		int packageId = packageVO.getId();
+		deletePackageItem(packageId);
+		insertPackageItems(packageVO.getItems(), packageId);
+		
+		return true;
+	}
+	
+	/**
+	 * 批量插入packageItems
+	 * @param items
+	 * @param packageId
+	 * @return
+	 */
+	public boolean insertPackageItems(List<PackageItemVO> items, int packageId) {
+		for(PackageItemVO packageItem : items) {
+			packageItem.setPackageId(packageId);
+			insertPackageItem(packageItem);
+		}
+		return true;
 	}
 
 	/**

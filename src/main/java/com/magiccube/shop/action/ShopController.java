@@ -76,6 +76,7 @@ function			method				url
 
 新增套餐				POST				/shop/package
 删除套餐				DELETE				/shop/package/{id}
+获取套餐				GET					/shop/package/{id}
 
 
  * 
@@ -383,9 +384,26 @@ public class ShopController {
 			}
 		}
 		
-		// save
-		foodAction.insertPackage(packageVO);
+		String actionType = foodReShopForm.getActionType();
+		if("add".equals(actionType)) {
+			// save
+			foodAction.insertPackage(packageVO);
+		} else {
+			foodAction.updatePackage(packageVO);
+		}
+		
 		return "redirect:/shop/package";
+	}
+	
+	/**
+	 * 获取一个套餐
+	 * @param packageId
+	 * @return
+	 */
+	@RequestMapping(value="/package/{id}", method=RequestMethod.GET)
+	public @ResponseBody PackageVO getPackage(@PathVariable(value="id") int packageId) {
+		PackageVO vo = foodAction.getPackage(packageId);
+		return vo;
 	}
 	
 	/**

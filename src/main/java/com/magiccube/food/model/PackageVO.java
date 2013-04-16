@@ -6,7 +6,7 @@ import java.util.List;
 public class PackageVO extends FoodVO {
 
 	private List<PackageItemVO> items = new ArrayList<PackageItemVO>();
-
+	
 	public List<PackageItemVO> getItems() {
 		return items;
 	}

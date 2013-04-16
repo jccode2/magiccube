@@ -209,6 +209,5 @@ public class FoodVO extends BaseVO{
 	public void setGroupDetail(String groupDetail) {
 		this.groupDetail = groupDetail;
 	}
-	
 
 }

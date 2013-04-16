@@ -17,8 +17,8 @@ define(function(require, exports, module) {
 				}
 			}, 
 			modal: function () {
-				$(".foods-area .food-add").click(function () {
-					$("#dialog-add-package").modal();
+				$("#btn_add, .foods-area .food-add").click(function () {
+					showModal('add', null);
 				});
 			}, 
 			checkboxEvt: function () {
@@ -35,9 +35,7 @@ define(function(require, exports, module) {
 					if($this.hasClass("next")) { // next
 						// validate
 						if($.validation().check()) {
-							$this.html("保存").removeClass("next");
-							$prev.removeClass("hide");
-
+							
 							switchStepView("step2");
 						}
 					}
@@ -51,9 +49,7 @@ define(function(require, exports, module) {
 
 				// 上一步
 				$("#btn_prev").click(function() {
-					var $next = $("#btn_done");
-					$next.html("下一步").addClass("next");
-					$(this).addClass("hide");
+					
 
 					switchStepView("step1");
 				});
@@ -79,7 +75,11 @@ define(function(require, exports, module) {
 				});
 
 				$(".foods-area .icon-edit").click(function () {
-					console.log("edit a food");
+					var $this = $(this), 
+						$item = $this.closest("li"), 
+						foodId = $item.attr("id").substring(5);
+
+					editPackage(foodId);
 				});
 
 				$(".foods-area .icon-leaf").click(function () {
@@ -149,19 +149,69 @@ define(function(require, exports, module) {
 	}
 
 	function switchStepView(step) {
+		var $prev = $("#btn_prev"), 
+			$next = $("#btn_done"), 
+			$step1 = $("#step1"), 
+			$step2 = $("#step2"), 
+			$dlg = $("#dialog-add-package"), 
+			$footerSelect = $("#modal-footer-food-select"), 
+			$form = $("#packageForm");
+
 		if(step === "step1") {
-			$("#step2").addClass("hide");
-			$("#step1").removeClass("hide");
-			$("#dialog-add-package").removeClass("dialog-select-food");
-			$("#modal-footer-food-select").addClass("hide");
-			$("#packageForm").addClass("form-dialog");
+			$prev.addClass("hide");
+			$next.html("下一步").addClass("next");
+
+			$step1.removeClass("hide");
+			$step2.addClass("hide");
+			$dlg.removeClass("dialog-select-food");
+			$footerSelect.addClass("hide");
+			$form.addClass("form-dialog");
+
 		} else if (step === "step2") {
-			$("#step1").addClass("hide");
-			$("#step2").removeClass("hide");
-			$("#dialog-add-package").addClass("dialog-select-food");
-			$("#modal-footer-food-select").removeClass("hide");
-			$("#packageForm").removeClass("form-dialog");
+			$prev.removeClass("hide");
+			$next.html("保存").removeClass("next");
+
+			$step1.addClass("hide");
+			$step2.removeClass("hide");
+			$dlg.addClass("dialog-select-food");
+			$footerSelect.removeClass("hide");
+			$form.removeClass("form-dialog");
+
 		} else {}
+	}
+
+	/**
+	 * show modal window
+	 * @param type "add|edit"
+	 * @param packageVO init form
+	 */
+	function showModal(type, packageVO) {
+		initForm(packageVO);
+		setActionType(type);
+		clearTooltips();
+
+		// if(type === "add") {
+		// 	switchStepView("step1");
+			
+		// } else if(type === "edit") {
+		// 	switchStepView("step2");
+			
+		// } else {}
+		switchStepView("step1");
+		
+		$("#dialog-add-package").modal("show");
+	}
+
+	/**
+	 * set action type 
+	 * @param type "add|edit"
+	 */
+	function setActionType(type) {
+		$("#actionType").val(type);
+	}
+
+	function clearTooltips() {
+		$(".tooltip").remove();
 	}
 
 	function addSelecedFood(foodId, src, foodName) {
@@ -204,6 +254,40 @@ define(function(require, exports, module) {
 		$("#itemIds").val(ids);
 	}
 
+	function clearSelectedFoods() {
+		$("#step2 :checkbox:checked").attr("checked", false);
+		$("#selected-foods > li").remove();
+		$("#food-to-add").removeClass("overflow");
+	}
+
+	/**
+	 * init form
+	 */
+	function initForm(foodVO) {
+		var noEmpty = !!foodVO;
+		$("#image-preview").attr("src", noEmpty ? webRoot + foodVO["image"] : "");
+		$("#foodId").val(noEmpty ? foodVO["id"] : "");
+		$("#foodName").val(noEmpty ? foodVO["foodName"] : "");
+		$("#groupId").val(noEmpty ? foodVO["groupId"] : "");
+		$("#originPrice").val(noEmpty ? foodVO["originPrice"] : "");
+		$("#currentPrice").val(noEmpty ? foodVO["currentPrice"] : "");
+		$("#stock").val(noEmpty ? foodVO["stock"] : "");
+		$("#detail").val(noEmpty ? foodVO["detail"] : "");
+		$("#stockout").attr("checked", false);
+		$("#droped").attr("checked", noEmpty ? foodVO["droped"] : false);
+		$("#_droped").val(noEmpty ? foodVO["droped"] : false);
+
+		clearSelectedFoods();
+		if(noEmpty) {
+			var items = foodVO.items, 
+				foodId;
+			for(var i = 0; i < items.length; i++) {
+				foodId = items[i].foodId;
+				$("#step2 :checkbox[foodId='" + foodId + "']").click();
+			}
+		}
+	}
+
 	function deletePackage(packageId) {
 		var url = webRoot + "/shop/package/" + packageId;
 		$.ajax({
@@ -218,6 +302,13 @@ define(function(require, exports, module) {
 		})
 		.fail(function(jqXHR) {
 			alert("删除失败. " + jqXHR.responseText);
+		});
+	}
+
+	function editPackage(foodId) {
+		var url = webRoot + "/shop/package/" + foodId;
+		$.getJSON(url, function(packageVO) {
+			showModal("edit", packageVO);
 		});
 	}
 

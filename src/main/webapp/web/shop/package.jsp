@@ -25,7 +25,7 @@
 						<div class="span3">
 						</div>
 						<div class="span3 btn-right">
-							<a class="btn" href="#dialog-add-package" data-toggle="modal"><i class="icon-plus"></i>添加套餐</a>
+							<a class="btn" id="btn_add" href="#dialog-add-package"><i class="icon-plus"></i>添加套餐</a>
 							<button class="btn" id="btn_edit" data-toggle="button"><i class="icon-pencil"></i>编辑</button>
 						</div>
 					</div>
@@ -79,6 +79,7 @@
 
 				<!-- Step 1 -->
 				<form id="packageForm" action="${webRoot}/shop/package" method="post" enctype="multipart/form-data" class="form-horizontal form-dialog">
+					<input type="hidden" name="actionType" id="actionType">
 					<div id="step1">
 						<div class="control-group">
 							<div class="control-label">
@@ -139,7 +140,7 @@
 						</div>
 
 						<div class="pull-right">
-							<label class="checkbox inline"><input type="checkbox" value="">缺货标记</label>
+							<label class="checkbox inline"><input type="checkbox" value="" id="stockout">缺货标记</label>
 							<label class="checkbox inline"><input type="checkbox" id="droped" value="">下架</label>
 							<input type="hidden" id="_droped" name="droped" value="false">
 						</div>
@@ -191,7 +192,8 @@
 		<script src="${webRoot}/web/seajs/sea.js" data-config="${webRoot}/web/js/config" data-main="${webRoot}/web/js/shop.package"></script>
 		<script type="text/javascript">
 			function imgValid() {
-				return !!$("#file-upload").get(0).files[0];
+				// disable validation when actionType = edit
+				return $("#actionType").val() === "edit" || !!$("#file-upload").get(0).files[0];
 			}
 		</script> 
 	</body>

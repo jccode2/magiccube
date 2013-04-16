@@ -60,6 +60,10 @@ public class FoodAction extends BaseAction {
 		return foodService.getFood(id);
 	}
 	
+	public PackageVO getPackage(int id) {
+		return foodService.getPackage(id);
+	}
+	
 	public int insertFoodReShop(FoodVO foodVO){
 		return foodService.insertFoodReShop(foodVO);
 	}
@@ -116,6 +120,15 @@ public class FoodAction extends BaseAction {
 	 */
 	public int updateFoodReShop(FoodVO foodVO) {
 		return foodService.updateFoodReShop(foodVO);
+	}
+	
+	/**
+	 * 更新套餐
+	 * @param packageVO
+	 * @return true-成功; false-失败
+	 */
+	public boolean updatePackage(PackageVO packageVO) {
+		return foodService.updatePackage(packageVO);
 	}
 	
 	/**
