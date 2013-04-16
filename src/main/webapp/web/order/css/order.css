@@ -1,0 +1,19 @@
+@CHARSET "UTF-8";
+
+
+.order-address {
+	height: 100px;
+	background-color: green;
+}
+
+.order-content {
+	margin-top: 40px;
+}
+
+.food-list {
+	background-color: red;
+}
+
+.my-meal {
+	background-color: blue;
+}
