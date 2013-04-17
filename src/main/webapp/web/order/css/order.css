@@ -1,19 +1,65 @@
 @CHARSET "UTF-8";
 
+body {
+	background: url("./images/background.jpg");
+}
 
 .order-address {
-	height: 100px;
-	background-color: green;
+	height: 140px;
+	background-color: #9DCD71;
 }
 
 .order-content {
 	margin-top: 40px;
+	background-color: rgba(255,255,255, .1);
 }
 
-.food-list {
-	background-color: red;
+.food-panel {
 }
 
 .my-meal {
-	background-color: blue;
 }
+
+.address-tip {
+	margin: 10px 0;
+	text-align: center;
+}
+
+.address-list {
+	text-align: center;
+	height: 100px;
+}
+
+.img-circle {
+	-webkit-border-radius: 500px;
+	-moz-border-radius: 500px;
+	border-radius: 500px;
+	width: 50px;
+	height: 50px;
+}
+
+.address-item {
+	display: inline-block;
+	*display: inline;
+	*zoom: 1;
+	width: 80px;
+	height: 80px;
+	text-align: center;
+}
+
+.address-item h5 {
+	font-size: 12px;
+	font-weight: normal;
+	color: white;
+	text-align: center;
+	
+}
+.food-list {
+	width: 100%;
+}
+
+.food-list td {
+	border: 2px solid white;
+}
+
+
