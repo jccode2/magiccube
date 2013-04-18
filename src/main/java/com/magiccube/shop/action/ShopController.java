@@ -73,6 +73,7 @@ function			method				url
 
 新增/更新食物关联			POST				/shop/foodreshop
 删除食物关联			DELETE				/shop/foodreshop/{id}
+更新食物/套餐上下架	PUT					/shop/foodreshop/{id}?droped={droped}
 
 新增套餐				POST				/shop/package
 删除套餐				DELETE				/shop/package/{id}
@@ -277,7 +278,9 @@ public class ShopController {
 		transferGroupFormToFoodGroupVO(groupForm, vo);
 		if(file != null) {
 			image = ShopUtil.saveImage(file);
-			vo.setImage(image);
+			if (!image.equals("")) {
+				vo.setImage(image);
+			}
 		}
 		int ret = foodAction.updateGroup(vo);
 		
@@ -295,7 +298,9 @@ public class ShopController {
 		vo.setDetail(foodForm.getDetail());
 		if(file != null) {
 			image = ShopUtil.saveImage(file);
-			vo.setImage(image);
+			if(!image.equals("")) {
+				vo.setImage(image);
+			}
 		}
 		int ret = foodAction.updateFood(vo);
 		
@@ -363,6 +368,18 @@ public class ShopController {
 		return ret > 0;
 	}
 	
+	/**
+	 * 更新上架/下架状态
+	 * @param foodId 食物/套餐ID
+	 * @param droped 上架/下架状态
+	 * @return
+	 */
+	@RequestMapping(value="/foodreshop/{id}", method=RequestMethod.PUT)
+	public @ResponseBody boolean updateFoodReShopDroped(@PathVariable(value="id") int foodId, @RequestParam boolean droped) {
+		int ret = foodAction.updateFoodReShopDroped(foodId, droped);
+		return ret > 0;
+	}
+	
 	@RequestMapping(value="/package", method=RequestMethod.POST)
 	public String savePackage(@RequestParam(required=false) MultipartFile file, @Validated FoodReShopForm foodReShopForm, BindingResult result) {
 		int shopId = 1;
@@ -372,7 +389,9 @@ public class ShopController {
 		packageVO.setType(FoodVO.TYPE_PACKAGE);
 		if(file != null) {
 			String image = ShopUtil.saveImage(file);
-			packageVO.setImage(image);
+			if (!image.equals("")) {
+				packageVO.setImage(image);
+			}
 		}
 		
 		// items

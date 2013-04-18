@@ -123,6 +123,16 @@ public class FoodAction extends BaseAction {
 	}
 	
 	/**
+	 * 更新FoodReShop下架状态
+	 * @param foodId
+	 * @param droped
+	 * @return
+	 */
+	public int updateFoodReShopDroped(int foodId, boolean droped) {
+		return foodService.updateFoodReShopDrop(foodId, droped);
+	}
+	
+	/**
 	 * 更新套餐
 	 * @param packageVO
 	 * @return true-成功; false-失败

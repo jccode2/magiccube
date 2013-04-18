@@ -73,8 +73,12 @@ define(function(require, exports, module) {
 					editFood(foodId);
 				});
 
-				$(".foods-area .icon-leaf").click(function () {
-					console.log("mark out of stock");
+				$(".foods-area .icon-download, .foods-area .icon-upload").click(function () {
+					var $this = $(this), 
+						$item = $this.closest("li"), 
+						foodId = $item.attr("id").substring(5);
+
+					foodDrop(foodId, droped);
 				});
 			}, 
 			addFoodDlgChooseFoodEvt: function () {
@@ -237,6 +241,32 @@ define(function(require, exports, module) {
 		var url = webRoot + "/shop/food/" + foodId;
 		$.getJSON(url, function(foodVO) {
 			showModal("edit", foodVO);
+		});
+	}
+
+	function foodDrop(foodId) {
+		var $item = $("#item_" + foodId), 
+			$btndrop = $("#drop_" + foodId), 
+			droped = $item.hasClass("drop"), 
+			url = webRoot + "/shop/foodreshop/" + foodId + "?droped=" + !droped;
+		$.ajax({
+			url: url, 
+			type: "put"
+		})
+		.done(function() {
+			var ret = !droped;
+			if(ret) {
+				$item.addClass("drop");
+				$btndrop.removeClass("icon-download").addClass("icon-upload").attr("title", "快速上架");
+				$("span", $item).prepend("<b>[下架]</b>");
+			} else {
+				$item.removeClass("drop");
+				$btndrop.removeClass("icon-upload").addClass("icon-download").attr("title", "快速下架");
+				$("b", $item).remove();
+			}
+		})
+		.fail(function(jqXHR) {
+			alert("更新上/下架失败. " + jqXHR.responseText);
 		});
 	}
 

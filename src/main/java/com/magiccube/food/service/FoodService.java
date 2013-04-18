@@ -177,6 +177,15 @@ public class FoodService extends BaseService{
 	public int updateFoodReShop(FoodVO foodVO) {
 		return foodDAO.updateFoodReShop(foodVO);
 	}
+	
+	/**
+	 * 更新FoodReShop droped字段
+	 * @param foodVO
+	 * @return
+	 */
+	public int updateFoodReShopDrop(int foodId, boolean droped) {
+		return foodDAO.updateFoodReShopDrop(foodId, droped);
+	}
 
 	/**
 	 * 查询所有在架食物

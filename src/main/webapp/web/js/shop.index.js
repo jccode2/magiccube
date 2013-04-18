@@ -13,7 +13,7 @@ define(function (require, exports, module) {
 		})
 
 		// 选中第一个.
-		.eq(7).click();
+		.eq(6).click();
 
 		initHeight();
 

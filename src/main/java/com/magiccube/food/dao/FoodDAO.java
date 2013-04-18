@@ -101,6 +101,20 @@ public class FoodDAO extends BaseDAO {
 		return this.sqlSessionTemplate.update("com.magiccube.food.updateFoodReShop", foodVO);
 	}
 	
+	/**
+	 * 更新FoodReShop droped字段
+	 * @param foodVO
+	 * @return
+	 */
+	public int updateFoodReShopDrop(int foodId, boolean droped) {
+		int shopId = 1;
+		FoodVO foodVO = new FoodVO();
+		foodVO.setShopId(shopId);
+		foodVO.setId(foodId);
+		foodVO.setDroped(droped);
+		return this.sqlSessionTemplate.update("com.magiccube.food.updateFoodReShopDrop", foodVO);
+	}
+	
 	public int deleteGroup(int id) {
 		return this.sqlSessionTemplate.update("com.magiccube.food.deleteGroup", id);
 	}

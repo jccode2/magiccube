@@ -47,11 +47,12 @@
 						<td>
 							<ul class="item-list img-text-below food-area-list">
 								<c:forEach items="${groupFoods.foodList}" var="food">
-								<li id="item_${food.id }">
+								<li id="item_${food.id }" class='<c:choose><c:when test="${food.droped }">drop</c:when><c:when test="${food.stock <= 0}"> stockout</c:when><c:otherwise></c:otherwise></c:choose>'>
 									<div>
-										<img src="${webRoot}/${food.image}" alt="${food.foodName}"><span>${food.foodName}</span>
+										<img src="${webRoot}/${food.image}" alt="${food.foodName}">
+										<span title="${food.foodName }"><c:choose><c:when test="${food.droped }"><b>[下架]</b></c:when><c:when test="${food.stock <= 0}"><b>[缺货]</b></c:when><c:otherwise></c:otherwise></c:choose>${food.foodName}</span>
 										<div class="btns">
-											<i class="icon-leaf" title="缺货标记"></i>
+											<c:choose><c:when test="${food.droped }"><i id="drop_${food.id }" class="icon-upload" title="快速上架"></i></c:when><c:otherwise><i id="drop_${food.id }" class="icon-download" title="快速下架"></i></c:otherwise></c:choose>
 											<i class="icon-edit" title="编辑食物"></i>
 											<i class="icon-remove" title="删除食物"></i>
 										</div>

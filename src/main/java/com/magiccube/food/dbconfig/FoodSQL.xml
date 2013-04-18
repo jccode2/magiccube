@@ -65,6 +65,11 @@
 		where shop_id = #{shopId} and food_id = #{id};
 	</update>
 	
+	<!-- 更新FoodReShop droped信息 -->
+	<update id="updateFoodReShopDrop" parameterType="com.magiccube.food.model.FoodVO">
+		update food_re_shop set droped=#{droped} where shop_id = #{shopId} and food_id = #{id};
+	</update>
+	
 	<!-- 删除group分组 -->
 	<update id="deleteGroup" parameterType="int">
 		UPDATE food_group set deleted = true where id = #{id};
@@ -128,12 +133,12 @@
 		    t.*, g.id group_id, g.group_name, g.image group_image, g.detail group_detail
 		from
 		    (select 
-		        f.*, fs.group_id gid, fs.origin_price, fs.current_price, fs.stock
+		        f.*, fs.group_id gid, fs.origin_price, fs.current_price, fs.stock, fs.droped
 		    from
 		        food_re_shop fs
 		    join food f ON (fs.food_id = f.id)
 		    where
-		        fs.deleted = false and f.deleted = false and shop_id = #{shopId} and f.type = #{type} and fs.droped = false) t
+		        fs.deleted = false and f.deleted = false and shop_id = #{shopId} and f.type = #{type} ) t
 		        right join
 		    food_group g ON (t.gid = g.id)
 		where
