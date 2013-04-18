@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <title>千方百味欢迎您</title>
@@ -30,8 +31,8 @@ body {
 .menudiv {
 	background-color: rgba(0, 0, 0, 0.5);
 	text-align: center;
-	padding: 130px;
-	margin-bottom: 130px;
+	padding: 30px;
+	margin-bottom: 30px;
 	display: none;
 }
 
@@ -141,14 +142,14 @@ p {
 			shophidden = true;
 		}
 		if (menuhidden) {
-			$('#menudiv').slideDown("normal", showMenuTable);
+			$('#menudiv').fadeIn("normal", showMenuTable);
 			if (!menuinited) {
 				$('#menudiv').show();
 				menuinited = true;
 			}
 			menuhidden = false;
 		} else {
-			$('#menudiv').slideUp("normal", hideMenuTable);
+			$('#menudiv').fadeOut("normal", hideMenuTable);
 			menuhidden = true;
 		}
 	}
@@ -196,7 +197,7 @@ p {
 	
 	$(function() {
 		$("#menudiv").click(function(event) {
-			$('#menudiv').slideUp("normal", hideMenuTable);
+			$('#menudiv').fadeOut("normal", hideMenuTable);
 			menuhidden = true;
 		});
 	});
@@ -228,59 +229,59 @@ p {
 		</div>
 	</div>
 	<div id="shopdiv" class="shopdiv">
+		<img src="${webRoot}/web/img/xuanchuandan.jpg" class="img-polaroid"><p></p>
 		<img src="${webRoot}/web/img/shop1.jpg" class="img-polaroid"> <img src="${webRoot}/web/img/shop2.jpg"
 			class="img-polaroid"
 		>
-		<p class="lead">店铺地址：深圳市福田区景田综合市场裙楼1层130D 订餐QQ：2589430737</p>
 	</div>
 	<div id="menudiv" class="menudiv">
-		<%-- <img src="${webRoot}/web/img/ordermenu.jpg" class="img-polaroid"> --%>
-		<table id="menutable" class="table table-bordered">
-			<thead>
-				<tr>
-					<th>主菜价格</th>
-					<th colspan="2">主菜</th>
-					<th colspan="2">副菜（赠送）</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td><%=(String) TempIndexController.info.get("price1")%></td>
-					<td>A</td>
-					<td><%=(String) TempIndexController.info.get("mainfood1")%></td>
-					<td>1</td>
-					<td><%=(String) TempIndexController.info.get("secondfood1")%></td>
-				</tr>
-				<tr>
-					<td><%=(String) TempIndexController.info.get("price2")%></td>
-					<td>B</td>
-					<td><%=(String) TempIndexController.info.get("mainfood2")%></td>
-					<td>2</td>
-					<td><%=(String) TempIndexController.info.get("secondfood2")%></td>
-				</tr>
-				<tr>
-					<td><%=(String) TempIndexController.info.get("price3")%></td>
-					<td>C</td>
-					<td><%=(String) TempIndexController.info.get("mainfood3")%></td>
-					<td>3</td>
-					<td><%=(String) TempIndexController.info.get("secondfood3")%></td>
-				</tr>
-				<tr>
-					<td><%=(String) TempIndexController.info.get("price4")%></td>
-					<td>D</td>
-					<td><%=(String) TempIndexController.info.get("mainfood4")%></td>
-					<td>4</td>
-					<td><%=(String) TempIndexController.info.get("secondfood4")%></td>
-				</tr>
-				<tr>
-					<td><%=(String) TempIndexController.info.get("price5")%></td>
-					<td>E</td>
-					<td><%=(String) TempIndexController.info.get("mainfood5")%></td>
-					<td>5</td>
-					<td><%=(String) TempIndexController.info.get("secondfood5")%></td>
-				</tr>
-			</tbody>
-		</table>
+		<img src="${webRoot}/web/img/order.jpg" class="img-polaroid">
+<!-- 		<table id="menutable" class="table table-bordered"> -->
+<!-- 			<thead> -->
+<!-- 				<tr> -->
+<!-- 					<th>主菜价格</th> -->
+<!-- 					<th colspan="2">主菜</th> -->
+<!-- 					<th colspan="2">副菜（赠送）</th> -->
+<!-- 				</tr> -->
+<!-- 			</thead> -->
+<!-- 			<tbody> -->
+<!-- 				<tr> -->
+<%-- 					<td><%=(String) TempIndexController.info.get("price1")%></td> --%>
+<!-- 					<td>A</td> -->
+<%-- 					<td><%=(String) TempIndexController.info.get("mainfood1")%></td> --%>
+<!-- 					<td>1</td> -->
+<%-- 					<td><%=(String) TempIndexController.info.get("secondfood1")%></td> --%>
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<%-- 					<td><%=(String) TempIndexController.info.get("price2")%></td> --%>
+<!-- 					<td>B</td> -->
+<%-- 					<td><%=(String) TempIndexController.info.get("mainfood2")%></td> --%>
+<!-- 					<td>2</td> -->
+<%-- 					<td><%=(String) TempIndexController.info.get("secondfood2")%></td> --%>
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<%-- 					<td><%=(String) TempIndexController.info.get("price3")%></td> --%>
+<!-- 					<td>C</td> -->
+<%-- 					<td><%=(String) TempIndexController.info.get("mainfood3")%></td> --%>
+<!-- 					<td>3</td> -->
+<%-- 					<td><%=(String) TempIndexController.info.get("secondfood3")%></td> --%>
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<%-- 					<td><%=(String) TempIndexController.info.get("price4")%></td> --%>
+<!-- 					<td>D</td> -->
+<%-- 					<td><%=(String) TempIndexController.info.get("mainfood4")%></td> --%>
+<!-- 					<td>4</td> -->
+<%-- 					<td><%=(String) TempIndexController.info.get("secondfood4")%></td> --%>
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<%-- 					<td><%=(String) TempIndexController.info.get("price5")%></td> --%>
+<!-- 					<td>E</td> -->
+<%-- 					<td><%=(String) TempIndexController.info.get("mainfood5")%></td> --%>
+<!-- 					<td>5</td> -->
+<%-- 					<td><%=(String) TempIndexController.info.get("secondfood5")%></td> --%>
+<!-- 				</tr> -->
+<!-- 			</tbody> -->
+<!-- 		</table> -->
 	</div>
 	<div class="container">
 		<!-- Main hero unit for a primary marketing message or call to action -->
