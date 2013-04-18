@@ -60,6 +60,10 @@ public class FoodAction extends BaseAction {
 		return foodService.getFood(id);
 	}
 	
+	public PackageVO getPackage(int id) {
+		return foodService.getPackage(id);
+	}
+	
 	public int insertFoodReShop(FoodVO foodVO){
 		return foodService.insertFoodReShop(foodVO);
 	}
@@ -107,6 +111,34 @@ public class FoodAction extends BaseAction {
 	 */
 	public int updateFood(FoodVO foodVO) {
 		return foodService.updateFood(foodVO);
+	}
+	
+	/**
+	 * 更新FoodReShop
+	 * @param foodVO
+	 * @return
+	 */
+	public int updateFoodReShop(FoodVO foodVO) {
+		return foodService.updateFoodReShop(foodVO);
+	}
+	
+	/**
+	 * 更新FoodReShop下架状态
+	 * @param foodId
+	 * @param droped
+	 * @return
+	 */
+	public int updateFoodReShopDroped(int foodId, boolean droped) {
+		return foodService.updateFoodReShopDrop(foodId, droped);
+	}
+	
+	/**
+	 * 更新套餐
+	 * @param packageVO
+	 * @return true-成功; false-失败
+	 */
+	public boolean updatePackage(PackageVO packageVO) {
+		return foodService.updatePackage(packageVO);
 	}
 	
 	/**

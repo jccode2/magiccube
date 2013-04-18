@@ -7,12 +7,15 @@ package com.magiccube.food.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
+
 import com.magiccube.core.base.dao.BaseDAO;
 import com.magiccube.food.model.FoodGroupVO;
 import com.magiccube.food.model.FoodQueryCondition;
 import com.magiccube.food.model.FoodVO;
 import com.magiccube.food.model.GroupFoods;
 import com.magiccube.food.model.PackageItemVO;
+import com.magiccube.food.model.PackageVO;
 
 /**
  * @author Xingling
@@ -31,7 +34,25 @@ public class FoodDAO extends BaseDAO {
 	}
 	
 	public FoodVO getFood(int id) {
-		return (FoodVO)this.sqlSessionTemplate.selectOne("com.magiccube.food.getFood", id);
+		int shopId = 1; //TODO:从环境中取shopId
+		FoodVO queryVO = new FoodVO();
+		queryVO.setId(id);
+		queryVO.setShopId(shopId);
+		return (FoodVO)this.sqlSessionTemplate.selectOne("com.magiccube.food.getFood", queryVO);
+	}
+	
+	/**
+	 * 获取一个套餐
+	 * @param id packageId
+	 * @return PackageVO
+	 */
+	public PackageVO getPackage(int id) {
+		FoodVO foodVO = getFood(id);
+		List<PackageItemVO> items = queryPackageItems(id);
+		PackageVO packageVO = new PackageVO();
+		BeanUtils.copyProperties(foodVO, packageVO);
+		packageVO.setItems(items);
+		return packageVO;
 	}
 	
 	public int insertFoodReShop(FoodVO foodVO){
@@ -69,6 +90,29 @@ public class FoodDAO extends BaseDAO {
 	 */
 	public int updateFood(FoodVO foodVO) {
 		return this.sqlSessionTemplate.update("com.magiccube.food.updateFood", foodVO);
+	}
+	
+	/**
+	 * 更新FoodReShop
+	 * @param foodVO
+	 * @return
+	 */
+	public int updateFoodReShop(FoodVO foodVO) {
+		return this.sqlSessionTemplate.update("com.magiccube.food.updateFoodReShop", foodVO);
+	}
+	
+	/**
+	 * 更新FoodReShop droped字段
+	 * @param foodVO
+	 * @return
+	 */
+	public int updateFoodReShopDrop(int foodId, boolean droped) {
+		int shopId = 1;
+		FoodVO foodVO = new FoodVO();
+		foodVO.setShopId(shopId);
+		foodVO.setId(foodId);
+		foodVO.setDroped(droped);
+		return this.sqlSessionTemplate.update("com.magiccube.food.updateFoodReShopDrop", foodVO);
 	}
 	
 	public int deleteGroup(int id) {
@@ -194,5 +238,10 @@ public class FoodDAO extends BaseDAO {
 	public int querySingleFoodsCount() {
 		int ret = (Integer)this.sqlSessionTemplate.selectOne("com.magiccube.food.querySingleFoodsCount");
 		return ret;
+	}
+	
+	public List<PackageItemVO> queryPackageItems(int packageId) {
+		List<PackageItemVO> items = this.sqlSessionTemplate.selectList("com.magiccube.food.queryPackageItems", packageId);
+		return items;
 	}
 }

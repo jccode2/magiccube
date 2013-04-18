@@ -377,6 +377,11 @@ body {
 	}
 }
 
+.stockout, .drop {
+	img {
+		.grayscale
+	}
+}
 
 
 // item-list
@@ -705,3 +710,18 @@ ul.item-list {
 .icon2-edit {
 	background-position: -460px -100px;
 }
+
+// -------- image -------
+.grayscale() {
+	filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale"); /* Firefox 10+ */
+	filter: gray; /* IE6-9 */
+	-webkit-filter: grayscale(100%); /* Chrome 19+ & Safari 6+ */
+	-webkit-transition: all .6s ease; /* Fade to color for Chrome and Safari */
+	-webkit-backface-visibility: hidden; /* Fix for transition flickering */
+}
+
+img.grayscale {
+	.grayscale
+}
+
+

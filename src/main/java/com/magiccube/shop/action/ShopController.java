@@ -71,12 +71,13 @@ function			method				url
 更新是否自动出单		PUT					/shop/autoprint/{value}	
 出单					PUT					/shop/issue/{id}
 
-新增食物关联			POST				/shop/foodreshop
+新增/更新食物关联			POST				/shop/foodreshop
 删除食物关联			DELETE				/shop/foodreshop/{id}
-更新物关联			POST				/shop/foodreshop/{id}
+更新食物/套餐上下架	PUT					/shop/foodreshop/{id}?droped={droped}
 
 新增套餐				POST				/shop/package
 删除套餐				DELETE				/shop/package/{id}
+获取套餐				GET					/shop/package/{id}
 
 
  * 
@@ -277,7 +278,9 @@ public class ShopController {
 		transferGroupFormToFoodGroupVO(groupForm, vo);
 		if(file != null) {
 			image = ShopUtil.saveImage(file);
-			vo.setImage(image);
+			if (!image.equals("")) {
+				vo.setImage(image);
+			}
 		}
 		int ret = foodAction.updateGroup(vo);
 		
@@ -295,7 +298,9 @@ public class ShopController {
 		vo.setDetail(foodForm.getDetail());
 		if(file != null) {
 			image = ShopUtil.saveImage(file);
-			vo.setImage(image);
+			if(!image.equals("")) {
+				vo.setImage(image);
+			}
 		}
 		int ret = foodAction.updateFood(vo);
 		
@@ -343,7 +348,12 @@ public class ShopController {
 		FoodVO foodVO = new FoodVO();
 		BeanUtils.copyProperties(foodReShopForm, foodVO);
 		foodVO.setShopId(shopId);
-		foodAction.insertFoodReShop(foodVO);
+		String actionType = foodReShopForm.getActionType();
+		if("add".equals(actionType)) {
+			foodAction.insertFoodReShop(foodVO);
+		} else {
+			foodAction.updateFoodReShop(foodVO);
+		}
 		return "redirect:/shop/catering";
 	}
 	
@@ -358,6 +368,18 @@ public class ShopController {
 		return ret > 0;
 	}
 	
+	/**
+	 * 更新上架/下架状态
+	 * @param foodId 食物/套餐ID
+	 * @param droped 上架/下架状态
+	 * @return
+	 */
+	@RequestMapping(value="/foodreshop/{id}", method=RequestMethod.PUT)
+	public @ResponseBody boolean updateFoodReShopDroped(@PathVariable(value="id") int foodId, @RequestParam boolean droped) {
+		int ret = foodAction.updateFoodReShopDroped(foodId, droped);
+		return ret > 0;
+	}
+	
 	@RequestMapping(value="/package", method=RequestMethod.POST)
 	public String savePackage(@RequestParam(required=false) MultipartFile file, @Validated FoodReShopForm foodReShopForm, BindingResult result) {
 		int shopId = 1;
@@ -367,7 +389,9 @@ public class ShopController {
 		packageVO.setType(FoodVO.TYPE_PACKAGE);
 		if(file != null) {
 			String image = ShopUtil.saveImage(file);
-			packageVO.setImage(image);
+			if (!image.equals("")) {
+				packageVO.setImage(image);
+			}
 		}
 		
 		// items
@@ -379,9 +403,26 @@ public class ShopController {
 			}
 		}
 		
-		// save
-		foodAction.insertPackage(packageVO);
+		String actionType = foodReShopForm.getActionType();
+		if("add".equals(actionType)) {
+			// save
+			foodAction.insertPackage(packageVO);
+		} else {
+			foodAction.updatePackage(packageVO);
+		}
+		
 		return "redirect:/shop/package";
+	}
+	
+	/**
+	 * 获取一个套餐
+	 * @param packageId
+	 * @return
+	 */
+	@RequestMapping(value="/package/{id}", method=RequestMethod.GET)
+	public @ResponseBody PackageVO getPackage(@PathVariable(value="id") int packageId) {
+		PackageVO vo = foodAction.getPackage(packageId);
+		return vo;
 	}
 	
 	/**
