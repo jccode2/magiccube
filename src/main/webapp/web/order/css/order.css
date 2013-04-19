@@ -5,19 +5,18 @@ body {
 }
 
 .order-address {
-	height: 140px;
+	height: 130px;
 	background-color: #9DCD71;
 }
 
 .order-content {
 	margin-top: 40px;
-	background-color: rgba(255,255,255, .1);
+	padding: 10px 20px;
+	background-color: rgba(255, 255, 255, .8);
 }
 
 .food-panel {
-}
-
-.my-meal {
+	
 }
 
 .address-tip {
@@ -27,7 +26,7 @@ body {
 
 .address-list {
 	text-align: center;
-	height: 100px;
+	height: 90px;
 }
 
 .img-circle {
@@ -52,19 +51,84 @@ body {
 	font-weight: normal;
 	color: white;
 	text-align: center;
-	
 }
+
+.food-tab {
+	margin: 2px 0;
+}
+
+.food-tab li {
+	display: inline-block;
+	*display: inline;
+	width: 309px;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.food-tab li.self {
+	background-color: #51AD0C;
+	color: white;
+}
+
+.food-tab li.classic {
+	background-color: #9DCD71;
+	color: #597E41;
+}
+
 .food-list {
 	width: 100%;
 }
 
 .food-list td {
-	border: 2px solid white;
+	border: 1px solid white;
 	height: 90px;
+	background-color: #9DCD71;
 }
+
 .food-list .food-pic {
 	width: 100px;
 	height: 100px;
-	padding: 5px 0 5px 10px;
+	border: 1px solid #fff;
+	margin: 5px 0 5px 10px;
+}
+
+.plate-panel .my-plate {
+	height: 30px;
+	line-height: 30px;
+	margin-top: 2px;
+	padding-left: 7px;
+	background-color: #7EAD5C;
+	color: white;
+	font-weight: bold;
+}
+
+.plate-panel .plate-list {
+	background-color: #8BC463;
+	margin-top: 2px;
+	min-height: 200px;
+	padding: 5px 2px;
+}
+
+.plate-list .plate-item {
+	height: 30px;
+	line-height: 30px;
+	margin-top: 2px;
+	color: white;
+	font-weight: bold;
+	background-color: #3F582E;
+	padding-left: 10px;
+}
+
+.plate-panel .add-plate, .plate-panel .submit-order {
+	height: 30px;
+	line-height: 30px;
+	margin-top: 2px;
+	color: white;
+	font-weight: bold;
+	background-color: #3B9500;
+	text-align: center;
 }
 

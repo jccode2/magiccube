@@ -41,21 +41,21 @@
 			</div>
 		</div>
 		<div class="row-fluid">
-			<div class="span9 food-panel">
-				<div class="food-tab"></div>
+			<div class="span8 food-panel">
+				<ul class="food-tab">
+					<li class="self">随意搭配</li><!--  --><li class="classic">经典套餐</li>
+				</ul>
 				<table class="food-list">
 					<tr>
 						<td width="15%">10元区</td>
 						<td><img src="/1000funs/web/img/paigu.jpg" class="food-pic">
 							<img src="/1000funs/web/img/paigu.jpg" class="food-pic"> <img
 							src="/1000funs/web/img/paigu.jpg" class="food-pic"> <img
-							src="/1000funs/web/img/paigu.jpg" class="food-pic"> <img
-							src="/1000funs/web/img/paigu.jpg" class="food-pic"></td>
+							src="/1000funs/web/img/paigu.jpg" class="food-pic"> </td>
 					</tr>
 					<tr>
 						<td width="15%">8元区</td>
 						<td><img src="/1000funs/web/img/chaixin.jpg" class="food-pic">
-							<img src="/1000funs/web/img/chaixin.jpg" class="food-pic">
 							<img src="/1000funs/web/img/chaixin.jpg" class="food-pic">
 							<img src="/1000funs/web/img/chaixin.jpg" class="food-pic">
 							<img src="/1000funs/web/img/chaixin.jpg" class="food-pic">
@@ -68,14 +68,11 @@
 							src="/1000funs/web/img/kuguachaodang.jpg" class="food-pic">
 							<img src="/1000funs/web/img/kuguachaodang.jpg" class="food-pic">
 							<img src="/1000funs/web/img/kuguachaodang.jpg" class="food-pic">
-							<img src="/1000funs/web/img/kuguachaodang.jpg" class="food-pic">
 						</td>
 					</tr>
 					<tr>
 						<td width="15%">4元区</td>
-						<td>
-							<img src="/1000funs/web/img/chaixin.jpg" class="food-pic">
-							<img src="/1000funs/web/img/chaixin.jpg" class="food-pic">
+						<td><img src="/1000funs/web/img/chaixin.jpg" class="food-pic">
 							<img src="/1000funs/web/img/chaixin.jpg" class="food-pic">
 							<img src="/1000funs/web/img/chaixin.jpg" class="food-pic">
 							<img src="/1000funs/web/img/chaixin.jpg" class="food-pic">
@@ -83,8 +80,14 @@
 					</tr>
 				</table>
 			</div>
-			<div class="span3 my-meal">
-				<h2>hhhhhhh</h2>
+			<div class="span4 plate-panel">
+				<div class="my-plate">我的餐盒</div>
+				<div class="plate-list">
+					<div class="plate-item">餐盒1</div>
+					<div class="plate-item">餐盒2</div>
+				</div>
+				<div class="add-plate">为更多人点餐</div>
+				<div class="submit-order">提交订单</div>
 			</div>
 		</div>
 	</div>
