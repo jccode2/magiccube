@@ -58,7 +58,15 @@
 		<servlet-name>springmvc</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-	
+	<servlet>
+		<display-name>OrderWebSocketServlet</display-name>
+		<servlet-name>OrderWebSocketServlet</servlet-name>
+		<servlet-class>com.magiccube.order.service.OrderWebSocketServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>OrderWebSocketServlet</servlet-name>
+		<url-pattern>/websocket/order</url-pattern>
+	</servlet-mapping>
 
 	<!-- 配置TestServlet -->
 	<servlet>
@@ -107,6 +115,7 @@
 		<servlet-name>OrderTest</servlet-name>
 		<url-pattern>/test/order/*</url-pattern>
 	</servlet-mapping>
+
 	
 	<error-page>
 		<error-code>404</error-code>

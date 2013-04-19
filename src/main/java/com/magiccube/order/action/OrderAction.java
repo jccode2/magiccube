@@ -197,7 +197,7 @@ public class OrderAction extends BaseAction {
 	 * @return true-开启自动出单; false-关闭自动出单
 	 */
 	public boolean getAutoPrint() {
-		String value = configAction.getConfigValue(OrderConstants.CONFIG_KEY_AUTO_PRINT);
+		String value = configAction.getConfigValue(OrderConstants.CONFIG_KEY_AUTO_PRINT, "false");
 		return Boolean.valueOf(value).booleanValue();
 	}
 	
