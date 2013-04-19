@@ -103,7 +103,7 @@ public class FoodDAO extends BaseDAO {
 	
 	/**
 	 * 更新FoodReShop droped字段
-	 * @param foodVO
+	 * @param foodId 
 	 * @return
 	 */
 	public int updateFoodReShopDrop(int foodId, boolean droped) {
@@ -113,6 +113,21 @@ public class FoodDAO extends BaseDAO {
 		foodVO.setId(foodId);
 		foodVO.setDroped(droped);
 		return this.sqlSessionTemplate.update("com.magiccube.food.updateFoodReShopDrop", foodVO);
+	}
+	
+	/**
+	 * 更新食品库存信息
+	 * @param foodId
+	 * @param amountToMinus 要减掉的食品数量
+	 * @return
+	 */
+	public int updateFoodReShopStock(int foodId, int amountToMinus) {
+		int shopId = 1;
+		FoodVO foodVO = new FoodVO();
+		foodVO.setShopId(shopId);
+		foodVO.setId(foodId);
+		foodVO.setStock(amountToMinus);
+		return this.sqlSessionTemplate.update("com.magiccube.food.updateFoodReShopStock", foodVO);
 	}
 	
 	public int deleteGroup(int id) {

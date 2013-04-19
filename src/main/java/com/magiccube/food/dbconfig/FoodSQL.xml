@@ -70,6 +70,11 @@
 		update food_re_shop set droped=#{droped} where shop_id = #{shopId} and food_id = #{id};
 	</update>
 	
+	<!-- 更新FoodReShop stock信息 -->
+	<update id="updateFoodReShopStock" parameterType="com.magiccube.food.model.FoodVO">
+		update food_re_shop set stock = stock - #{stock} where shop_id = #{shopId} and food_id = #{id};
+	</update>
+	
 	<!-- 删除group分组 -->
 	<update id="deleteGroup" parameterType="int">
 		UPDATE food_group set deleted = true where id = #{id};

@@ -241,6 +241,7 @@ public class OrderAction extends BaseAction {
 			}
 			
 			OrderFoodView foodView = new OrderFoodView();
+			foodView.setId(vo.getFoodId());
 			foodView.setFood(vo.getFoodName());
 			foodView.setAmount(vo.getAmount());
 			foodView.setPrice(vo.getPrice());

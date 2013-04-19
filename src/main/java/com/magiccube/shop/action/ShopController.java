@@ -155,9 +155,9 @@ public class ShopController {
 		
 		OrderQueryCondition condition = new OrderQueryCondition();
 		BeanUtils.copyProperties(queryForm, condition);
-		
 		int count = orderAction.queryHistoryOrdersCount(condition);
 		queryForm.setRecordCount(count);
+		condition.setPage(queryForm);
 		
 		List<OrderView> list = orderAction.queryHistoryOrderViewList(condition);
 		model.addAttribute("orderList", list);
