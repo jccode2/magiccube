@@ -1,6 +1,7 @@
 package com.magiccube.order.util;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.magiccube.order.model.OrderVO;
@@ -8,12 +9,12 @@ import com.magiccube.order.model.OrderVO;
 @Controller
 public class OrderSubmitTest extends OrderStatePublisher {
 
-	@RequestMapping("/test/autoprint")
-	public void testAutoprint() {
+	@RequestMapping("/test/autoprint/{id}")
+	public void testAutoprint(@PathVariable int id) {
 		OrderVO vo = new OrderVO();
-		vo.setId(90); 
-		vo.setPhone("8505479");
-		vo.setTotalPrice(15.0);
+		vo.setId(id); 
+//		vo.setPhone("8505479");
+//		vo.setTotalPrice(15.0);
 		
 		submitOrder(vo);
 		notify(vo);

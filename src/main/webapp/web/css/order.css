@@ -617,6 +617,9 @@ ul.item-list.img-text-below > li span {
 .brown {
   color: #A52A2A;
 }
+.bg-grey {
+  background-color: #F2F2F2;
+}
 .center {
   text-align: center;
 }
