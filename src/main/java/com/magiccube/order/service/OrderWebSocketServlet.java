@@ -17,6 +17,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * Order websocket 用于服务器往客户端实时推送提交的订单.
+ * 
  * Servlet implementation class OrderWebSocketServlet
  */
 public class OrderWebSocketServlet extends WebSocketServlet {
@@ -74,8 +76,10 @@ public class OrderWebSocketServlet extends WebSocketServlet {
 
 		@Override
 		protected void onTextMessage(CharBuffer message) throws IOException {
-			// do nothing here. 这里主要是往客户端推消息,目前不存在客户端往服务器发消息的场景.
-			System.out.println("客户端发消息过来啦!!~ "+ message);
+			// do nothing here. 
+			// 这个方法是客户端往服务器发消息使用.
+			// 因为目前不存在客户端往服务器发消息的场景.因此这里什么都不需要做.
+			// System.out.println("客户端发消息过来啦!!~ "+ message);
 		}
 	}
 
