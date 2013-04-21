@@ -17,27 +17,13 @@
 		<div class="container order-address">
 			<div class=" container address-tip">请选择你的地址</div>
 			<div class="container address-list">
-				<div class="address-item">
-					<a><img src="/1000funs/web/client/img/region.jpg"
-						class="img-circle"></a>
-					<h5>香丽大厦</h5>
-				</div>
-				<div class="address-item">
-					<a><img src="/1000funs/web/client/img/region.jpg"
-						class="img-circle"></a>
-					<h5>香丽大厦</h5>
-				</div>
-				<div class="address-item">
-					<a><img src="/1000funs/web/client/img/region.jpg"
-						class="img-circle"></a>
-					<h5>香丽大厦</h5>
-				</div>
-				<div class="address-item">
-					<a><img src="/1000funs/web/client/img/region.jpg"
-						class="img-circle"></a>
-					<h5>香丽大厦</h5>
-				</div>
-
+				<c:forEach items="${addressList}" var="address">
+					<div class="address-item">
+						<a><img src="/1000funs/${address.image }"
+							class="img-circle"></a>
+						<h5>${address.regionName }</h5>
+					</div>
+				</c:forEach>
 			</div>
 		</div>
 		<div class="row-fluid">
@@ -45,40 +31,98 @@
 				<ul class="food-tab">
 					<li class="self">随意搭配</li><!--  --><li class="classic">经典套餐</li>
 				</ul>
-				<table class="food-list">
-					<tr>
-						<td width="15%">10元区</td>
-						<td><img src="/1000funs/web/img/paigu.jpg" class="food-pic">
-							<img src="/1000funs/web/img/paigu.jpg" class="food-pic"> <img
-							src="/1000funs/web/img/paigu.jpg" class="food-pic"> <img
-							src="/1000funs/web/img/paigu.jpg" class="food-pic"> </td>
-					</tr>
-					<tr>
-						<td width="15%">8元区</td>
-						<td><img src="/1000funs/web/img/chaixin.jpg" class="food-pic">
-							<img src="/1000funs/web/img/chaixin.jpg" class="food-pic">
-							<img src="/1000funs/web/img/chaixin.jpg" class="food-pic">
-							<img src="/1000funs/web/img/chaixin.jpg" class="food-pic">
-						</td>
-					</tr>
-					<tr>
-						<td width="15%">6元区</td>
-						<td><img src="/1000funs/web/img/kuguachaodang.jpg"
-							class="food-pic"> <img
-							src="/1000funs/web/img/kuguachaodang.jpg" class="food-pic">
-							<img src="/1000funs/web/img/kuguachaodang.jpg" class="food-pic">
-							<img src="/1000funs/web/img/kuguachaodang.jpg" class="food-pic">
-						</td>
-					</tr>
-					<tr>
-						<td width="15%">4元区</td>
-						<td><img src="/1000funs/web/img/chaixin.jpg" class="food-pic">
-							<img src="/1000funs/web/img/chaixin.jpg" class="food-pic">
-							<img src="/1000funs/web/img/chaixin.jpg" class="food-pic">
-							<img src="/1000funs/web/img/chaixin.jpg" class="food-pic">
-						</td>
-					</tr>
-				</table>
+				<div class="food-list">
+					<div class="class-list">
+						<div class="class-icon"><img src="/1000funs/web/order/css/images/10yuan.png" ></div>
+						<div class="class-food">
+							<div class="food-item">
+								<img src="/1000funs/web/img/paigu.jpg" class="food-pic">
+								<p class="food-name">红烧茄子
+							</div>
+							<div class="food-item">
+								<img src="/1000funs/web/img/paigu.jpg" class="food-pic">
+								<p class="food-name">红烧茄子
+							</div>
+							<div class="food-item">
+								<img src="/1000funs/web/img/paigu.jpg" class="food-pic">
+								<p class="food-name">红烧茄子
+							</div>
+							<div class="food-item">
+								<img src="/1000funs/web/img/paigu.jpg" class="food-pic">
+								<p class="food-name">红烧茄子
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="class-list">
+						<div class="class-icon"><img src="/1000funs/web/order/css/images/8yuan.png" ></div>
+						<div class="class-food">
+							<div class="food-item">
+								<img src="/1000funs/web/img/kuguachaodang.jpg" class="food-pic">
+								<p class="food-name">苦瓜炒蛋
+							</div>
+							<div class="food-item">
+								<img src="/1000funs/web/img/kuguachaodang.jpg" class="food-pic">
+								<p class="food-name">苦瓜炒蛋
+							</div>
+							<div class="food-item">
+								<img src="/1000funs/web/img/kuguachaodang.jpg" class="food-pic">
+								<p class="food-name">苦瓜炒蛋
+							</div>
+							<div class="food-item">
+								<img src="/1000funs/web/img/kuguachaodang.jpg" class="food-pic">
+								<p class="food-name">苦瓜炒蛋
+							</div>
+						</div>
+					</div>
+					
+					<div class="class-list">
+						<div class="class-icon"><img src="/1000funs/web/order/css/images/6yuan.png" ></div>
+						<div class="class-food">
+							<div class="food-item">
+								<img src="/1000funs/web/img/chaixin.jpg" class="food-pic">
+								<p class="food-name">菜心
+							</div>
+							<div class="food-item">
+								<img src="/1000funs/web/img/chaixin.jpg" class="food-pic">
+								<p class="food-name">菜心
+							</div>
+							<div class="food-item">
+								<img src="/1000funs/web/img/chaixin.jpg" class="food-pic">
+								<p class="food-name">菜心
+							</div>
+							<div class="food-item">
+								<img src="/1000funs/web/img/chaixin.jpg" class="food-pic">
+								<p class="food-name">菜心
+							</div>
+						</div>
+					</div>
+					
+					<div class="class-list">
+						<div class="class-icon"><img src="/1000funs/web/order/css/images/4yuan.png" ></div>
+						<div class="class-food">
+							<div class="food-item">
+								<img src="/1000funs/web/img/mifan.jpg" class="food-pic">
+								<p class="food-name">米饭
+							</div>
+							<div class="food-item">
+								<img src="/1000funs/web/img/mifan.jpg" class="food-pic">
+								<p class="food-name">米饭
+							</div>
+							<div class="food-item">
+								<img src="/1000funs/web/img/mifan.jpg" class="food-pic">
+								<p class="food-name">米饭
+							</div>
+							<div class="food-item">
+								<img src="/1000funs/web/img/mifan.jpg" class="food-pic">
+								<p class="food-name">米饭
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				
 			</div>
 			<div class="span4 plate-panel">
 				<div class="my-plate">我的餐盒</div>
