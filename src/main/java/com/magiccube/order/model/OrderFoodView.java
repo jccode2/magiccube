@@ -5,6 +5,11 @@ import com.magiccube.core.base.model.BaseVO;
 public class OrderFoodView extends BaseVO {
 	
 	/**
+	 * 食物id
+	 */
+	private int id;
+	
+	/**
 	 * 食物名称
 	 */
 	private String food;
@@ -22,9 +27,18 @@ public class OrderFoodView extends BaseVO {
 	public OrderFoodView() {
 	}
 
-	public OrderFoodView(String food, int amount, double price) {
+	public OrderFoodView(int id, String food, int amount, double price) {
+		this.id = id;
 		this.food = food;
 		this.amount = amount;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getFood() {
@@ -61,7 +75,7 @@ public class OrderFoodView extends BaseVO {
 
 	@Override
 	public String toString() {
-		return "OrderFoodView [food=" + food + ", amount=" + amount
+		return "OrderFoodView [id=" + id + ", food=" + food + ", amount=" + amount
 				+ ", price=" + price + "]";
 	}
 	

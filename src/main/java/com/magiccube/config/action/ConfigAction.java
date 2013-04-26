@@ -60,6 +60,16 @@ public class ConfigAction {
 	}
 	
 	/**
+	 * 获取一个配置值
+	 * @param key
+	 * @param defaultValue 如果不存在,则返回默认值
+	 * @return
+	 */
+	public String getConfigValue(String key, String defaultValue) {
+		return getConfig(key, defaultValue, "java.lang.String").getValue();
+	}
+	
+	/**
 	 * 获取一个配置值,如果不存在,则使用defaultValue新增一个并返回
 	 * @param key
 	 * @param defaultValue

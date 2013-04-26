@@ -40,6 +40,27 @@
 			getPackage <input type="text" id="txt-get-package" class="input-small" value="" placeholder="packageId"/>
 			<input type="button" id="btn_get_package" value="getPackage" class="btn"/>
 		</p>
+		<hr>
+		<p>
+			websocket connect to server
+			<input type="button" id="btn_ws_conn" value="connect" class="btn"/>
+			<input type="button" id="btn_ws_disconn" value="disconnect" class="btn" disabled/>
+		</p>
+		<p>
+			websocket send <input type="text" id="txt_ws_send" class="input" value="" placeholder="send message to server"/>
+			<input type="button" id="btn_ws_send" value="send" class="btn"/>
+		</p>
+		<p>
+			websocket invoke push message <input type="text" id="txt_ws_invoke" class="input" value="" placeholder="message will push to client"/>
+			<input type="button" id="btn_ws_invoke" value="invoke" class="btn"/>
+		</p>
+		<hr>
+		<p>
+			submit order test <input type="text" id="txt_submit_order" class="input-small" value="" placeholder="orderId"/>
+			<input type="button" id="btn_submit_order" value="submit" class="btn"/>
+		</p>
+
+
 		
 		<script type="text/javascript" src="${webRoot}/web/js/jquery-1.8.0.js"></script>
 		<script type="text/javascript" src="${webRoot}/web/bootstrap/js/bootstrap.min.js"></script>
@@ -139,8 +160,70 @@
 						showError("<strong>Error!</strong> " + xhr.responseText);
 					});
 				});
-			});
 
+				$("#btn_submit_order").click(function() {
+					var url = "${webRoot}/test/autoprint/" + $("#txt_submit_order").val();
+					$.post( url, function(){
+						showSuccess("<strong>Well done!</strong> 订单提交成功" );
+					} );
+				});
+
+
+				initWebsocket();
+			});
+			
+			
+			// ------------ websocket -------------
+
+			var ws = null;
+
+			function ws_connect() {
+				var url = "ws://" + window.location.host + "${webRoot}/websocket/order";
+				ws = new WebSocket(url);
+				ws.onopen = function() {
+					showSuccess("Info: WebSocket connection opened.");
+					setConnected(true);
+				}
+				ws.onmessage = function(event) {
+					showSuccess("<strong>Receive Message!</strong> data: " + event.data);
+				}
+				ws.onclose = function() {
+					showSuccess("Info: WebSocket connection closed.");
+					setConnected(false);
+				}
+			}
+
+			function setConnected (connected) {
+				$("#btn_ws_conn").attr("disabled", connected);
+				$("#btn_ws_disconn").attr("disabled", !connected);
+			}
+
+			function ws_disconnect() {
+				if(ws != null) {
+					ws.close();
+					ws = null;
+				}
+				setConnected(false);
+			}
+
+			function initWebsocket() {
+				$("#btn_ws_conn").click(ws_connect);
+				$("#btn_ws_disconn").click(ws_disconnect);
+				$("#btn_ws_send").click(function() {
+					if(ws) ws.send($("#txt_ws_send").val());
+				});
+				$("#btn_ws_invoke").click(function() {
+					var url = "${webRoot}/shop/websocket?m="+$("#txt_ws_invoke").val();
+					$.getJSON(url, function(data) {
+						// do nothing
+					})
+					.fail(function(xhr) {
+						showError("<strong>Error!</strong> " + xhr.responseText);
+					});
+				});
+			}
+
+			
 		</script>
 	</body>
 </html>

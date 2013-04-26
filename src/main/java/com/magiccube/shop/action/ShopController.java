@@ -36,6 +36,7 @@ import com.magiccube.order.action.OrderAction;
 import com.magiccube.order.model.OrderQueryCondition;
 import com.magiccube.order.model.OrderVO;
 import com.magiccube.order.model.OrderView;
+import com.magiccube.order.service.OrderWebSocketServlet;
 import com.magiccube.shop.model.FoodForm;
 import com.magiccube.shop.model.FoodReShopForm;
 import com.magiccube.shop.model.GroupForm;
@@ -154,9 +155,9 @@ public class ShopController {
 		
 		OrderQueryCondition condition = new OrderQueryCondition();
 		BeanUtils.copyProperties(queryForm, condition);
-		
 		int count = orderAction.queryHistoryOrdersCount(condition);
 		queryForm.setRecordCount(count);
+		condition.setPage(queryForm);
 		
 		List<OrderView> list = orderAction.queryHistoryOrderViewList(condition);
 		model.addAttribute("orderList", list);
@@ -554,11 +555,17 @@ public class ShopController {
 	}
 	
 	
-	/////////////////////////
+	/////////////////////////  TEST ///////////////
 	
 	@RequestMapping("/test")
 	public @ResponseBody String test() {
 		return EnvironmentInfoVO.WEBROOT;
+	}
+	
+	@RequestMapping("/websocket")
+	public @ResponseBody String invokeWebSocket(@RequestParam String m) {
+		OrderWebSocketServlet.broadcast(m);
+		return "{}";
 	}
 	
 	private <T> void print(T msg) {

@@ -186,6 +186,16 @@ public class FoodService extends BaseService{
 	public int updateFoodReShopDrop(int foodId, boolean droped) {
 		return foodDAO.updateFoodReShopDrop(foodId, droped);
 	}
+	
+	/**
+	 * 更新食品库存信息
+	 * @param foodId
+	 * @param amountToMinus 要减掉的食品数量
+	 * @return
+	 */
+	public int updateFoodReShopStock(int foodId, int amountToMinus) {
+		return foodDAO.updateFoodReShopStock(foodId, amountToMinus);
+	}
 
 	/**
 	 * 查询所有在架食物

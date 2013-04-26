@@ -133,6 +133,16 @@ public class FoodAction extends BaseAction {
 	}
 	
 	/**
+	 * 更新食品库存信息
+	 * @param foodId
+	 * @param amountToMinus 要减掉的食品数量
+	 * @return
+	 */
+	public int updateFoodReShopStock(int foodId, int amountToMinus) {
+		return foodService.updateFoodReShopStock(foodId, amountToMinus);
+	}
+	
+	/**
 	 * 更新套餐
 	 * @param packageVO
 	 * @return true-成功; false-失败

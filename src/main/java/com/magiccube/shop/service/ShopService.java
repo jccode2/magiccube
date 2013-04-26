@@ -91,22 +91,22 @@ public class ShopService {
 	private List<OrderFoodView> allOrderFoods() {
 		List<OrderFoodView> foods = new ArrayList<OrderFoodView>();
 		Random rd = new Random();
-		foods.add(new OrderFoodView("煎羊扒配羅勒青醬汁", 1 + rd.nextInt(3), 10.0));
-		foods.add(new OrderFoodView("蠔豉髮菜花生燜豬腳", 1 + rd.nextInt(3), 10.0));
-		foods.add(new OrderFoodView("菠菜蕃茄千層粉", 1 + rd.nextInt(3), 10.0));
-		foods.add(new OrderFoodView("蠔油鮑魚西生菜", 1 + rd.nextInt(3), 10.0));
-		foods.add(new OrderFoodView("西蘭花雙菇炒紅腰紅", 1 + rd.nextInt(3), 10.0));
-		foods.add(new OrderFoodView("蠔油菇絲蟹柳扒節瓜甫", 1 + rd.nextInt(3), 10.0));
-		foods.add(new OrderFoodView("萝卜牛腩", 1 + rd.nextInt(3), 10.0));
-		foods.add(new OrderFoodView("清蒸鲈鱼", 1 + rd.nextInt(3), 10.0));
-		foods.add(new OrderFoodView("西兰花炒鲜鱿", 1 + rd.nextInt(3), 10.0));
-		foods.add(new OrderFoodView("猪扒", 1 + rd.nextInt(3), 10.0));
-		foods.add(new OrderFoodView("青瓜炒猪肝", 1 + rd.nextInt(3), 10.0));
-		foods.add(new OrderFoodView("铁板茄子", 1 + rd.nextInt(3), 10.0));
-		foods.add(new OrderFoodView("蕃茄蛋", 1 + rd.nextInt(3), 10.0));
-		foods.add(new OrderFoodView("麻婆豆腐", 1 + rd.nextInt(3), 10.0));
-		foods.add(new OrderFoodView("菜心", 1 + rd.nextInt(3), 10.0));
-		foods.add(new OrderFoodView("正宗湖南手撕包菜", 1 + rd.nextInt(3), 10.0));
+//		foods.add(new OrderFoodView("煎羊扒配羅勒青醬汁", 1 + rd.nextInt(3), 10.0));
+//		foods.add(new OrderFoodView("蠔豉髮菜花生燜豬腳", 1 + rd.nextInt(3), 10.0));
+//		foods.add(new OrderFoodView("菠菜蕃茄千層粉", 1 + rd.nextInt(3), 10.0));
+//		foods.add(new OrderFoodView("蠔油鮑魚西生菜", 1 + rd.nextInt(3), 10.0));
+//		foods.add(new OrderFoodView("西蘭花雙菇炒紅腰紅", 1 + rd.nextInt(3), 10.0));
+//		foods.add(new OrderFoodView("蠔油菇絲蟹柳扒節瓜甫", 1 + rd.nextInt(3), 10.0));
+//		foods.add(new OrderFoodView("萝卜牛腩", 1 + rd.nextInt(3), 10.0));
+//		foods.add(new OrderFoodView("清蒸鲈鱼", 1 + rd.nextInt(3), 10.0));
+//		foods.add(new OrderFoodView("西兰花炒鲜鱿", 1 + rd.nextInt(3), 10.0));
+//		foods.add(new OrderFoodView("猪扒", 1 + rd.nextInt(3), 10.0));
+//		foods.add(new OrderFoodView("青瓜炒猪肝", 1 + rd.nextInt(3), 10.0));
+//		foods.add(new OrderFoodView("铁板茄子", 1 + rd.nextInt(3), 10.0));
+//		foods.add(new OrderFoodView("蕃茄蛋", 1 + rd.nextInt(3), 10.0));
+//		foods.add(new OrderFoodView("麻婆豆腐", 1 + rd.nextInt(3), 10.0));
+//		foods.add(new OrderFoodView("菜心", 1 + rd.nextInt(3), 10.0));
+//		foods.add(new OrderFoodView("正宗湖南手撕包菜", 1 + rd.nextInt(3), 10.0));
 		return foods;
 	}
 	

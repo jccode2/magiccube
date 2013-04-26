@@ -55,7 +55,7 @@
 					</form:form>
 				</div>
 				
-				<div class="common-list table-list">
+				<div id="tableList" class="common-list table-list">
 					<ul>
 						<c:forEach items="${orderList}" var="order" >
 						<li id="order_item_${order.id }">
