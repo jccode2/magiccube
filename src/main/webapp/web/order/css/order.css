@@ -1,18 +1,19 @@
 @CHARSET "UTF-8";
 
 body {
-	background: url("./images/background.jpg");
-}
-
-.order-address {
-	height: 130px;
-	background-color: #9DCD71;
+	background: url("./images/background.png");
 }
 
 .order-content {
 	margin-top: 40px;
 	padding: 20px 40px;
-	background-color: rgba(255, 255, 255, .8);
+	background-color: rgba(255, 255, 255, .5);
+}
+
+.order-address {
+	height: 150px;
+	background-color: rgba(81, 173, 12, .4);
+	margin-bottom: 2px;
 }
 
 .food-panel {
@@ -20,8 +21,15 @@ body {
 }
 
 .address-tip {
-	margin: 10px 0;
+	margin: 5px 0;
+	height: 50px;
+	line-height: 50px;
 	text-align: center;
+	color: #F4FFFC;
+	font-size: 20px;
+	font-weight: bold;
+	background: url("./images/select-addr-icon.png") 355px 9px no-repeat;
+	margin-left: 30px;
 }
 
 .address-list {
@@ -48,7 +56,7 @@ body {
 
 .address-item h5 {
 	font-size: 12px;
-	font-weight: normal;
+	font-weight: bold;
 	color: white;
 	text-align: center;
 }
@@ -60,22 +68,18 @@ body {
 .food-tab li {
 	display: inline-block;
 	*display: inline;
-	width: 309px;
-	height: 50px;
-	line-height: 50px;
-	text-align: center;
-	font-size: 28px;
-	font-weight: bold;
+	height: 60px;
 }
 
 .food-tab li.self {
-	background-color: #51AD0C;
-	color: white;
+	background: url("./images/tab-self.png");
+	width: 358px;
 }
 
 .food-tab li.classic {
-	background-color: #9DCD71;
-	color: #597E41;
+	background: url("./images/tab-classic-gray.png");
+	width: 315px;
+	margin-left: -55px;
 }
 
 .food-list {
@@ -104,7 +108,7 @@ body {
 	width: 140px;
 	height: 120px;
 	padding: 10px 0;
-	background-color: #9DCD71;
+	background-color: rgba(81, 173, 12, .4);
 	text-align: center;
 	float: left;
 }
@@ -113,66 +117,118 @@ body {
 	height: 120px;
 	width: 475px;
 	padding: 10px 0;
-	background-color: #9DCD71;
+	background-color: rgba(81, 173, 12, .4);
 	margin-left: 143px;
 }
 
 .class-list .food-item {
 	display: inline-block;
-	width: 100px;
-	height: 100px;
-	margin-left: 12px;
-	padding: 10px 0;
+	width: 104px;
+	height: 110px;
+	margin-left: 9px;
+	padding: 7px 0;
 	text-align: center;
-	background-color: #4AA40E;
-	border-radius: 8px;
+	background: url("./images/food-item-bg.png");
 }
 
 .class-list .food-pic {
-	width: 80px;
-	height: 80px;
+	width: 84px;
+	height: 84px;
 	margin: 0;
+	border-radius: 6px;
 }
 
 .class-list .food-name {
-	margin-top: 5px;
-	color: white;	
+	margin-top: 4px;
+	color: white;
 }
 
 .plate-panel .my-plate {
-	height: 30px;
-	line-height: 30px;
-	margin-top: 2px;
-	padding-left: 7px;
-	background-color: #7EAD5C;
-	color: white;
-	font-weight: bold;
+	height: 60px;
+	background: url("./images/my-plate.png");
 }
 
 .plate-panel .plate-list {
-	background-color: #8BC463;
+	background: url("./images/plate-list-bg.png");
 	margin-top: 2px;
 	min-height: 200px;
-	padding: 5px 2px;
+	padding: 5px 1px;
 }
 
 .plate-list .plate-item {
-	height: 30px;
-	line-height: 30px;
-	margin-top: 2px;
-	color: white;
-	font-weight: bold;
-	background-color: #3F582E;
-	padding-left: 10px;
+	background-color: #479F0B;
+	min-height: 200px;
+	margin-left: 8px;
+	margin-right: 4px;
 }
 
-.plate-panel .add-plate, .plate-panel .submit-order {
-	height: 30px;
-	line-height: 30px;
-	margin-top: 2px;
+.plate-list .plate-itme-title {
+	height: 38px;
+	line-height: 45px;
+	padding-left: 20px;
+	font-size: 23px;
 	color: white;
-	font-weight: bold;
-	background-color: #3B9500;
+}
+
+.plate-list .plate-food-list {
+	margin: 0 2px;
+}
+
+.plate-list .plate-food-item {
+	position: relative; height : 40px;
+	line-height: 40px;
 	text-align: center;
+	color: #667055;
+	font-size: 24px;
+	font-weight: bold;
+	list-style-type: none;
+	background: url("./images/plate-food-item-bg.png");
+	height: 40px;
+	margin-bottom: 3px;
 }
 
+.plate-list .minus-icon, .plate-list .add-icon {
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	position: absolute; 
+	cursor: pointer;
+}
+
+.plate-list .minus-icon {
+	left : 8px; top : 4px;
+	background: url("./images/minus-icon.png");
+}
+
+.plate-list .minus-icon:HOVER {
+	background: url("./images/minus-icon-hover.png");
+}
+
+.plate-list .minus-icon:ACTIVE {
+	background: url("./images/minus-icon-active.png");
+}
+
+.plate-list .add-icon {
+	right : 8px; top : 4px;
+	background: url("./images/add-icon.png");
+}
+
+.plate-list .add-icon:HOVER {
+	background: url("./images/add-icon-hover.png");
+}
+
+.plate-list .add-icon:ACTIVE {
+	background: url("./images/add-icon-active.png");
+}
+
+.plate-panel .add-plate {
+	height: 40px;
+	margin-top: 2px;
+	background: url("./images/add-plate.png");
+}
+
+.plate-panel .submit-order {
+	height: 40px;
+	margin-top: 5px;
+	background: url("./images/submit-order.png");
+}
