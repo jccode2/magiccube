@@ -49,6 +49,10 @@ public class FoodDAO extends BaseDAO {
 		return this.sqlSessionTemplate.selectOne("com.magiccube.food.getGroup", id);
 	}
 	
+	public FoodGroupVO getGroup(int id) {
+		return this.sqlSessionTemplate.selectOne("com.magiccube.food.getGroup", id);
+	}
+	
 	/**
 	 * 获取一个套餐
 	 * 
