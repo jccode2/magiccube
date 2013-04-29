@@ -69,6 +69,10 @@ public class FoodService extends BaseService{
 		return foodDAO.getFood(id);
 	}
 	
+	public FoodGroupVO getGroup(int id) {
+		return foodDAO.getGroup(id);
+	}
+	
 	/**
 	 * 获取一个套餐
 	 * @param id packageId

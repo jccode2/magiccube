@@ -119,6 +119,7 @@ CREATE  TABLE IF NOT EXISTS `1000funs`.`food_group` (
   `image` VARCHAR(200) NULL ,
   `detail` VARCHAR(200) NULL ,
   `type` INT NULL COMMENT '1 food , 2 package' ,
+  `sort` INT DEFAULT 0 ,
   `deleted` TINYINT(1) NULL DEFAULT false ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;

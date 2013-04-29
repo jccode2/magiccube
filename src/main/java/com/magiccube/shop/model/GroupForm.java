@@ -5,7 +5,9 @@ public class GroupForm {
 	private int id;
 	private String groupName;
 	private String detail;
+	private int sort;
 	private int type;
+	
 	public String getGroupName() {
 		return groupName;
 	}
@@ -18,7 +20,12 @@ public class GroupForm {
 	public void setDetail(String detail) {
 		this.detail = detail;
 	}
-	
+	public int getSort() {
+		return sort;
+	}
+	public void setSort(int sort) {
+		this.sort = sort;
+	}
 	public int getType() {
 		return type;
 	}
@@ -33,7 +40,7 @@ public class GroupForm {
 	}
 	@Override
 	public String toString() {
-		return "GroupForm [id=" + id + ", groupName=" + groupName + ", detail=" + detail
-				+ ", type=" + type + "]";
+		return "GroupForm [id=" + id + ", groupName=" + groupName + ", detail="
+				+ detail + ", sort=" + sort + ", type=" + type + "]";
 	}
 }

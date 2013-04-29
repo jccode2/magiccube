@@ -14,6 +14,9 @@
 				/*padding: 50px 0px;*/
 				/*background-color: #f5f5f5;*/
 			}
+			#editForm {
+				margin-bottom: 0px;
+			}
 		</style>
 	</head>
 	<body>
@@ -45,8 +48,10 @@
 									<i class="icon2-edit" value="${group.id }"></i>
 								</div>
 								<div class="text">
-									<p class="header">${group.groupName }</p>
-									<p class="detail">${group.detail }</p>
+									<div class="view">
+										<p class="header">${group.groupName }</p>
+										<p class="detail">${group.detail }</p>
+									</div>
 								</div>
 							</div>
 						</li>
@@ -73,25 +78,71 @@
 							<button class="btn btn-primary btn-large" id="btn_save_group">保存</button>
 						</div>
 						<div class="text">
-							<div class="control-group control-group-mini">
-								<label for="" class="control-label">分类</label>
-								<div class="controls"><input type="text" name="groupName" id="groupName" class="input-block-level" data-toggle="tooltip" data-original-title="分类不能为空" data-validate></div>
+							<div class="row-fluid">
+								<div class="span8">
+									<div class="control-group control-group-mini">
+										<label for="" class="control-label">分类</label>
+										<div class="controls"><input type="text" name="groupName" id="groupName" class="input-block-level" data-toggle="tooltip" data-original-title="分类不能为空" data-validate></div>
+									</div>
+								</div>
+								<div class="span4">
+									<div class="control-group control-group-mini pull-right">
+										<label for="" class="control-label">排序</label>
+										<div class="controls">
+											<input type="text" name="sort" id="sort" class="input-small" value="0">
+										</div>
+									</div>
+								</div>
+								<!-- <div class="span4"></div> -->
 							</div>
-							<div class="control-group control-group-mini">
-								<label for="" class="control-label">描述</label>
-								<div class="controls">
-									<input type="text" name="detail" id="detail" class="input-block-level" data-toggle="tooltip" data-original-title="描述不能为空" data-validate>
+							<div class="row-fluid">
+								<div class="span12">
+									<div class="control-group control-group-mini">
+										<label for="" class="control-label">描述</label>
+										<div class="controls">
+											<input type="text" name="detail" id="detail" class="input-block-level" data-toggle="tooltip" data-original-title="描述不能为空" data-validate>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
 					</form>
 				</div><!-- /end of add panel -->
 				
-				<form id="editForm" name="editForm" action="${webRoot}/shop/group" method="post" enctype="multipart/form-data">
+				<form id="editForm" name="editForm" action="${webRoot}/shop/group" method="post" enctype="multipart/form-data" class="hide">
 					<input type="hidden" name="id">
-					<input type="hidden" name="groupName">
-					<input type="hidden" name="detail">
 					<input type="file" id="edit-file-upload" name="file" class="hide">
+
+					<div class="edit">
+						<div class="row-fluid">
+							<div class="span8">
+								<div class="control-group control-group-mini">
+									<label for="" class="control-label">分类</label>
+									<div class="controls"><input type="text" name="groupName" class="input-block-level"></div>
+								</div>
+							</div>
+							<div class="span4">
+								<div class="control-group control-group-mini pull-right">
+									<label for="" class="control-label">排序</label>
+									<div class="controls">
+										<input type="text" name="sort" class="input-small" value="0">
+									</div>
+								</div>
+							</div>
+							<!-- <div class="span4"></div> -->
+						</div>
+						<div class="row-fluid">
+							<div class="span12">
+								<div class="control-group control-group-mini">
+									<label for="" class="control-label">描述</label>
+									<div class="controls">
+										<input type="text" name="detail" class="input-block-level">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
 				</form>
 			</div>
 		</div><!--/ end of container -->
