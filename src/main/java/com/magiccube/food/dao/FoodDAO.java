@@ -152,6 +152,19 @@ public class FoodDAO extends BaseDAO {
 	}
 	
 	/**
+	 * 删除整个分组的食物关联信息
+	 * @param groupId
+	 * @return
+	 */
+	public int deleteFoodReShopByGroup(int groupId) {
+		int shopId = 1; //TODO:从环境中取shopId
+		FoodVO foodVO = new FoodVO();
+		foodVO.setShopId(shopId);
+		foodVO.setGroupId(groupId);
+		return this.sqlSessionTemplate.delete("com.magiccube.food.deleteFoodReShopByGroup", foodVO);
+	}
+	
+	/**
 	 * 删除套餐关联
 	 * @param packageId 套餐id
 	 * @return 成功删除的条数

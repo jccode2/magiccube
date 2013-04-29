@@ -224,11 +224,19 @@ public class FoodService extends BaseService{
 	}
 	
 	public int deleteGroup(int id) {
-		return foodDAO.deleteGroup(id);
+		int ret = foodDAO.deleteGroup(id);
+		
+		// 同时删除与此分组相关联的信息
+		foodDAO.deleteFoodReShopByGroup(id);
+		return ret;
 	}
 	
 	public int deleteFood(int id) {
-		return foodDAO.deleteFood(id);
+		int ret = foodDAO.deleteFood(id);
+		
+		// 同时删除food_re_shop中与此食物的关联信息
+		deleteFoodReShop(id);
+		return ret;
 	}
 	
 	/**
