@@ -4,6 +4,11 @@ body {
 	background: url("./images/background.png");
 }
 
+.container,.navbar-static-top .container,.navbar-fixed-top .container,.navbar-fixed-bottom .container
+	{
+	width: 1003px;
+}
+
 .order-content {
 	margin-top: 40px;
 	padding: 20px 40px;
@@ -69,78 +74,93 @@ body {
 	display: inline-block;
 	*display: inline;
 	height: 60px;
+	cursor: pointer;
 }
 
 .food-tab li.self {
-	background: url("./images/tab-self.png");
+	background: url("./images/tab-self-gray.png");
 	width: 358px;
+}
+
+.food-tab li.self:HOVER,.food-tab li.self.selected:HOVER {
+	background: url("./images/tab-self-hover.png");
+}
+
+.food-tab li.self.selected {
+	background: url("./images/tab-self.png");
 }
 
 .food-tab li.classic {
 	background: url("./images/tab-classic-gray.png");
-	width: 315px;
+	width: 358px;
 	margin-left: -55px;
 }
 
-.food-list {
-	width: 100%;
+.food-tab li.classic:hover,.food-tab li.classic.selected:HOVER {
+	background: url("./images/tab-classic-hover.png");
 }
 
-.food-list td {
-	border: 1px solid white;
-	height: 90px;
-	background-color: #9DCD71;
-}
-
-.food-list .food-pic {
-	width: 100px;
-	height: 100px;
-	border: 1px solid #fff;
-	margin: 5px 0 5px 10px;
+.food-tab li.classic.selected {
+	background: url("./images/tab-classic.png");
 }
 
 .food-list .class-list {
-	height: 140px;
 	margin: 3px 0;
 }
 
 .class-list .class-icon {
-	width: 140px;
-	height: 120px;
-	padding: 10px 0;
+	width: 135px;
+	padding: 10px 0 6px 0;
 	background-color: rgba(81, 173, 12, .4);
 	text-align: center;
 	float: left;
 }
 
 .class-list .class-food {
-	height: 120px;
-	width: 475px;
-	padding: 10px 0;
+	min-height: 125px;
+	padding-bottom: 5px;
+	margin-left: 2px;
+	width: 524px;
 	background-color: rgba(81, 173, 12, .4);
-	margin-left: 143px;
+	float: right;
 }
 
 .class-list .food-item {
 	display: inline-block;
-	width: 104px;
-	height: 110px;
-	margin-left: 9px;
-	padding: 7px 0;
+	width: 109px;
+	height: 104px;
+	margin: 8px 0 0 8px;
+	padding: 12px 0;
 	text-align: center;
 	background: url("./images/food-item-bg.png");
+	cursor: pointer;
 }
 
+.class-list .food-item:HOVER{
+	background: url("./images/food-item-bg-hover.png");
+}
+
+.class-list .food-item:ACTIVE{
+	background: url("./images/food-item-bg-active.png");
+}
+
+
 .class-list .food-pic {
-	width: 84px;
-	height: 84px;
+	width: 85px;
+	height: 83px;
 	margin: 0;
-	border-radius: 6px;
+	border-radius: 8px;
 }
 
 .class-list .food-name {
 	margin-top: 4px;
 	color: white;
+}
+
+/***我的餐盘 **/
+.row-fluid .plate-panel {
+	margin-left: 17px;
+	width: 324px;
 }
 
 .plate-panel .my-plate {
@@ -149,33 +169,46 @@ body {
 }
 
 .plate-panel .plate-list {
-	background: url("./images/plate-list-bg.png");
+	background: url("./images/plate-list-bg.png") repeat-y;
 	margin-top: 2px;
 	min-height: 200px;
+	height: auto;
 	padding: 5px 1px;
 }
 
 .plate-list .plate-item {
 	background-color: #479F0B;
-	min-height: 200px;
-	margin-left: 8px;
-	margin-right: 4px;
+	margin: 0 4px 3px 8px;
+	padding-bottom: 1px;
 }
 
-.plate-list .plate-itme-title {
-	height: 38px;
-	line-height: 45px;
+.plate-list .plate-item-title {
+	height: 40px;
+	line-height: 40px;
+	margin: 0;
 	padding-left: 20px;
 	font-size: 23px;
-	color: white;
+	color: #FFFEFF;
+	background: url("./images/plate-item-title-bg.png");
+	cursor: pointer;
 }
 
 .plate-list .plate-food-list {
 	margin: 0 2px;
+	display: none;
+}
+
+.plate-list .plate-item.curr .plate-item-title {
+	background: none;
+}
+
+.plate-list .plate-item.curr .plate-food-list {
+	display: block;
 }
 
 .plate-list .plate-food-item {
-	position: relative; height : 40px;
+	position: relative;
+	height: 40px;
 	line-height: 40px;
 	text-align: center;
 	color: #667055;
@@ -187,16 +220,17 @@ body {
 	margin-bottom: 3px;
 }
 
-.plate-list .minus-icon, .plate-list .add-icon {
+.plate-list .minus-icon,.plate-list .add-icon {
 	display: inline-block;
 	width: 32px;
 	height: 32px;
-	position: absolute; 
+	position: absolute;
 	cursor: pointer;
 }
 
 .plate-list .minus-icon {
-	left : 8px; top : 4px;
+	left: 8px;
+	top: 4px;
 	background: url("./images/minus-icon.png");
 }
 
@@ -209,7 +243,8 @@ body {
 }
 
 .plate-list .add-icon {
-	right : 8px; top : 4px;
+	right: 8px;
+	top: 4px;
 	background: url("./images/add-icon.png");
 }
 
@@ -221,14 +256,49 @@ body {
 	background: url("./images/add-icon-active.png");
 }
 
+.plate-panel .price-total {
+	width: 324px;
+	height: 47px;
+	background: url("./images/price-total-bg.png");
+	position: relative;
+}
+
+.plate-panel .price-total em {
+	color: #425C39;
+	font-size: 30px;
+	font-weight: bold;
+	position: absolute;
+	left: 192px;
+	top: 13px;
+	
+}
+
 .plate-panel .add-plate {
 	height: 40px;
 	margin-top: 2px;
 	background: url("./images/add-plate.png");
+	cursor: pointer;
+}
+
+.plate-panel .add-plate:HOVER {
+	background: url("./images/add-plate-hover.png");
+}
+
+.plate-panel .add-plate:ACTIVE {
+	background: url("./images/add-plate-active.png");
 }
 
 .plate-panel .submit-order {
 	height: 40px;
 	margin-top: 5px;
 	background: url("./images/submit-order.png");
+	cursor: pointer;
+}
+
+.plate-panel .submit-order:HOVER {
+	background: url("./images/submit-order-hover.png");
+}
+
+.plate-panel .submit-order:ACTIVE {
+	background: url("./images/submit-order-active.png");
 }

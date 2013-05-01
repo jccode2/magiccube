@@ -29,7 +29,7 @@
 		<div class="row-fluid">
 			<div class="span8 food-panel">
 				<ul class="food-tab">
-					<li class="self"></li><!--  --><li class="classic"></li>
+					<li class="self selected"></li><!--  --><li class="classic"></li>
 				</ul>
 				<div class="food-list">
 					<c:forEach items="${groupFoods}" var="group">
@@ -37,12 +37,13 @@
 							<div class="class-icon"><img src="${webRoot}/${group.image}" ></div>
 							<div class="class-food">
 								<c:forEach items="${group.foodList}" var="food">
-									<div class="food-item">
+									<div class="food-item" title="${food.foodName }" data-group="${group.id}" data-foodname="${food.foodName }">
 										<img src="${webRoot}/${food.image }" class="food-pic">
 										<p class="food-name">${food.foodName }
 									</div>
 								</c:forEach>
 							</div>
+							<br style="clear:both;" />
 						</div>
 					</c:forEach>
 				
@@ -53,13 +54,21 @@
 				<div class="my-plate"></div>
 				<div class="plate-list">
 					<div class="plate-item">
-						<h2 class="plate-itme-title">餐盒1</h2>
+						<h2 class="plate-item-title">餐盒1----------------￥180</h2>
+						<ul class="plate-food-list">
+							<li class="plate-food-item"><a class="minus-icon"></a>红烧牛肉<a class="add-icon"></a></li>
+							<li class="plate-food-item"><a class="minus-icon"></a>茄子肉末<a class="add-icon"></a></li>
+						</ul>
+					</div>
+					<div class="plate-item curr">
+						<h2 class="plate-item-title">餐盒2----------------￥180</h2>
 						<ul class="plate-food-list">
 							<li class="plate-food-item"><a class="minus-icon"></a>红烧牛肉<a class="add-icon"></a></li>
 							<li class="plate-food-item"><a class="minus-icon"></a>茄子肉末<a class="add-icon"></a></li>
 						</ul>
 					</div>
 				</div>
+				<div class="price-total"><em>￥180</em></div>
 				<div class="add-plate"></div>
 				<div class="submit-order"></div>
 			</div>
@@ -67,5 +76,8 @@
 	</div>
 </body>
 <%@ include file="/web/inc/foot.jsp"%>
+<style>
 
+</style>
+<script type="text/javascript" src="${webRoot}/web/order/js/order.js"></script>
 </html>
