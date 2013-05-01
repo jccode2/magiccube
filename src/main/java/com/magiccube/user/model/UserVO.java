@@ -16,6 +16,11 @@ import com.magiccube.core.util.tools.DataGenerator;
  * @history 2011-05-11 Xingling build
  */
 public class UserVO extends BaseVO{
+	
+	public static final int TYPE_CONSUMER = 0;
+	public static final int TYPE_EMPLOYEE = 1;
+	public static final int TYPE_MANAGER = 2;
+	public static final int TYPE_ADMIN = 3;
 
 	private int id;
 	

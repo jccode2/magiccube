@@ -15,6 +15,7 @@ public class FoodGroupVO extends BaseVO {
 	private String groupName;
 	private String image;
 	private String detail;
+	private int sort;
 	/**
 	 * 类型: 1-food; 2-package
 	 */
@@ -61,6 +62,14 @@ public class FoodGroupVO extends BaseVO {
 
 	public void setDetail(String detail) {
 		this.detail = detail;
+	}
+
+	public int getSort() {
+		return sort;
+	}
+
+	public void setSort(int sort) {
+		this.sort = sort;
 	}
 
 	public int getType() {

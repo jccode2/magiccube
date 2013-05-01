@@ -265,6 +265,11 @@ public class ShopController {
 		return ret > 0;
 	}
 	
+	@RequestMapping(value="/group/{id}", method=RequestMethod.GET)
+	public @ResponseBody FoodGroupVO getGroup(@PathVariable int id) {
+		return foodAction.getGroup(id);
+	}
+	
 	@RequestMapping(value="/food/{id}")
 	public @ResponseBody FoodVO getFood(@PathVariable int id) {
 		return foodAction.getFood(id);
@@ -496,6 +501,7 @@ public class ShopController {
 		vo.setDetail(form.getDetail());
 		vo.setType(form.getType());
 		vo.setId(form.getId());
+		vo.setSort(form.getSort());
 	}
 	
 	/**

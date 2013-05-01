@@ -60,6 +60,10 @@ public class FoodAction extends BaseAction {
 		return foodService.getFood(id);
 	}
 	
+	public FoodGroupVO getGroup(int id) {
+		return foodService.getGroup(id);
+	}
+	
 	public PackageVO getPackage(int id) {
 		return foodService.getPackage(id);
 	}

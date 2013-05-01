@@ -10,18 +10,18 @@ INSERT INTO `1000funs`.`users` (`id`, `user_name`, `phone`, `email`, `password`,
 INSERT INTO `1000funs`.`users` (`id`, `user_name`, `phone`, `email`, `password`,  `default_region_id`, `user_type`, `default_address`) VALUES ('5', '路人丙', '13511211311', 'bin@163.com', 'hello','1','0', '深圳市福田区景田区香梅北武警大厦');
 
 
-INSERT INTO `1000funs`.`food_group` (`id`, `group_name`, `image`, `detail`, `type`, `deleted`) VALUES ('1', '10元区', '/web/img/taochan2.jpg', '10元区', 1, false);
-INSERT INTO `1000funs`.`food_group` (`id`, `group_name`, `image`, `detail`, `type`, `deleted`) VALUES ('2', '9元区', '/img/taochan1.jpg', '9元区;', 1, false);
-INSERT INTO `1000funs`.`food_group` (`id`, `group_name`, `image`, `detail`, `type`, `deleted`) VALUES ('3', '8元区', '/web/img/taochan3.jpg', '8元区;', 1, false);
-INSERT INTO `1000funs`.`food_group` (`id`, `group_name`, `image`, `detail`, `type`, `deleted`) VALUES ('4', '7元区', '/web/img/taochan3.jpg', '7元区;', 1, false);
-INSERT INTO `1000funs`.`food_group` (`id`, `group_name`, `image`, `detail`, `type`, `deleted`) VALUES ('5', '6元区', '/web/img/taochan3.jpg', '6元区;', 1, false);
-INSERT INTO `1000funs`.`food_group` (`id`, `group_name`, `image`, `detail`, `type`, `deleted`) VALUES ('6', '例汤区', '/web/img/taochan3.jpg', '例汤区;', 1, false);
-INSERT INTO `1000funs`.`food_group` (`id`, `group_name`, `image`, `detail`, `type`, `deleted`) VALUES ('7', '小吃', '/web/img/taochan3.jpg', '小吃;', 1, false);
-INSERT INTO `1000funs`.`food_group` (`id`, `group_name`, `image`, `detail`, `type`, `deleted`) VALUES ('8', '饮品', '/web/img/taochan3.jpg', '饮品;', 1, false);
+INSERT INTO `1000funs`.`food_group` (`id`, `group_name`, `image`, `detail`, `type`, `sort`, `deleted`) VALUES ('1', '10元区', '/web/img/taochan2.jpg', '10元区', 1, 0, false);
+INSERT INTO `1000funs`.`food_group` (`id`, `group_name`, `image`, `detail`, `type`, `sort`, `deleted`) VALUES ('2', '9元区', '/img/taochan1.jpg', '9元区;', 1, 0, false);
+INSERT INTO `1000funs`.`food_group` (`id`, `group_name`, `image`, `detail`, `type`, `sort`, `deleted`) VALUES ('3', '8元区', '/web/img/taochan3.jpg', '8元区;', 1, 0, false);
+INSERT INTO `1000funs`.`food_group` (`id`, `group_name`, `image`, `detail`, `type`, `sort`, `deleted`) VALUES ('4', '7元区', '/web/img/taochan3.jpg', '7元区;', 1, 0, false);
+INSERT INTO `1000funs`.`food_group` (`id`, `group_name`, `image`, `detail`, `type`, `sort`, `deleted`) VALUES ('5', '6元区', '/web/img/taochan3.jpg', '6元区;', 1, 0, false);
+INSERT INTO `1000funs`.`food_group` (`id`, `group_name`, `image`, `detail`, `type`, `sort`, `deleted`) VALUES ('6', '例汤区', '/web/img/taochan3.jpg', '例汤区;', 1, 0, false);
+INSERT INTO `1000funs`.`food_group` (`id`, `group_name`, `image`, `detail`, `type`, `sort`, `deleted`) VALUES ('7', '小吃', '/web/img/taochan3.jpg', '小吃;', 1, 0, false);
+INSERT INTO `1000funs`.`food_group` (`id`, `group_name`, `image`, `detail`, `type`, `sort`, `deleted`) VALUES ('8', '饮品', '/web/img/taochan3.jpg', '饮品;', 1, 0, false);
 
-INSERT INTO `1000funs`.`food_group` (`id`, `group_name`, `image`, `detail`, `type`, `deleted`) VALUES ('9', '25元区', '/web/img/taochan2.jpg', '25元区;高级货', 2, false);
-INSERT INTO `1000funs`.`food_group` (`id`, `group_name`, `image`, `detail`, `type`, `deleted`) VALUES ('10', '20元区', '/img/taochan1.jpg', '20元区;', 2, false);
-INSERT INTO `1000funs`.`food_group` (`id`, `group_name`, `image`, `detail`, `type`, `deleted`) VALUES ('11', '18元区', '/web/img/taochan3.jpg', '18元区;', 2, false);
+INSERT INTO `1000funs`.`food_group` (`id`, `group_name`, `image`, `detail`, `type`, `sort`, `deleted`) VALUES ('9', '25元区', '/web/img/taochan2.jpg', '25元区;高级货', 2, 0, false);
+INSERT INTO `1000funs`.`food_group` (`id`, `group_name`, `image`, `detail`, `type`, `sort`, `deleted`) VALUES ('10', '20元区', '/img/taochan1.jpg', '20元区;', 2, 0, false);
+INSERT INTO `1000funs`.`food_group` (`id`, `group_name`, `image`, `detail`, `type`, `sort`, `deleted`) VALUES ('11', '18元区', '/web/img/taochan3.jpg', '18元区;', 2, 0, false);
 
 
 INSERT INTO `1000funs`.`food` (`id`, `food_name`, `detail`, `image`, `type`, `deleted`) VALUES ('1', '圆椒排骨', '圆椒排骨', '/web/img/paigu.jpg', 1, false);

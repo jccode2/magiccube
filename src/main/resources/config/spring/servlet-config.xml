@@ -31,6 +31,15 @@
 	<!-- File Upload -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
 	
+	<!-- Interceptors -->
+	<!--  
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/shop*/**"/>
+			<bean class="com.magiccube.login.interceptor.LoginAnnotationInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	-->
 	
 	<!-- DWR ==================================================================== -->
 	<dwr:controller id="dwrController" debug="true" /><!-- define controller -->

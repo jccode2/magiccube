@@ -20,8 +20,8 @@
 	
 	<!-- 插入Food_Group信息-->
 	<insert id="insertFoodGroup" parameterType="com.magiccube.food.model.FoodGroupVO" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO food_group(group_name,image,detail,type,deleted) VALUES
-		(#{groupName},#{image},#{detail},#{type},false)
+		INSERT INTO food_group(group_name,image,detail,type,sort,deleted) VALUES
+		(#{groupName},#{image},#{detail},#{type},#{sort},false)
 	</insert>
 	
 	<!-- 插入PackageItem信息 -->
@@ -37,6 +37,7 @@
 			<if test="groupName != null">group_name=#{groupName},</if>
 			<if test="detail != null">detail=#{detail},</if>
 			<if test="image != null">image=#{image}</if>
+			<if test="sort != null">sort=#{sort}</if>
 		</set>
 		where id = #{id};
 	</update>
@@ -90,6 +91,11 @@
 		delete from food_re_shop where shop_id = #{shopId} and food_id = #{id};
 	</delete>
 	
+	<!-- 删除一个分组所有的食物关联 -->
+	<delete id="deleteFoodReShopByGroup" parameterType="com.magiccube.food.model.FoodVO">
+		delete from food_re_shop where shop_id = #{shopId} and group_id = #{groupId};
+	</delete>
+	
 	<!-- 删除PackageItem信息 -->
 	<delete id="deletePackageItem" parameterType="int">
 		delete from package_item where package_id = #{packageId};
@@ -118,6 +124,11 @@
 		where fs.shop_id = #{shopId} and f.id = #{id} and f.id = fs.food_id 
 	</select>
 	
+	<select id="getGroup" parameterType="int" 
+		resultType="com.magiccube.food.model.FoodGroupVO">
+		select * from food_group g where id = #{id}
+	</select>
+	
 	<!-- 为FoodVO查询id -->
 	<select id="queryIdForFoodVO" parameterType="com.magiccube.food.model.FoodVO"
 		resultType="int">
@@ -135,7 +146,7 @@
 		resultType="com.magiccube.food.model.FoodVO">
 		<!--  -->
 		select 
-		    t.*, g.id group_id, g.group_name, g.image group_image, g.detail group_detail
+		    t.*, g.id group_id, g.group_name, g.image group_image, g.detail group_detail, g.sort
 		from
 		    (select 
 		        f.*, fs.group_id gid, fs.origin_price, fs.current_price, fs.stock, fs.droped
@@ -149,7 +160,7 @@
 		where
 		    <!-- g.type = #{type} -->
 		    g.deleted = false
-		order by g.group_name desc
+		order by g.sort asc, g.group_name desc
 		
 		
 		<!-- 
@@ -174,7 +185,7 @@
 	<select id="queryAvailableGroupAndFoods" parameterType="com.magiccube.food.model.FoodQueryCondition"
 		resultType="com.magiccube.food.model.FoodVO">
 		select 
-		    f.*, fs.group_id, fs.origin_price, fs.current_price, fs.stock, g.group_name, g.image group_image, g.detail group_detail
+		    f.*, fs.group_id, fs.origin_price, fs.current_price, fs.stock, g.group_name, g.image group_image, g.detail group_detail, g.sort
 		from
 		    food_re_shop fs 
 		    join food f ON (fs.food_id = f.id)
@@ -182,17 +193,17 @@
 		where
 		    fs.deleted = false and f.deleted = false and g.deleted = false
 		    and shop_id = #{shopId} and f.type = #{type}
-		order by g.group_name desc;
+		order by g.sort asc, g.group_name desc;
 	</select>
 	
 	<!-- 根据类型(套餐还是配餐)查询所有分组信息 -->
 	<select id="queryGroups" parameterType="int" resultType="com.magiccube.food.model.FoodGroupVO">
-		select * from food_group g where g.deleted = false and g.type = #{type} order by g.group_name
+		select * from food_group g where g.deleted = false and g.type = #{type} order by g.sort asc, g.group_name desc
 	</select>
 	
 	<!-- 查询所有分组信息(不区分类型信息) -->
 	<select id="queryAllGroups" resultType="com.magiccube.food.model.FoodGroupVO">
-		select * from food_group g where g.deleted = false order by g.group_name
+		select * from food_group g where g.deleted = false order by g.sort asc, g.group_name desc
 	</select>
 	
 	<!-- 查询所有单品食物 -->

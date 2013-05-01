@@ -76,10 +76,12 @@ define(function(require, exports, module) {
 								var data = responseText, 
 									form = $form.get(0), 
 									groupName = form.groupName.value, 
-									detail = form.detail.value;
+									detail = form.detail.value, 
+									sort = form.sort.value;
 								var groupVO = {
 									"groupName": groupName, 
 									"detail": detail, 
+									"sort": sort, 
 									"image": data.image, 
 									"id": data.id
 								};
@@ -98,7 +100,7 @@ define(function(require, exports, module) {
 							type: "put", 
 							url: webRoot+"/shop/group/" + orderId, 
 							success: function(responseText, statusText, xhr, $form) {
-								//alert(responseText);
+								saveItemCallback(orderId, $form);
 							}
 						};
 					$(this).ajaxSubmit(options);
@@ -114,6 +116,7 @@ define(function(require, exports, module) {
 					if($this.hasClass("icon2-remove")) {
 						deleteItem(orderId);
 					} else if($this.hasClass("icon2-edit")) {
+
 						editItem(orderId);
 					} else if($this.hasClass("icon2-ok")) {
 						saveItem(orderId);
@@ -125,7 +128,7 @@ define(function(require, exports, module) {
 			
 			// event for edit/update record dynamic
 			dynamicUpdateEvent: function() {
-				$(document).on("keypress", "#groupList .text p input", function(e) {
+				$("#editForm").on("keypress", "input", function(e) {
 					var keycode = e.which;
 					if(keycode == 13 || keycode == 108) { // Enter
 						saveItem($(this).attr("orderId"));
@@ -173,6 +176,9 @@ define(function(require, exports, module) {
 			$btns.removeClass("hide").children("i").removeClass().addClass(className);
 		} else {
 			$btns.addClass("hide");
+
+			// check whether some editing item exist.
+			$("#editForm").addClass("hide").prev(".view").removeClass("hide");
 		}
 	}
 	
@@ -209,40 +215,67 @@ define(function(require, exports, module) {
 	}
 	
 	function editItem(orderId) {
-		$("#item_" + orderId + " .text p").each(function() {
-			var $this = $(this);
-			$this.wrapInner("<input type='text' orderId='"+orderId+"' value='"+$this.html()+"'>");
-		});
-		$("#item_" + orderId + " .btns i").removeClass().addClass("icon2-ok");
-		$("#item_" + orderId + " .pic").addClass("pointer").on("click", function() {
-			$("#edit-file-upload").data("orderId", orderId).click();
-		});
+		changeMode(orderId, "edit");
+		fillEditForm(orderId);
 	}
 	
 	function saveItem(orderId) {
-		
-		$("#item_" + orderId + " .text p").each(function() {
-			var $this = $(this), 
-				text = $this.children("input").val();
-			$this.html(text);
-			
-			if($this.hasClass("header")) {
-				$("#editForm input[name='groupName']").val(text);
-			} else if($this.hasClass("detail")) {
-				$("#editForm input[name='detail']").val(text);
-			} else {
-			}
-			
-		});
-		$("#item_" + orderId + " .btns i").removeClass().addClass("icon2-edit");
-		$("#item_" + orderId + " .pic").removeClass("pointer").off("click");
-		
-		// do update to db
-		$("#editForm input[name='id']").val(orderId);
 		$("#editForm").submit();
+		
+	}
+
+	function saveItemCallback(orderId, $form) {
+		changeMode(orderId, "view");
+	
+		var $item = $("#item_" + orderId), 
+			editForm = $form.get(0);
+		$(".text .header", $item).html(editForm.groupName.value);
+		$(".text .detail", $item).html(editForm.detail.value);
 	}
 	
 	
+	/**
+	 * change mode
+	 *
+	 * @param mode edit | view
+	 */
+	function changeMode(orderId, mode) {
+	
+		var $item = $("#item_" + orderId), 
+			$btn = $(".btns i", $item), 
+			$pic = $(".pic", $item);
+	
+		if(mode === "edit") {
+			$btn.removeClass().addClass("icon2-ok");
+			$pic.addClass("pointer").on("click", function() {
+				$("#edit-file-upload").data("orderId", orderId).click();
+			});
+			$(".text .view", $item).addClass("hide");
+			$(".text", $item).append($("#editForm").removeClass("hide"));
+		}
+		else if(mode === "view") {
+			$btn.removeClass().addClass("icon2-edit");
+			$pic.removeClass("pointer").off("click");
+			$(".text .view", $item).removeClass("hide");
+			$("#editForm").addClass("hide");
+		}
+		else {
+			throw "argument mode must be edit or view.";
+		}
+	}
+	
+	function fillEditForm(orderId) {
+		var $item = $("#item_" + orderId), 
+			editForm = $("#editForm").get(0), 
+			url = webRoot + "/shop/group/" + orderId;
+		$.getJSON(url).done(function(groupVO) {
+			editForm.id.value = groupVO.id;
+			editForm.groupName.value = groupVO.groupName;
+			editForm.sort.value = groupVO.sort;
+			editForm.detail.value = groupVO.detail;
+		});
+	}
+
 	
 	
 	// main
