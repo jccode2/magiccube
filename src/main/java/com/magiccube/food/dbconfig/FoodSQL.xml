@@ -229,7 +229,7 @@
 	</select>
 	
 	<select id="queryPackageItems" parameterType="int" resultType="com.magiccube.food.model.PackageItemVO">
-		select * from package_item where package_id = #{packageId}
+		select pi.package_id package_id, f.id foodId ,f.* from package_item pi, food f where pi.food_id = f.id and package_id = #{packageId}
 	</select>
 	
 </mapper>

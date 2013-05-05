@@ -15,6 +15,10 @@ public class PackageVO extends FoodVO {
 		this.items = items;
 	}
 	
+	public void addItem(PackageItemVO packageItem) {
+		items.add(packageItem);
+	}
+	
 	public void addItem(int foodId) {
 		PackageItemVO packageItem = new PackageItemVO(foodId);
 		items.add(packageItem);

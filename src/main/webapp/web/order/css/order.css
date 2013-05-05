@@ -171,7 +171,7 @@ body {
 .plate-panel .plate-list {
 	background: url("./images/plate-list-bg.png") repeat-y;
 	margin-top: 2px;
-	min-height: 200px;
+	min-height: 150px;
 	height: auto;
 	padding: 5px 1px;
 }
@@ -198,6 +198,19 @@ body {
 	display: none;
 }
 
+.plate-list .plate-item.first{
+	dislay: none;
+	background: none;
+}
+
+.plate-list .plate-item.first .plate-item-title{
+	display: none;
+}
+
+.plate-list .plate-item.first  .plate-food-item {
+	margin-top: 5px;
+}
+
 .plate-list .plate-item.curr .plate-item-title {
 	background: none;
 }
@@ -218,6 +231,10 @@ body {
 	background: url("./images/plate-food-item-bg.png");
 	height: 40px;
 	margin-bottom: 3px;
+}
+
+.plate-list .food-count {
+	display: none;
 }
 
 .plate-list .minus-icon,.plate-list .add-icon {
@@ -261,6 +278,7 @@ body {
 	height: 47px;
 	background: url("./images/price-total-bg.png");
 	position: relative;
+	display: none;
 }
 
 .plate-panel .price-total em {
@@ -270,7 +288,8 @@ body {
 	position: absolute;
 	left: 192px;
 	top: 13px;
-	
+	width: 85px;
+	text-align: center;
 }
 
 .plate-panel .add-plate {
