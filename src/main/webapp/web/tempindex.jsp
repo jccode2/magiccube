@@ -60,6 +60,10 @@ body {
 	color: rgba(0, 0, 0, 0.5);
 }
 
+h5 {
+	color: white;
+}
+
 h3 {
 	color: white;
 }
@@ -235,6 +239,14 @@ p {
 		>
 	</div>
 	<div id="menudiv" class="menudiv">
+		<h5>上午10：30，下午4：30前订餐，送例汤一份</h3>
+		<h5>订餐5份及以上，每份优惠1元</h3>
+		<h5>若感觉米饭不够，可在点餐时注明，可免费加饭一份</h3>
+		<h5>菜单中的素菜有所更新，对应内容如下：</h5>
+		<h5>清炒莴笋丝 -> 清炒笋片</h5>
+		<h5>清炒藕片  -> 清炒土豆丝</h5>
+		<h5>蒸水蛋    -> 剁椒蒸芋头</h5>
+		<h5>手撕包菜  -> 醋溜大白菜</h5>
 		<img src="${webRoot}/web/img/order.jpg" class="img-polaroid">
 <!-- 		<table id="menutable" class="table table-bordered"> -->
 <!-- 			<thead> -->
