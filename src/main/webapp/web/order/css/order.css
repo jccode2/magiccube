@@ -104,6 +104,10 @@ body {
 	background: url("./images/tab-classic.png");
 }
 
+.food-list.package{
+	display: none;
+}
+
 .food-list .class-list {
 	margin: 3px 0;
 }
@@ -156,6 +160,55 @@ body {
 	margin-top: 4px;
 	color: white;
 }
+
+
+/***套餐区*/
+.food-list.package .food-item {
+	display: inline-block;
+	width: 109px;
+	height: 152px;
+	margin: 8px 0 0 8px;
+	padding: 10px 0;
+	text-align: center;
+	background: url("./images/package-item-bg.png");
+	cursor: pointer;
+}
+
+
+.food-list.package .food-item:HOVER {
+	background: url("./images/package-item-bg-hover.png");
+}
+
+.food-list.package .food-item:ACTIVE {
+	background: url("./images/package-item-bg-active.png");
+}
+
+.food-list.package .class-food {
+	padding-bottom: 6px;
+}
+
+.food-list.package .food-pic {
+	height: 85px;
+}
+
+
+.food-list.package .package-food-list {
+	height: 76px; 
+	display:table;
+}
+
+.food-list.package .package-content {
+	vertical-align:middle; 
+	display:table-cell; 
+	width:110px;
+}
+
+.food-list.package .package-food-list p{
+	margin: 0;
+	height: 18px;
+}
+
+
 
 /***我的餐盘 **/
 .row-fluid .plate-panel {

@@ -37,12 +37,14 @@ $(document).ready(function() {
 	}
 	
 	//切换tab
-	$('.food-panel ul li').click(function(e){
+	$('.food-panel ul li').hover(function(e){
 		if($(this).hasClass('selected')){
 			return;
 		}
 		
 		$(this).addClass('selected').siblings().removeClass('selected');
+		
+		$('.food-list').toggle();
 		
 	});
 	

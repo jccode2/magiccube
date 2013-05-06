@@ -30,7 +30,7 @@
 				<ul class="food-tab">
 					<li class="self selected"></li><!--  --><li class="classic"></li>
 				</ul>
-				<div class="food-list">
+				<div class="food-list free">
 					<c:forEach items="${groupFoods}" var="group">
 						<div class="class-list">
 							<div class="class-icon">
@@ -58,14 +58,20 @@
 							<div class="class-icon">
 								<img src="${webRoot}/${group.image}">
 							</div>
-							<div class="class-food">
+							<div class="class-food" <c:if test="${group.packageList.size()>4}" >style="min-height:368px;"</c:if> >
 								<c:forEach items="${group.packageList}" var="pkg">
-									<div class="food-item" title="${pkg.foodName }" data-pkg = "${pkg}"
+									<div class="food-item" title="${pkg.foodName }"
 										data-group="${group.id}" data-foodname="${pkg.foodName }"
 										data-foodid="${pkg.id }"
 										data-price="${pkg.currentPrice }" >
 										<img src="${webRoot}/${pkg.image }" class="food-pic">
-										<p class="food-name">${pkg.foodName }
+										<div class="package-food-list">
+											<div class="package-content">
+												<c:forEach items="${pkg.items }" var="item">
+													<p class="food-name">${item.foodName }</p>
+												</c:forEach>
+											</div>
+										</div>
 									</div>
 								</c:forEach>
 							</div>
