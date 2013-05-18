@@ -93,7 +93,7 @@ body {
 .food-tab li.classic {
 	background: url("./images/tab-classic-gray.png");
 	width: 358px;
-	margin-left: -55px;
+	margin-left: -59px;
 }
 
 .food-tab li.classic:hover,.food-tab li.classic.selected:HOVER {
@@ -104,7 +104,7 @@ body {
 	background: url("./images/tab-classic.png");
 }
 
-.food-list.package{
+.food-list.package {
 	display: none;
 }
 
@@ -140,14 +140,13 @@ body {
 	cursor: pointer;
 }
 
-.class-list .food-item:HOVER{
+.class-list .food-item:HOVER {
 	background: url("./images/food-item-bg-hover.png");
 }
 
-.class-list .food-item:ACTIVE{
+.class-list .food-item:ACTIVE {
 	background: url("./images/food-item-bg-active.png");
 }
-
 
 .class-list .food-pic {
 	width: 85px;
@@ -161,7 +160,6 @@ body {
 	color: white;
 }
 
-
 /***套餐区*/
 .food-list.package .food-item {
 	display: inline-block;
@@ -173,7 +171,6 @@ body {
 	background: url("./images/package-item-bg.png");
 	cursor: pointer;
 }
-
 
 .food-list.package .food-item:HOVER {
 	background: url("./images/package-item-bg-hover.png");
@@ -191,24 +188,21 @@ body {
 	height: 85px;
 }
 
-
 .food-list.package .package-food-list {
-	height: 76px; 
-	display:table;
+	height: 76px;
+	display: table;
 }
 
 .food-list.package .package-content {
-	vertical-align:middle; 
-	display:table-cell; 
-	width:110px;
+	vertical-align: middle;
+	display: table-cell;
+	width: 110px;
 }
 
-.food-list.package .package-food-list p{
+.food-list.package .package-food-list p {
 	margin: 0;
 	height: 18px;
 }
-
-
 
 /***我的餐盘 **/
 .row-fluid .plate-panel {
@@ -251,12 +245,12 @@ body {
 	display: none;
 }
 
-.plate-list .plate-item.first{
+.plate-list .plate-item.first {
 	dislay: none;
 	background: none;
 }
 
-.plate-list .plate-item.first .plate-item-title{
+.plate-list .plate-item.first .plate-item-title {
 	display: none;
 }
 
@@ -373,4 +367,148 @@ body {
 
 .plate-panel .submit-order:ACTIVE {
 	background: url("./images/submit-order-active.png");
+}
+
+/**我的订单**/
+.order {
+	width: 956px;
+	left: 35%;
+	background: none;
+}
+
+.order .order-title {
+	background: url("./images/order/order-title-bg.png");
+	height: 40px;
+}
+
+.order .order-plate-list {
+	background-color: white;
+}
+
+.order .order-plate-item {
+	width: 300px;
+	background-color: #479F0B;
+	display: inline-block;
+	*display: inline;
+	*zoom: 1;
+	margin-bottom: 10px;
+	vertical-align: top;
+}
+
+.order .order-plate-item.centerone {
+	margin: 0 13px;
+}
+
+.order .order-plate-title {
+	margin: 0;
+	text-align: center;
+	padding: 10px 0;
+	color: #E9F2E1;
+	font-size: 20px;
+}
+
+.order .order-plate-food {
+	margin: 0 2px;
+}
+
+.order .order-food-item {
+	list-style-type: none;
+	color: #595959;
+	font-size: 24px;
+	font-weight: bold;
+	background-color: white;
+	text-align: center;
+	padding: 5px;
+	margin-bottom: 3px;
+}
+
+.order .order-plate-price {
+	margin: 0;
+	padding-bottom: 2px;
+}
+
+.order .order-plate-price em {
+	font-size: 28px;
+	font-weight: bold;
+	color: white;
+	margin-left: 205px;
+}
+
+.order .order-tip {
+	margin-top: 10px;
+	height: 30px;
+	line-height: 30px;
+	padding: 10px 0;
+	background-color: #479F0B;
+	color: white;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.order .order-price-total {
+	margin-left: 10px;
+}
+
+.order .order-discount {
+	margin-left: 200px;
+	visibility: hidden;
+}
+
+.order .order-reality {
+	margin-left: 310px;
+}
+
+.order .order-reality-price {
+	font-size: 30px;
+}
+
+.order .order-info {
+	width: 100%;
+	margin-top: 15px;
+}
+
+.order .order-info .info-title {
+	width: 10%;
+	text-align: right;
+}
+
+.order .order-info .info-content {
+	padding: 0 0 8px 15px;
+}
+
+.order .lunch-time, .order .dinner-time, .order .thirty-time, .order .hour-time {
+	display: inline-block;
+	vertical-align: middle;
+	height: 30px;
+	margin-right: 10px;
+}
+
+.order .lunch-time {
+	width: 94px;
+	background: url("./images/order/lunch-time.png");
+}
+
+.order .dinner-time {
+	width: 94px;
+	background: url("./images/order/dinner-time.png");
+}
+
+
+.order .thirty-time {
+	width: 110px;
+	background: url("./images/order/thirty-time.png");
+}
+
+.order .hour-time {
+	width: 110px;
+	background: url("./images/order/hour-time.png");
+}
+.order .info-content input {
+	margin: 0;
+	width: 802px;
+	border: 1px solid #595959;
+} 
+
+.order .order-button {
+	text-align: center;
 }

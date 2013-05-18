@@ -59,7 +59,7 @@ $(document).ready(function() {
 			$food = $curPlate.find('.plate-food-item').filter('[data-foodid="' + foodId + '"]');
 		
 		if($food.length===0){
-			var html = '<li class="plate-food-item" data-foodid="' + foodId + '" data-price="' + price + '"><a class="minus-icon"></a>' + foodName + '<em class="food-count">×1</em><a class="add-icon"></a></li>'
+			var html = '<li class="plate-food-item" data-foodname="' + foodName + '" data-foodid="' + foodId + '" data-price="' + price + '"><a class="minus-icon"></a>' + foodName + '<em class="food-count">×1</em><a class="add-icon"></a></li>'
 			console.log($('.plate-list .curr').find('.plate-food-list'));
 			$('.plate-list .curr').show().find('.plate-food-list').append(html);
 			updatePlatePrice();
@@ -110,7 +110,82 @@ $(document).ready(function() {
 		$('.plate-list').append(html);
 		$('.plate-item.first').removeClass('first');
 
-	})
+	});
+	
+	//提交订单
+	$('.submit-order').click(function(e){
+		
+		var orderData = getPlateList();
+		console.log(orderData);
+		var orderHtml = getOrderHtml(orderData);
+		
+		$('.plate-list-detail').html(orderHtml);
+		
+		$('.order').modal('show');
+		
+	});
+	
+	//获取所有餐盘数据
+	function getPlateList() {
+		
+		var data = [];
+		
+		$('.plate-list .plate-item').each(function(){
+			var plateItem = {};
+			plateItem.price = getNumber($(this).find('.plate-price').text());
+			plateItem.foodList = [];
+			$(this).find('.plate-food-item').each(function(){
+				var food = {}, $self = $(this);
+				food.foodId = $self.data('foodid');
+				food.name = $self.data('foodname');
+				food.price = getNumber($self.data('price'));
+				food.count =  getNumber($self.find('.food-count').text());
+				plateItem.foodList.push(food);
+			});
+			
+			data.push(plateItem);
+		
+		});
+		
+		return data;
+		
+	}
+	
+	/**
+	 * 生成订单页面html
+	 */
+	function getOrderHtml(plateList) {
+		var html = '';
+		for(var i=0; i < plateList.length; i++) {
+			html += getOrderItemHtml(plateList[i], i);
+		}
+		return html;
+	}
+	
+	/**
+	 * 生成某个餐盘的html
+	 */
+	function getOrderItemHtml(plate, i) {
+		
+		var addCls = '';
+		if((i+1)%3==2) {
+			addCls = 'centerone';
+		}
+		var html = '<div class="order-plate-item ' + addCls + '">'
+					+ '<h4 class="order-plate-title">餐盒' + (i+1) + '</h4>'
+					+ '<ul class="order-plate-food">';
+		for(var j=0; j < plate.foodList.length; j++) {
+			var food = plate.foodList[j];
+			html += '<li class="order-food-item">' + food.name + '</li>';
+		}
+		html +='</ul>';
+		html +='<h1 class="order-plate-price">';
+		html += '<em class="item-price">￥' + plate.price + '</em>';
+		html +='</h1>';
+		html += '</div>';
+		
+		return html;
+	}
 	
 	
 })

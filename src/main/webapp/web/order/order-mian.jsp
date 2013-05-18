@@ -28,7 +28,9 @@
 		<div class="row-fluid">
 			<div class="span8 food-panel">
 				<ul class="food-tab">
-					<li class="self selected"></li><!--  --><li class="classic"></li>
+					<li class="self selected"></li>
+					<!--  -->
+					<li class="classic"></li>
 				</ul>
 				<div class="food-list free">
 					<c:forEach items="${groupFoods}" var="group">
@@ -40,8 +42,7 @@
 								<c:forEach items="${group.foodList}" var="food">
 									<div class="food-item" title="${food.foodName }"
 										data-group="${group.id}" data-foodname="${food.foodName }"
-										data-foodid="${food.id }"
-										data-price="${food.currentPrice }" >
+										data-foodid="${food.id }" data-price="${food.currentPrice }">
 										<img src="${webRoot}/${food.image }" class="food-pic">
 										<p class="food-name">${food.foodName }
 									</div>
@@ -58,12 +59,12 @@
 							<div class="class-icon">
 								<img src="${webRoot}/${group.image}">
 							</div>
-							<div class="class-food" <c:if test="${group.packageList.size()>4}" >style="min-height:368px;"</c:if> >
+							<div class="class-food"
+								<c:if test="${group.packageList.size()>4}" >style="min-height:368px;"</c:if>>
 								<c:forEach items="${group.packageList}" var="pkg">
 									<div class="food-item" title="${pkg.foodName }"
 										data-group="${group.id}" data-foodname="${pkg.foodName }"
-										data-foodid="${pkg.id }"
-										data-price="${pkg.currentPrice }" >
+										data-foodid="${pkg.id }" data-price="${pkg.currentPrice }">
 										<img src="${webRoot}/${pkg.image }" class="food-pic">
 										<div class="package-food-list">
 											<div class="package-content">
@@ -85,8 +86,10 @@
 			<div class="span4 plate-panel">
 				<div class="my-plate"></div>
 				<div class="plate-list">
-					<div class="plate-item first curr" >
-						<h2 class="plate-item-title">餐盒1<em class="plate-price"></em></h2>
+					<div class="plate-item first curr">
+						<h2 class="plate-item-title">
+							餐盒1<em class="plate-price"></em>
+						</h2>
 						<ul class="plate-food-list">
 						</ul>
 					</div>
@@ -99,6 +102,49 @@
 			</div>
 		</div>
 	</div>
+
+
+	<div class="modal hide order">
+		<div class="modal-header order-title">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true">&times;</button>
+		</div>
+		<div class="modal-body order-plate-list">
+			<div class="plate-list-detail"></div>
+			<div class="order-tip">
+				<span class="order-price-total">合计45元</span><span
+					class="order-discount">首次订餐优惠3元</span><span class="order-reality">实际需付<em
+					class="order-reality-price">42</em>元
+				</span>
+			</div>
+			<table class="order-info">
+				<tr>
+					<td class="info-title">联系电话</td>
+					<td class="info-content"><input type="text"
+						value="13502840913" style="width: 200px;" /><span
+						style="margin-left: 20px; color: #469E0A">期望送达时间：</span>
+						<a class="lunch-time"></a>
+						<a class="dinner-time"></a>
+						<a class="thirty-time"></a>
+						<a class="hour-time"></a>
+					</td>
+				</tr>
+				<tr>
+					<td class="info-title">详细地址</td>
+					<td class="info-content"><input type="text" value="香丽大厦" /></td>
+				</tr>
+				<tr>
+					<td class="info-title">备注</td>
+					<td class="info-content"><input type="text" value="景发大厦" /></td>
+				</tr>
+			</table>
+		</div>
+		<div class="modal-footer order-button">
+			<a href="#" class="btn">提交订单</a> <a href="#" class="btn btn-primary">取消</a>
+		</div>
+	</div>
+
+
 
 </body>
 <%@ include file="/web/inc/foot.jsp"%>
