@@ -213,7 +213,7 @@ define(function(require, exports, module) {
 			$newNode = $firstItem.clone();
 		$firstItem.before($newNode);
 		$newNode.attr("id", "item_" + foodVO.id);
-		$("img", $newNode).attr("src", webRoot+foodVO.image);
+		$("img", $newNode).attr("src", webRoot+"/"+foodVO.image);
 		$(".header", $newNode).html(foodVO.foodName);
 		$(".detail", $newNode).html(foodVO.detail);
 		$(".btns i", $newNode).attr("value", foodVO.id);

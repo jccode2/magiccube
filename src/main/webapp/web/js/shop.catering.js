@@ -203,7 +203,7 @@ define(function(require, exports, module) {
 	 */
 	function initForm(foodVO) {
 		var noEmpty = !!foodVO;
-		$("#addfood-photo").attr("src", noEmpty ? webRoot + foodVO["image"] : "");
+		$("#addfood-photo").attr("src", noEmpty ? webRoot + "/" + foodVO["image"] : "");
 		$("#foodId").val(noEmpty ? foodVO["id"] : "");
 		$("#foodName").val(noEmpty ? foodVO["foodName"] : "");
 		$("#groupId").val(noEmpty ? foodVO["groupId"] : "");

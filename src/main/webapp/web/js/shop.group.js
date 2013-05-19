@@ -189,7 +189,7 @@ define(function(require, exports, module) {
 			$newNode = $firstItem.clone();
 		$firstItem.before($newNode);
 		$newNode.attr("id", "item_" + groupVO.id);
-		$("img", $newNode).attr("src", webRoot+groupVO.image);
+		$("img", $newNode).attr("src", webRoot+"/"+groupVO.image);
 		$(".header", $newNode).html(groupVO.groupName);
 		$(".detail", $newNode).html(groupVO.detail);
 		$(".btns i", $newNode).attr("value", groupVO.id);
