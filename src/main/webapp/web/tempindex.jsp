@@ -19,7 +19,7 @@ body {
 	padding-top: 60px;
 	padding-bottom: 40px;
 	background-image: url("${webRoot}/web/img/indexbg.jpg");
-	background-repeat: no-repeat;
+	background-repeat: inherit;
 	background-attachment: inherit;
 	background-position: center;
 }
@@ -33,7 +33,6 @@ body {
 	text-align: center;
 	padding: 30px;
 	margin-bottom: 30px;
-	display: none;
 }
 
 .shopdiv {
@@ -166,10 +165,10 @@ p {
 		$('#menutable').hide();
 	}
 	function initPage() {
-		$('#menudiv').hide();
-		$('#menutable').hide();
-		$('#menudiv').hide();
-		$('#menutable').hide();
+// 		$('#menudiv').hide();
+// 		$('#menutable').hide();
+// 		$('#menudiv').hide();
+// 		$('#menutable').hide();
 	}
 
 	function showShop() {
@@ -199,12 +198,12 @@ p {
 		});
 	});
 	
-	$(function() {
-		$("#menudiv").click(function(event) {
-			$('#menudiv').fadeOut("normal", hideMenuTable);
-			menuhidden = true;
-		});
-	});
+// 	$(function() {
+// 		$("#menudiv").click(function(event) {
+// 			$('#menudiv').fadeOut("normal", hideMenuTable);
+// 			menuhidden = true;
+// 		});
+// 	});
 
 </script>
 </head>
@@ -220,7 +219,6 @@ p {
 					<ul class="nav">
 						<li class="active"><a href="">首页</a></li>
 						<li><a href="#" onclick="showShop();">关于我们</a></li>
-						<li><a href="#" onclick="showMenu();">查看今天菜单</a></li>
 					</ul>
 					<form class="navbar-form pull-right">
 						<input class="span2" type="text" placeholder="用户名"/> <input class="span2" type="password" placeholder="密码"/>
@@ -239,14 +237,8 @@ p {
 		>
 	</div>
 	<div id="menudiv" class="menudiv">
-		<h5>上午10：30，下午4：30前订餐，送例汤一份</h3>
-		<h5>订餐5份及以上，每份优惠1元</h3>
-		<h5>若感觉米饭不够，可在点餐时注明，可免费加饭一份</h3>
-		<h5>菜单中的素菜有所更新，对应内容如下：</h5>
-		<h5>清炒莴笋丝 -> 清炒笋片</h5>
-		<h5>清炒藕片  -> 清炒土豆丝</h5>
-		<h5>蒸水蛋    -> 剁椒蒸芋头</h5>
-		<h5>手撕包菜  -> 醋溜大白菜</h5>
+		<h3>订餐QQ：2589430737</h3>
+		<h5>订餐示例：A2 B1 C3 C3 A1 黄某某 18600000000 香丽一楼</h5>
 		<img src="${webRoot}/web/img/order.jpg" class="img-polaroid">
 <!-- 		<table id="menutable" class="table table-bordered"> -->
 <!-- 			<thead> -->
@@ -298,8 +290,8 @@ p {
 	<div class="container">
 		<!-- Main hero unit for a primary marketing message or call to action -->
 		<div class="hero-unit translucent">
-			<h3>网站正在建设中，感谢您的支持！</h3>
-			<p>现在，我们正在为大家打造一个全新的用餐环境，请暂时使用QQ订餐，近期我们就会推出网络订餐系统，并带来神秘惊喜！敬请期待。</p>
+			<h3>目前网页为临时方案，正式网站正在建设中，感谢您的支持！</h3>
+			<p>现在，我们正在为大家打造一个全新的用餐系统，请暂时使用QQ订餐，近期我们就会推出网络订餐系统，并带来神秘惊喜！敬请期待。</p>
 			<p>
 				<a href="#" onclick="sayGood();" class="btn btn-primary btn-large">赞一下!</a>
 			</p>
