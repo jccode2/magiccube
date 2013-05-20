@@ -155,6 +155,4 @@ public class OrderVO extends BaseVO {
 	public void setExceptTimeType(int exceptTimeType) {
 		this.exceptTimeType = exceptTimeType;
 	}
-
-	
 }

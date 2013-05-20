@@ -112,15 +112,15 @@
 		<div class="modal-body order-plate-list">
 			<div class="plate-list-detail"></div>
 			<div class="order-tip">
-				<span class="order-price-total">合计45元</span><span
+				<span class="order-price-total" >合计<em id="order-price-total">45</em>元</span><span
 					class="order-discount">首次订餐优惠3元</span><span class="order-reality">实际需付<em
-					class="order-reality-price">42</em>元
+					id="order-reality-price">42</em>元
 				</span>
 			</div>
 			<table class="order-info">
 				<tr>
 					<td class="info-title">联系电话</td>
-					<td class="info-content"><input type="text"
+					<td class="info-content"><input type="text" name="phone" id="phone"
 						value="13502840913" style="width: 200px;" /><span
 						style="margin-left: 20px; color: #469E0A">期望送达时间：</span>
 						<a class="lunch-time"></a>
@@ -131,16 +131,16 @@
 				</tr>
 				<tr>
 					<td class="info-title">详细地址</td>
-					<td class="info-content"><input type="text" value="香丽大厦" /></td>
+					<td class="info-content"><input type="text" value="香丽大厦"  name="address" id="address" /></td>
 				</tr>
 				<tr>
 					<td class="info-title">备注</td>
-					<td class="info-content"><input type="text" value="景发大厦" /></td>
+					<td class="info-content"><input type="text" value="景发大厦" name="remark" id="remark" /></td>
 				</tr>
 			</table>
 		</div>
 		<div class="modal-footer order-button">
-			<a href="#" class="btn">提交订单</a> <a href="#" class="btn btn-primary">取消</a>
+			<a href="#" class="submit-btn"></a> <a href="#" class="cancle-btn"></a>
 		</div>
 	</div>
 
@@ -148,7 +148,9 @@
 
 </body>
 <%@ include file="/web/inc/foot.jsp"%>
-<style>
-</style>
+
+<script type="text/javascript" src="${webRoot}/dwr/engine.js"></script>
+<script type="text/javascript" src="${webRoot}/dwr/interface/OrderAction.js"></script>
 <script type="text/javascript" src="${webRoot}/web/order/js/order.js"></script>
+
 </html>

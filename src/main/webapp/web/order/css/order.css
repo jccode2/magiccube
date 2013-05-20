@@ -385,14 +385,21 @@ body {
 	background-color: white;
 }
 
-.order .order-plate-item {
-	width: 300px;
-	background-color: #479F0B;
+.order .order-plate-item, .order .order-plate-null {
+	width: 294px;
 	display: inline-block;
 	*display: inline;
 	*zoom: 1;
 	margin-bottom: 10px;
 	vertical-align: top;
+}
+
+.order .order-plate-item {
+	background-color: #479F0B;
+}
+
+.order .order-plate-null {
+	background: url("./images/order/plate-null-bg.png") no-repeat center center;
 }
 
 .order .order-plate-item.centerone {
@@ -431,7 +438,7 @@ body {
 	font-size: 28px;
 	font-weight: bold;
 	color: white;
-	margin-left: 205px;
+	margin-left: 210px;
 }
 
 .order .order-tip {
@@ -455,10 +462,10 @@ body {
 }
 
 .order .order-reality {
-	margin-left: 310px;
+	margin-left: 270px;
 }
 
-.order .order-reality-price {
+#order-reality-price {
 	font-size: 30px;
 }
 
@@ -512,3 +519,38 @@ body {
 .order .order-button {
 	text-align: center;
 }
+
+
+.order .submit-btn, .order .cancle-btn {
+	display: inline-block;
+	*display: inline;
+	*zoom: 1;
+	width: 88px;
+	height: 38px;
+}
+
+.order .submit-btn {
+	background: url("./images/order/submit-btn-bg.png");
+}
+
+.order .submit-btn:HOVER {
+	background: url("./images/order/submit-btn-hover.png");
+}
+
+.order .submit-btn:ACTIVE {
+	background: url("./images/order/submit-btn-active.png");
+}
+
+.order .cancle-btn {
+	background: url("./images/order/cancle-btn-bg.png");
+}
+
+.order .cancle-btn:hover{
+	background: url("./images/order/cancle-btn-hover.png");
+}
+
+.order .cancle-btn:active {
+	background: url("./images/order/cancle-btn-active.png");
+}
+
+

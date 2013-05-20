@@ -1,16 +1,6 @@
 $(document).ready(function() {
 	
-	var selectList = [];
-	
-	//添加餐盘
-	function addPlate() {
-		
-	}
-	
-	//添加食物
-	function addFood(plate, group, foodName) {
-
-	}
+	var orderData = null;
 	
 	//获取数字
 	function getNumber(String) {
@@ -112,23 +102,41 @@ $(document).ready(function() {
 
 	});
 	
-	//提交订单
+	//提交订单 打开订单页面
 	$('.submit-order').click(function(e){
 		
-		var orderData = getPlateList();
-		console.log(orderData);
-		var orderHtml = getOrderHtml(orderData);
+		orderData = getPlateList();
+		var plateList = orderData.plateList;
+		var html = '';
+		if(plateList.length==0) {
+			alert('请先选择食物!');
+			return;
+		} 
+		var orderHtml = getOrderHtml(plateList);
+		if(plateList.length==1) {
+			html += '<div class="order-plate-null"></div>' + orderHtml + '<div class="order-plate-null"></div>';
+		}else if(plateList.length==2) {
+			html += orderHtml + '<div class="order-plate-null"></div>';
+		} else {
+			html += orderHtml;
+		}
 		
-		$('.plate-list-detail').html(orderHtml);
+		$('.plate-list-detail').html(html);
+		$('#order-price-total').text(orderData.totalPrice);
+		$('#order-reality-price').text(orderData.totalPrice);
 		
 		$('.order').modal('show');
+		$('.order-plate-null').height( $('.order-plate-item').height());
 		
 	});
 	
 	//获取所有餐盘数据
 	function getPlateList() {
 		
-		var data = [];
+		var data = {
+			plateList: [],
+			totalPrice: 0
+		};
 		
 		$('.plate-list .plate-item').each(function(){
 			var plateItem = {};
@@ -138,12 +146,14 @@ $(document).ready(function() {
 				var food = {}, $self = $(this);
 				food.foodId = $self.data('foodid');
 				food.name = $self.data('foodname');
-				food.price = getNumber($self.data('price'));
-				food.count =  getNumber($self.find('.food-count').text());
+				food.price = Number($.trim($self.data('price')));
+				food.count = getNumber($self.find('.food-count').text());
+				data.totalPrice += (food.price * food.count);
 				plateItem.foodList.push(food);
 			});
-			
-			data.push(plateItem);
+			if(plateItem.foodList.length > 0) {
+				data.plateList.push(plateItem);
+			}
 		
 		});
 		
@@ -175,8 +185,11 @@ $(document).ready(function() {
 					+ '<h4 class="order-plate-title">餐盒' + (i+1) + '</h4>'
 					+ '<ul class="order-plate-food">';
 		for(var j=0; j < plate.foodList.length; j++) {
-			var food = plate.foodList[j];
-			html += '<li class="order-food-item">' + food.name + '</li>';
+			var food = plate.foodList[j], strCount = '';
+			if(food.count>1) {
+				strCount = '×' + food.count;
+			}
+			html += '<li class="order-food-item">' + food.name + strCount + '</li>';
 		}
 		html +='</ul>';
 		html +='<h1 class="order-plate-price">';
@@ -185,7 +198,39 @@ $(document).ready(function() {
 		html += '</div>';
 		
 		return html;
-	}
+	};
+	
+	
+	//提交订单到后台
+	$('.submit-btn').click(function(){
+		var orderVO = {
+			shopId: 1,
+			userRemark: $('#remark').val(),
+			address: $('#address').val(),
+			phone: $('#phone').val(),
+			foodList: []
+		};
+		
+		for(var i=0; i < orderData.plateList.length; i++){
+			var plate = orderData.plateList[i];
+			for(var j=0; j < plate.foodList.length; j++) {
+				var food = plate.foodList[j];
+				var orderItem = {
+					itemId: food.foodId,
+					amount: food.count,
+					plate: i
+				}
+				orderVO.foodList.push(orderItem);
+			}
+		}
+		
+		OrderAction.submitOrder(orderVO, function(){
+			alert(234);
+		});
+		
+		
+	});
+	
 	
 	
 })
