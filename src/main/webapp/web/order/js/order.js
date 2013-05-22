@@ -1,10 +1,24 @@
 $(document).ready(function() {
 	
+	
+	
 	var orderData = null;
 	
 	//获取数字
 	function getNumber(String) {
 		return Number(String.replace(/[^\d]/g,''));
+	}
+	
+	//是否为手机号码
+	function isMobile(input) {
+		return (/^(?:13\d|15[89])-?\d{5}(\d{3}|\*{3})$/.test(input));
+	}
+	
+	//是否为电话号码
+	function isTel(input) {
+		//"兼容格式: 国家代码(2到3位)-区号(2到3位)-电话号码(7到8位)-分机号(3位)"
+	    //return (/^(([0\+]\d{2,3}-)?(0\d{2,3})-)?(\d{7,8})(-(\d{3,}))?$/.test(this.Trim()));
+	    return (/^(([0\+]\d{2,3}-)?(0\d{2,3})-)(\d{7,8})(-(\d{3,}))?$/.test(input));
 	}
 	
 	//更新餐盘价格
@@ -200,16 +214,45 @@ $(document).ready(function() {
 		return html;
 	};
 	
+	//选择送餐时间
+	$('.excepttime-list a').click(function(){
+		$(this).addClass('curr');
+		$(this).siblings().removeClass('curr');
+	});
+	
 	
 	//提交订单到后台
 	$('.submit-btn').click(function(){
+		
+		
+		
 		var orderVO = {
 			shopId: 1,
-			userRemark: $('#remark').val(),
-			address: $('#address').val(),
-			phone: $('#phone').val(),
+			userRemark: $.trim($('#remark').val()),
+			address: $.trim($('#address').val()),
+			phone: $.trim($('#phone').val()),
+			exceptTimeType: $('.excepttime-list .curr').data('type'),
 			foodList: []
 		};
+		
+		if(orderVO.phone=='') {
+			$('#phone').tooltip({
+				title: '请输入手机号码'
+			}).tooltip('show');
+			return;
+		}else if(!isMobile(orderVO.phone) && !isTel(orderVO.phone)) {
+			$('#phone').tooltip('destroy').tooltip({
+				title: '请输入正确的手机号码或电话号码'
+			}).tooltip('show');
+			return;
+		}
+		
+		if(orderVO.address=='') {
+			$('#address').attr('title','请输入你的地址').tooltip('show');
+			return;
+		}
+		
+		
 		
 		for(var i=0; i < orderData.plateList.length; i++){
 			var plate = orderData.plateList[i];
@@ -218,15 +261,19 @@ $(document).ready(function() {
 				var orderItem = {
 					itemId: food.foodId,
 					amount: food.count,
-					plate: i
+					plate: i+1
 				}
 				orderVO.foodList.push(orderItem);
 			}
 		}
 		
-		OrderAction.submitOrder(orderVO, function(){
-			alert(234);
+		OrderAction.submitOrder(orderVO, function(result){
+			$('.order').modal('hide');
+			
+			alert(result.message);
 		});
+		
+		//$(".alert").alert();
 		
 		
 	});

@@ -4,6 +4,7 @@
  *****************************************************************************/
 package com.magiccube.order.action;
 
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -37,9 +38,11 @@ public class OrderController {
 	@RequestMapping("")
 	public String main(Model model) {
 
+		// 读取地址列表
 		List<RegionVO> addressList = addressService.queryChildRegion(-1);
 		model.addAttribute("addressList", addressList);
 
+		// 获取食物列表，包括配餐和套餐
 		List<GroupFoods> groupFoods = foodService
 				.queryAvailableGroupAndFoods(new FoodQueryCondition(1, 1));
 		List<GroupPackages> groupPackages = foodService
@@ -47,6 +50,12 @@ public class OrderController {
 
 		model.addAttribute("groupFoods", groupFoods);
 		model.addAttribute("groupPackages", groupPackages);
+
+		// 获取当前时间，判断是否为午餐时间
+		GregorianCalendar curDate = new GregorianCalendar();
+		int hour = curDate.get(GregorianCalendar.HOUR_OF_DAY);
+		Boolean isLunchTime = hour >= 14 ? false : true;
+		model.addAttribute("isLunchTime", isLunchTime);
 
 		return "order/order-mian";
 	}

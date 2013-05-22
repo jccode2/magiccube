@@ -120,22 +120,24 @@
 			<table class="order-info">
 				<tr>
 					<td class="info-title">联系电话</td>
-					<td class="info-content"><input type="text" name="phone" id="phone"
-						value="13502840913" style="width: 200px;" /><span
+					<td class="info-content"><input type="text" name="phone" id="phone" data-toggle="tooltip" 
+						style="width: 200px;" /><span
 						style="margin-left: 20px; color: #469E0A">期望送达时间：</span>
-						<a class="lunch-time"></a>
-						<a class="dinner-time"></a>
-						<a class="thirty-time"></a>
-						<a class="hour-time"></a>
+						<span class="excepttime-list">
+							<a class="lunch-time <c:if test='${isLunchTime}' >curr</c:if>" data-type="0"></a>
+							<a class="dinner-time <c:if test='${!isLunchTime}' >curr</c:if>" data-type="1"></a>
+							<a class="thirty-time" data-type="2"></a>
+							<a class="hour-time" data-type="3"></a>
+						</span>
 					</td>
 				</tr>
 				<tr>
 					<td class="info-title">详细地址</td>
-					<td class="info-content"><input type="text" value="香丽大厦"  name="address" id="address" /></td>
+					<td class="info-content"><input type="text"  name="address" id="address" data-toggle="tooltip" /></td>
 				</tr>
 				<tr>
 					<td class="info-title">备注</td>
-					<td class="info-content"><input type="text" value="景发大厦" name="remark" id="remark" /></td>
+					<td class="info-content"><input type="text" name="remark" id="remark" /></td>
 				</tr>
 			</table>
 		</div>
@@ -145,10 +147,8 @@
 	</div>
 
 
-
 </body>
 <%@ include file="/web/inc/foot.jsp"%>
-
 <script type="text/javascript" src="${webRoot}/dwr/engine.js"></script>
 <script type="text/javascript" src="${webRoot}/dwr/interface/OrderAction.js"></script>
 <script type="text/javascript" src="${webRoot}/web/order/js/order.js"></script>

@@ -488,28 +488,63 @@ body {
 	vertical-align: middle;
 	height: 30px;
 	margin-right: 10px;
+	cursor: pointer;
 }
 
 .order .lunch-time {
 	width: 94px;
+	background: url("./images/order/lunch-time-gray.png");
+}
+
+.order .lunch-time.curr {
 	background: url("./images/order/lunch-time.png");
 }
 
+.order .lunch-time:hover {
+	background: url("./images/order/lunch-time-hover.png");
+}
+
+
 .order .dinner-time {
 	width: 94px;
+	background: url("./images/order/dinner-time-gray.png");
+}
+
+.order .dinner-time.curr {
 	background: url("./images/order/dinner-time.png");
+}
+
+.order .dinner-time:hover {
+	background: url("./images/order/dinner-time-hover.png");
 }
 
 
 .order .thirty-time {
 	width: 110px;
+	background: url("./images/order/thirty-time-gray.png");
+}
+
+.order .thirty-time.curr {
 	background: url("./images/order/thirty-time.png");
+}
+
+.order .thirty-time:hover {
+	background: url("./images/order/thirty-time-hover.png");
 }
 
 .order .hour-time {
 	width: 110px;
+	background: url("./images/order/hour-time-gray.png");
+}
+
+.order .hour-time.curr {
 	background: url("./images/order/hour-time.png");
 }
+
+.order .hour-time:hover {
+	background: url("./images/order/hour-time-hover.png");
+}
+
 .order .info-content input {
 	margin: 0;
 	width: 802px;
