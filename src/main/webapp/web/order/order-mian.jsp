@@ -18,7 +18,7 @@
 			<div class=" container address-tip">请选择你的地址：</div>
 			<div class="container address-list">
 				<c:forEach items="${addressList}" var="address">
-					<div class="address-item">
+					<div class="address-item" data-addressid="${address.id}">
 						<a><img src="/1000funs/${address.image }" class="img-circle"></a>
 						<h5>${address.regionName }</h5>
 					</div>
@@ -105,10 +105,7 @@
 
 
 	<div class="modal hide order">
-		<div class="modal-header order-title">
-			<button type="button" class="close" data-dismiss="modal"
-				aria-hidden="true">&times;</button>
-		</div>
+		<div class="modal-header order-title"></div>
 		<div class="modal-body order-plate-list">
 			<div class="plate-list-detail"></div>
 			<div class="order-tip">
@@ -149,6 +146,7 @@
 
 </body>
 <%@ include file="/web/inc/foot.jsp"%>
+<script type="text/javascript" src="${webRoot}/web/js/jquery.cookie.js"></script>
 <script type="text/javascript" src="${webRoot}/dwr/engine.js"></script>
 <script type="text/javascript" src="${webRoot}/dwr/interface/OrderAction.js"></script>
 <script type="text/javascript" src="${webRoot}/web/order/js/order.js"></script>

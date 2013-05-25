@@ -40,6 +40,20 @@ $(document).ready(function() {
 		$totalPrice.text('￥' + newTotalPrice);
 	}
 	
+	//点击地址
+	$('.img-circle').click(function(){
+		var $item = $(this).closest('.address-item');
+		$item.addClass('curr').siblings().removeClass('curr');
+		var adress = $item.find('h5').text();
+		$('.adress-info').text('地址信息：' + adress);
+		$('.order-address').fadeOut('slow');
+	});
+	
+	//点击地址信息：
+	$('.adress-info').click(function(){
+		$('.order-address').fadeIn('slow');
+	});
+	
 	//切换tab
 	$('.food-panel ul li').hover(function(e){
 		if($(this).hasClass('selected')){
@@ -139,6 +153,10 @@ $(document).ready(function() {
 		$('#order-price-total').text(orderData.totalPrice);
 		$('#order-reality-price').text(orderData.totalPrice);
 		
+		//从cookie获取电话和地址信息
+		$('#address').val($.cookie('address'));
+		$('#phone').val($.cookie('phone'));
+		
 		$('.order').modal('show');
 		$('.order-plate-null').height( $('.order-plate-item').height());
 		
@@ -224,8 +242,6 @@ $(document).ready(function() {
 	//提交订单到后台
 	$('.submit-btn').click(function(){
 		
-		
-		
 		var orderVO = {
 			shopId: 1,
 			userRemark: $.trim($('#remark').val()),
@@ -267,9 +283,12 @@ $(document).ready(function() {
 			}
 		}
 		
+		//保存地址和电话信息到cookie
+		$.cookie('address', orderVO.address, {path: '/'});
+		$.cookie('phone', orderVO.phone, {path: '/'});
+		
 		OrderAction.submitOrder(orderVO, function(result){
 			$('.order').modal('hide');
-			
 			alert(result.message);
 		});
 		
@@ -277,6 +296,13 @@ $(document).ready(function() {
 		
 		
 	});
+	
+	
+	//取消按钮
+	$('.cancle-btn').click(function(){
+		$('.order').modal('hide');
+	});
+	
 	
 	
 	
