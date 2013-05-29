@@ -8,7 +8,6 @@ package com.magiccube.core.base.dao;
 import javax.annotation.Resource;
 
 import org.apache.ibatis.session.SqlSession;
-import org.mybatis.spring.SqlSessionTemplate;
 
 /**
  * DAO基类
@@ -28,7 +27,7 @@ public class BaseDAO {
     /**
      * @param sqlSessionTemplate MyBatis的SqlSessionTemplate模板对象
      */
-    public void setSqlSessionTemplate(SqlSessionTemplate sqlSessionTemplate) {
+    public void setSqlSessionTemplate(SqlSession sqlSessionTemplate) {
         this.sqlSessionTemplate = sqlSessionTemplate;
     }
     

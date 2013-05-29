@@ -3,9 +3,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <%@ include file="/web/inc/head.jsp"%>
-
-<script type="text/javascript" src="${webRoot}/dwr/interface/LoginAction.js"></script>
+<script type="text/javascript" src="${webRoot}/web/js/jquery-1.8.0.js"></script>
+<script type="text/javascript" src="${webRoot}/web/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${webRoot}/web/bubbletip/js/jQuery.bubbletip-1.0.6.js"></script>
+<script type="text/javascript" src="${webRoot}/dwr/engine.js"></script>
+<script type="text/javascript" src="${webRoot}/dwr/interface/LoginAction.js"></script>
+<link rel="stylesheet" href="${webRoot}/web/bootstrap/css/bootstrap.min.css"/>
 <link href="${webRoot}/web/bubbletip/js/bubbletip/bubbletip.css" rel="stylesheet" type="text/css" />
 <!--[if IE]>
 	<link href="${webRoot}/web/bubbletip/js/bubbletip/bubbletip-IE.css" rel="stylesheet" type="text/css" />
@@ -197,7 +200,7 @@
 				}
 			});
 		});
-		
+
 		$('#logoutbutton').bind('click', function() {
 			$('#usercenterlink').hide();
 			$('#usercenterbutton').removeBubbletip();
@@ -214,7 +217,7 @@
 				offsetTop : 0
 			});
 		});
-		
+
 	});
 </script>
 </head>
@@ -230,15 +233,13 @@
 				</ul>
 
 				<div id="loginboard" style="display: none;">
-					<form class="navbar-form pull-left">
-						<input id="loginUsername" type="text" class="span3 " placeholder="请输入用户名" /><br /> <input id="loginPassword" type="password" class="span3" placeholder="请输入密码" /><br />
-						<hr class="regist-hr" />
-						<label class="checkbox"><input id="remember10day" class="checkbox" type="checkbox" checked /> 十天内自动登录 </label>
-						<hr class="regist-hr" />
-						<div class="regist-button">
-							<button id="loginbutton" class="btn btn-primary btn-block">登录</button>
-						</div>
-					</form>
+					<input id="loginUsername" type="text" class="span3 " placeholder="请输入用户名" /><br /> <input id="loginPassword" type="password" class="span3" placeholder="请输入密码" /><br />
+					<hr class="regist-hr" />
+					<label class="checkbox"><input id="remember10day" class="checkbox" type="checkbox" checked /> 十天内自动登录 </label>
+					<hr class="regist-hr" />
+					<div class="regist-button">
+						<button id="loginbutton" class="btn btn-primary btn-block">登录</button>
+					</div>
 				</div>
 
 				<div id="registboard" style="display: none;">
@@ -247,16 +248,14 @@
 							<p class="text-success">免费注册，享受个性化订餐服务</p>
 						</div>
 						<hr class="regist-hr" />
-						<form class="navbar-form pull-left">
-							<input id="registerUsername" type="text" class="span3 " placeholder="请输入用户名" /><br /> <input id="registerPassword" type="password" class="span3" placeholder="请输入密码" /><br /> <input
-								id="registerConfirm" type="password" class="span3" placeholder="请确认密码" /><br />
-							<hr class="regist-hr" />
-							<label class="checkbox"><input id="isAgree" class="checkbox" type="checkbox" /> 我同意<a id="policy" href="#">使用条款和协议</a> </label>
-							<hr class="regist-hr" />
-							<div class="regist-button">
-								<button id="submitregist" class="btn btn-success btn-block">完成注册</button>
-							</div>
-						</form>
+						<input id="registerUsername" type="text" class="span3 " placeholder="请输入用户名" /><br /> <input id="registerPassword" type="password" class="span3" placeholder="请输入密码" /><br /> <input
+							id="registerConfirm" type="password" class="span3" placeholder="请确认密码" /><br />
+						<hr class="regist-hr" />
+						<label class="checkbox"><input id="isAgree" class="checkbox" type="checkbox" /> 我同意<a id="policy" href="#">使用条款和协议</a> </label>
+						<hr class="regist-hr" />
+						<div class="regist-button">
+							<button id="submitregist" class="btn btn-success btn-block">完成注册</button>
+						</div>
 					</div>
 					<div id="regist2" style="display: none;">
 						<div class="regist-tips">
@@ -274,15 +273,21 @@
 						</div>
 						<hr class="usercenter-hr" />
 						<div class="usercenter-label">
-							<p class="text-success"><a href="#">查看最近的订单</a></p>
+							<p class="text-success">
+								<a href="#">查看最近的订单</a>
+							</p>
 						</div>
 						<hr class="usercenter-hr" />
 						<div class="usercenter-label">
-							<p class="text-success"><a href="#">查询订单历史记录</a></p>
+							<p class="text-success">
+								<a href="#">查询订单历史记录</a>
+							</p>
 						</div>
 						<hr class="usercenter-hr" />
 						<div class="usercenter-label">
-							<p class="text-success"><a href="#">个人信息维护</a></p>
+							<p class="text-success">
+								<a href="#">个人信息维护</a>
+							</p>
 						</div>
 						<hr class="usercenter-hr" />
 						<div class="regist-button">
