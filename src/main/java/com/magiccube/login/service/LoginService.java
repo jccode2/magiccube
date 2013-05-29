@@ -38,10 +38,10 @@ public class LoginService {
 		ResultVO resultVO = new ResultVO();
 		UserVO userVO = userDAO.queryUserByCodeOrEmailOrPhone(account);
 		if (userVO == null) {
-			resultVO = new ResultVO("帐号不存在");
+			resultVO = new ResultVO("账号或密码错误");
 		}else{
 			if (!password.equals(userVO.getPassword())) {
-				resultVO = new ResultVO("密码不匹配");
+				resultVO = new ResultVO("账号或密码错误");
 			}
 		}
 		EnvironmentInfoVO objEnvironmentInfoVO = new EnvironmentInfoVO();
