@@ -18,7 +18,8 @@
 	
 }(function(require, exports, module) {
 	
-	var webRoot = "/1000funs";
+//	var webRoot = "/1000funs";
+	var webRoot = "";
 	
 	/**
 	 * 获取url参数
