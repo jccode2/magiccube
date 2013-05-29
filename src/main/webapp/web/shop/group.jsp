@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ include file="/web/inc/header.jsp" %>
+<%@ include file="/web/inc/head.jsp" %>
 <!DOCTYPE html>
 <html>
 	<head>

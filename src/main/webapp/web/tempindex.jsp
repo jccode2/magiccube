@@ -1,6 +1,6 @@
 <%@page import="com.magiccube.tempindex.action.TempIndexController"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/web/inc/header.jsp"%>
+<%@ include file="/web/inc/head.jsp"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>

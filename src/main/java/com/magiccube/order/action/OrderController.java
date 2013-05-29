@@ -57,6 +57,6 @@ public class OrderController {
 		Boolean isLunchTime = hour >= 14 ? false : true;
 		model.addAttribute("isLunchTime", isLunchTime);
 
-		return "order/order-mian";
+		return "order/order-main";
 	}
 }
