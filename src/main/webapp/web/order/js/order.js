@@ -9,7 +9,11 @@ $(document).ready(function() {
 	
 	//是否为手机号码
 	function isMobile(input) {
-		return (/^(?:13\d|15[89])-?\d{5}(\d{3}|\*{3})$/.test(input));
+		var test1 = /^(13[0-9]|15[0|3|6|7|8|9]|18[6|8|9])\d{8}$/.test(input); //联通
+		var test2 = /^1(3[4-9]|5[012789]|8[78])\d{8}$/.test(input); //移动
+		
+		return (test1||test) ;
+	
 	}
 	
 	//是否为电话号码
@@ -76,7 +80,7 @@ $(document).ready(function() {
 		
 		if($food.length===0){
 			var html = '<li class="plate-food-item" data-foodname="' + foodName + '" data-foodid="' + foodId + '" data-price="' + price + '"><a class="minus-icon"></a>' + foodName + '<em class="food-count">×1</em><a class="add-icon"></a></li>'
-			console.log($('.plate-list .curr').find('.plate-food-list'));
+			//console.log($('.plate-list .curr').find('.plate-food-list'));
 			$('.plate-list .curr').show().find('.plate-food-list').append(html);
 			updatePlatePrice();
 		} else {
@@ -121,7 +125,7 @@ $(document).ready(function() {
 		var html = '<div class="plate-item curr"><h2 class="plate-item-title">餐盒' + count + '<em class="plate-price"></em></h2><ul class="plate-food-list"></ul></div>'
 		$('.plate-list').find('.plate-item').removeClass('curr');
 		
-		console.log(html);
+		//console.log(html);
 		
 		$('.plate-list').append(html);
 		$('.plate-item.first').removeClass('first');
@@ -265,8 +269,6 @@ $(document).ready(function() {
 			$('#address').attr('title','请输入你的地址').tooltip('show');
 			return;
 		}
-		
-		
 		
 		for(var i=0; i < orderData.plateList.length; i++){
 			var plate = orderData.plateList[i];
