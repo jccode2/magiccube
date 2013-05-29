@@ -7,9 +7,8 @@ package com.magiccube.core.base.dao;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
-
-import com.magiccube.core.base.exception.DAOException;
 
 /**
  * DAO基类
@@ -24,7 +23,7 @@ public class BaseDAO {
      * SqlSessionTemplate模板对象 sqlSessionTemplate
      */
     @Resource
-    protected SqlSessionTemplate sqlSessionTemplate;
+    protected SqlSession sqlSessionTemplate;
     
     /**
      * @param sqlSessionTemplate MyBatis的SqlSessionTemplate模板对象
@@ -33,17 +32,4 @@ public class BaseDAO {
         this.sqlSessionTemplate = sqlSessionTemplate;
     }
     
-    /**
-     * 根据参数对象新增数据
-     * 
-     * @param statementId MyBatis的statement的id
-     * @param insertObject 待新增参数对象
-     */
-    public void insert(String statementId, Object insertObject) {
-        try {
-            sqlSessionTemplate.insert(statementId, insertObject);
-        } catch (Exception e) {
-            throw new DAOException("根据参数对象新增数据失败,参数列表(statementId:" + statementId + " insertObject:" + insertObject + ")", e);
-        }
-    }
 }

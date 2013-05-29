@@ -28,6 +28,7 @@
 		<property name="configLocation" value="classpath:config/mybatis/SqlMapConfig.xml" />   
 		<property name="dataSource" ref="dataSource" />
 	</bean>  
+	
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">   
 		<constructor-arg index="0" ref="sqlSessionFactory" />  
 	</bean>
@@ -84,20 +85,6 @@
 	<bean id="ConfigService" class="com.magiccube.config.service.ConfigService">   
 		<property name="configDAO" ref="ConfigDAOImpl" />
 	</bean>
-	
-	
-	<!-- 配置实现类，注入数据源 -->  
-	<!--
-	<bean id="ITestTableDAOImpl" class="com.test.ITestTableDAOImpl2">   
-		<property name="session" ref="sqlSession" />
-	</bean>  
-	 -->
-	<!--  配置service类，注入上面的实现类 -->  
-	<!--
-	<bean id="ITestTableDAOService" class="com.test.ITestTableDAOService2">   
-		<property name="testImpl" ref="ITestTableDAOImpl" />
-	</bean>
-	 -->
 	
 	<!-- AOP和事务配置  -->
 	<import resource="aop-config.xml"/>
