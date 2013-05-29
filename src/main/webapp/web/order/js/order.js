@@ -1,7 +1,5 @@
 $(document).ready(function() {
 	
-	
-	
 	var orderData = null;
 	
 	//获取数字

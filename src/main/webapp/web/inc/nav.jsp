@@ -4,13 +4,8 @@
 <head>
 <%@ include file="/web/inc/head.jsp"%>
 
-<script type="text/javascript" src="${webRoot}/web/js/jquery-1.8.0.js"></script>
-<script type="text/javascript" src="${webRoot}/web/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="${webRoot}/web/client/js/client.js"></script>
-<script type="text/javascript" src="${webRoot}/dwr/engine.js"></script>
 <script type="text/javascript" src="${webRoot}/dwr/interface/LoginAction.js"></script>
 <script type="text/javascript" src="${webRoot}/web/bubbletip/js/jQuery.bubbletip-1.0.6.js"></script>
-<link rel="stylesheet" href="${webRoot}/web/bootstrap/css/bootstrap.min.css" />
 <link href="${webRoot}/web/bubbletip/js/bubbletip/bubbletip.css" rel="stylesheet" type="text/css" />
 <!--[if IE]>
 	<link href="${webRoot}/web/bubbletip/js/bubbletip/bubbletip-IE.css" rel="stylesheet" type="text/css" />
