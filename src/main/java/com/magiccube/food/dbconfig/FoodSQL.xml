@@ -36,7 +36,7 @@
 		<set>
 			<if test="groupName != null">group_name=#{groupName},</if>
 			<if test="detail != null">detail=#{detail},</if>
-			<if test="image != null">image=#{image}</if>
+			<if test="image != null">image=#{image},</if>
 			<if test="sort != null">sort=#{sort}</if>
 		</set>
 		where id = #{id};
