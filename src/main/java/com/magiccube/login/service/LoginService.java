@@ -90,4 +90,13 @@ public class LoginService {
 		this.userDAO = userDAO;
 	}
 
+	public boolean alreadyUsedName(UserVO userVO) {
+		UserVO user = userDAO.queryUserByName(userVO.getUserName());
+		if(user!=null){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 }

@@ -75,6 +75,10 @@ public class LoginAction extends ApplicationObjectSupport {
      */
     @RemoteMethod
     public ResultVO regist(UserVO userVO) {
+    	//用户名已经被注册
+    	if(alreadyUsedName(userVO)){
+    		 return new ResultVO("该用户名已经注册过");
+    	}
         try {
         	userVO.setRegisterTime(new Date());
             loginService.regist(userVO);
@@ -85,7 +89,11 @@ public class LoginAction extends ApplicationObjectSupport {
         return new ResultVO();
     }
     
-    /**
+    private boolean alreadyUsedName(UserVO userVO) {
+    	return loginService.alreadyUsedName(userVO);
+	}
+
+	/**
      * 向用户发送验证邮件
      * 
      * @param account 用户帐号、Email、手机号

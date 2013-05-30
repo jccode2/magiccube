@@ -1,40 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isErrorPage="true"%>
-<%@ include file="/web/inc/head.jsp" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/web/inc/head.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<title>500</title>
-	<link rel="stylesheet" href="${webRoot}/web/bootstrap/css/bootstrap.min.css">
-	<style>
-		body {
-			padding: 50px 0px;
-			background-color: #c0e1e8;
-		}
-		#err-img {
-			background: url("${webRoot}/web/img/error.jpg") no-repeat 0px 0px;
-			height: 400px;
-		}
-	</style>
+<meta charset="utf-8">
+<title>出错啦</title>
+<link rel="stylesheet" href="${webRoot}/web/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="${webRoot}/web/order/css/order.css" />
+
+<style type="text/css">
+.hero-unit.translucent {
+	background-color: rgba(0, 0, 0, 0.3);
+	color: white;
+	margin-top: 15%;
+	text-align: center;
+}
+</style>
+
 </head>
 <body>
-	<div class="container-fluid">
-		<div class="row-fluid">
-			<div class="span2"></div>
-			<div class="span4">
-				<h1>500</h1>
-				<h4>对不起，亲! 服务器内部发生异常.</h4>
-				<p><%=exception %></p>
-				<p><a href="#" class="btn btn-primary btn-large" id="btn_back">返回</a></p>
-			</div>
-			<div class="span6" id="err-img"></div>
-		</div>
+	<div class="hero-unit translucent">
+			<h4>亲，非常抱歉，服务器出了点问题，我们正在努力修复中!</h4><p>您随时可以通过电话 <i class="icon-user icon-white"></i> 23946364 与客服联系，获取您需要的服务。</p><a href="${webRoot}" class="btn btn-primary btn-large" ><i class="icon-home icon-white"></i>回到首页</a>
 	</div>
-	
-	<script type="text/javascript">
-		document.getElementById("btn_back").onclick = function() {
-			history.go(-1);
-		}
-	</script>
 </body>
 </html>

@@ -8,7 +8,7 @@
 <script type="text/javascript" src="${webRoot}/web/bubbletip/js/jQuery.bubbletip-1.0.6.js"></script>
 <script type="text/javascript" src="${webRoot}/dwr/engine.js"></script>
 <script type="text/javascript" src="${webRoot}/dwr/interface/LoginAction.js"></script>
-<link rel="stylesheet" href="${webRoot}/web/bootstrap/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="${webRoot}/web/bootstrap/css/bootstrap.min.css" />
 <link href="${webRoot}/web/bubbletip/js/bubbletip/bubbletip.css" rel="stylesheet" type="text/css" />
 <!--[if IE]>
 	<link href="${webRoot}/web/bubbletip/js/bubbletip/bubbletip-IE.css" rel="stylesheet" type="text/css" />
@@ -215,6 +215,35 @@
 				deltaDirection : 'down',
 				deltaPosition : 50,
 				offsetTop : 0
+			});
+		});
+
+		$('#loginafterregist').bind('click', function() {
+			var strUsername = $.trim($('#registerUsername').val());
+			var strPassword = $.trim($('#registerPassword').val());
+
+			LoginAction.login(strUsername, strPassword, function(result) {
+				if (result.success) {
+					$('#loginlink').hide();
+					$('#registlink').hide();
+					$('#usercenterlink').show();
+					$('#loginlink').removeBubbletip();
+					$('#registlink').removeBubbletip();
+					username = strUsername;
+					$('#usercenterlabel').text(username);
+
+					$('#usercenterbutton').bubbletip($('#usercenter'), {
+						deltaDirection : 'down',
+						deltaPosition : 50,
+						offsetTop : 0
+					});
+					$('#loginafterregist').tooltip('destroy');
+				} else {
+					$('#loginafterregist').tooltip('destroy');
+					$('#loginafterregist').tooltip({
+						title : result.message
+					}).tooltip('show');
+				}
 			});
 		});
 
