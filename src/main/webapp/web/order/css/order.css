@@ -74,6 +74,7 @@ body {
 
 .food-tab {
 	margin: 2px 0;
+	display: none;
 }
 
 .food-tab li {
@@ -110,7 +111,7 @@ body {
 	background: url("./images/tab-classic.png");
 }
 
-.food-list.package {
+.food-list.free {
 	display: none;
 }
 
@@ -350,6 +351,7 @@ body {
 	margin-top: 2px;
 	background: url("./images/add-plate.png");
 	cursor: pointer;
+	display: none;
 }
 
 .plate-panel .add-plate:HOVER {
