@@ -46,7 +46,15 @@ public class OrderVO extends BaseVO {
 	private String managerRemark;
 	private int senderId;
 	private int paymentType;
+	//总价
 	private double totalPrice;
+	//实付总价（优惠后的价格）
+	private double actuallyPrice;
+	//优惠编码 ,为3位2进制数。'0'表示无优惠，'1'表示有优惠
+	//自右到左：第一位表示首次订餐优惠，第二位表示订餐5份以上优惠，第三位表示10点半前下单优惠
+	//例如"001"表示只有首次订餐优惠
+	private String discountCode;
+	
 	public int getId() {
 		return id;
 	}
@@ -155,4 +163,30 @@ public class OrderVO extends BaseVO {
 	public void setExceptTimeType(int exceptTimeType) {
 		this.exceptTimeType = exceptTimeType;
 	}
+	/**
+	 * @return the actuallyPrice
+	 */
+	public double getActuallyPrice() {
+		return actuallyPrice;
+	}
+	/**
+	 * @param actuallyPrice the actuallyPrice to set
+	 */
+	public void setActuallyPrice(double actuallyPrice) {
+		this.actuallyPrice = actuallyPrice;
+	}
+	/**
+	 * @return the discountCode
+	 */
+	public String getDiscountCode() {
+		return discountCode;
+	}
+	/**
+	 * @param discountCode the discountCode to set
+	 */
+	public void setDiscountCode(String discountCode) {
+		this.discountCode = discountCode;
+	}
+	
+	
 }

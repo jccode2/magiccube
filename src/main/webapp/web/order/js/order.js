@@ -9,10 +9,10 @@ $(document).ready(function() {
 	
 	//是否为手机号码
 	function isMobile(input) {
-		var test1 = /^(13[0-9]|15[0|3|6|7|8|9]|18[6|8|9])\d{8}$/.test(input); //联通
-		var test2 = /^1(3[4-9]|5[012789]|8[78])\d{8}$/.test(input); //移动
+		var a = /^(13[0-9]|15[0|3|6|7|8|9]|18[6|8|9])\d{8}$/.test(input); //联通
+		var b = /^1(3[4-9]|5[012789]|8[78])\d{8}$/.test(input); //移动
 		
-		return (test1||test) ;
+		return (a||b) ;
 	
 	}
 	
@@ -20,7 +20,9 @@ $(document).ready(function() {
 	function isTel(input) {
 		//"兼容格式: 国家代码(2到3位)-区号(2到3位)-电话号码(7到8位)-分机号(3位)"
 	    //return (/^(([0\+]\d{2,3}-)?(0\d{2,3})-)?(\d{7,8})(-(\d{3,}))?$/.test(this.Trim()));
-	    return (/^(([0\+]\d{2,3}-)?(0\d{2,3})-)(\d{7,8})(-(\d{3,}))?$/.test(input));
+		
+		return /(^[0-9]{3,4}\-[0-9]{3,8}$)|(^[0-9]{3,8}$)|(^\([0-9]{3,4}\)[0-9]{3,8}$)/.test(input);
+		
 	}
 	
 	//更新餐盘价格
@@ -153,7 +155,11 @@ $(document).ready(function() {
 		
 		$('.plate-list-detail').html(html);
 		$('#order-price-total').text(orderData.totalPrice);
-		$('#order-reality-price').text(orderData.totalPrice);
+		
+		//显示优惠信息,并计算优惠
+		showDiscountInfo();
+		//显示应付总价
+		$('#order-reality-price').text(orderData.actuallyPrice);
 		
 		//从cookie获取电话和地址信息
 		$('#address').val($.cookie('address'));
@@ -163,6 +169,48 @@ $(document).ready(function() {
 		$('.order-plate-null').height( $('.order-plate-item').height());
 		
 	});
+	
+	//显示订单优惠信息
+	function showDiscountInfo() {
+		var discountCode = new Array('0','0','0');
+		var actuallyPrice = orderData.totalPrice;
+		var foodList = orderData.plateList[0].foodList;
+		var foodCount = 0;
+		for(i in foodList) {
+			foodCount += foodList[i].count;
+		}
+		var $discountList = $('.order-discount li');
+		
+		var phone = $.cookie('phone');
+		if(phone==null||phone=='') {
+			$discountList.eq(0).show();
+			discountCode[2] = '1';
+			actuallyPrice -= foodCount;
+		}
+		if(foodCount >= 5) {
+			$discountList.eq(1).show();
+			discountCode[1] = '1';
+			actuallyPrice -= foodCount;
+		}
+		var now = new Date();
+		if(now.getHours()<=10 && now.getMinutes()<=30) {
+			$discountList.eq(2).show();
+			discountCode[0] = '1';
+		}
+		
+		orderData.discountCode = discountCode.join('');
+		orderData.actuallyPrice = actuallyPrice;
+		
+		if(orderData.discountCode==='000') {
+			$('.order-tip').addClass('nodiscount');
+		} else {
+			$('.order-tip').removeClass('nodiscount');
+		}
+		
+		
+	}
+	
+	
 	
 	//获取所有餐盘数据
 	function getPlateList() {
@@ -250,7 +298,10 @@ $(document).ready(function() {
 			address: $.trim($('#address').val()),
 			phone: $.trim($('#phone').val()),
 			exceptTimeType: $('.excepttime-list .curr').data('type'),
-			foodList: []
+			foodList: [],
+			totalPrice: orderData.totalPrice,
+			actuallyPrice: orderData.actuallyPrice,
+			discountCode: orderData.discountCode
 		};
 		
 		if(orderVO.phone=='') {

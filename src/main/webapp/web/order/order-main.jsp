@@ -9,16 +9,8 @@
 </head>
 <body>
 	<div class="container order-content">
-		<div class="container order-address">
-			<div class=" container address-tip">请选择送餐地址：</div>
-			<div class="container address-list">
-				<c:forEach items="${addressList}" var="address">
-					<div class="address-item" data-addressid="${address.id}">
-						<a><img src="/1000funs/${address.image }" class="img-circle" /></a>
-						<h5>${address.regionName }</h5>
-					</div>
-				</c:forEach>
-			</div>
+		<div class="container order-ad">
+			
 		</div>
 		<div class="row-fluid">
 			<div class="span8 food-panel">
@@ -59,6 +51,7 @@
 										<img src="${webRoot}/${pkg.image }" class="food-pic" />
 										<div class="package-food-list">
 											<div class="package-content">
+												<p class="pakage-name">${pkg.foodName }</p>
 												<c:forEach items="${pkg.items }" var="item">
 													<p class="food-name">${item.foodName }</p>
 												</c:forEach>
@@ -100,8 +93,13 @@
 		<div class="modal-body order-plate-list">
 			<div class="plate-list-detail"></div>
 			<div class="order-tip">
-				<span class="order-price-total">合计<em id="order-price-total">45</em>元
-				</span><span class="order-discount">首次订餐优惠3元</span><span class="order-reality">实际需付<em id="order-reality-price">42</em>元
+				<span class="order-price-total">合计<em id="order-price-total">45</em>元</span>
+				<ul class="order-discount">
+					<li>首次订餐每份优惠1元</li>
+					<li>订餐5份以上每份优惠1元</li>
+					<li>10:30分之前提交订单送靓汤一份</li>
+				</ul>
+				<span class="order-reality">实际需付<em id="order-reality-price">42</em>元
 				</span>
 			</div>
 			<table class="order-info">

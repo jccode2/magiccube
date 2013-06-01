@@ -25,7 +25,7 @@
 }
 
 .adress-info {
-	display: block;
+	display: none;
 	float: left;
 	margin-left: 150px;
 	padding: 10px 20px 10px;

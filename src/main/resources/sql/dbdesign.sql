@@ -295,3 +295,13 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+-----------------------------
+--orders 表增加2个字段
+------------------------------
+--实际应付的价钱
+alter table orders add column actually_price double;
+--优惠编码
+alter table orders add column discount_code varchar(3);
+

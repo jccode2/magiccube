@@ -11,9 +11,9 @@
 	        SELECT LAST_INSERT_ID() AS ID
 	    </selectKey>  
 		INSERT INTO
-		orders(code,shop_id,create_time,except_time,user_id,user_remark,address,contact,phone,order_status,manager_id,manager_remark,sender_id,payment_type,total_price,deleted)
+		orders(code,shop_id,create_time,except_time,user_id,user_remark,address,contact,phone,order_status,manager_id,manager_remark,sender_id,payment_type,total_price,deleted,actually_price,discount_code)
 		VALUES
-		(#{code},#{shopId},#{createTime},#{exceptTime},#{userId},#{userRemark},#{address},#{contact},#{phone},#{orderStatus},#{managerId},#{managerRemark},#{senderId},#{paymentType},#{totalPrice},false)
+		(#{code},#{shopId},#{createTime},#{exceptTime},#{userId},#{userRemark},#{address},#{contact},#{phone},#{orderStatus},#{managerId},#{managerRemark},#{senderId},#{paymentType},#{totalPrice},false,#{actuallyPrice},#{discountCode})
 	</insert>
 	
 	<!-- 插入OrderItem数据 -->

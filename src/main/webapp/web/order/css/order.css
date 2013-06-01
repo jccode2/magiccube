@@ -15,7 +15,7 @@ body {
 	background-color: rgba(255, 255, 255, .5);
 }
 
-.order-address {
+.order-ad {
 	height: 150px;
 	background-color: rgba(81, 173, 12, .4);
 	margin-bottom: 2px;
@@ -451,13 +451,17 @@ body {
 
 .order .order-tip {
 	margin-top: 10px;
-	height: 30px;
-	line-height: 30px;
-	padding: 10px 0;
+	padding-top: 10px;
 	background-color: #479F0B;
 	color: white;
 	font-size: 20px;
 	font-weight: bold;
+}
+
+.order .order-tip.nodiscount {
+	height: 30px;
+	line-height:30px;
+	padding-bottom: 10px;
 }
 
 .order .order-price-total {
@@ -465,12 +469,21 @@ body {
 }
 
 .order .order-discount {
-	margin-left: 200px;
-	visibility: hidden;
+	list-style-type: none;
+	margin-left: 250px;
+	width: 250px;
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 14px;
+}
+.order .order-discount li {
+	background: url("./images/order/order-discount-bg.png") 0 3px no-repeat;
+	padding-left: 18px;
+	display: none;
 }
 
 .order .order-reality {
-	margin-left: 270px;
+	margin-left: 145px;
 }
 
 #order-reality-price {
