@@ -25,6 +25,14 @@ public class OrderDiscount {
 	}
 	
 	/**
+	 * 根据已有的状态值构造一个优惠信息
+	 * @param state 表示二进制状态的01字符串.
+	 */
+	public OrderDiscount(String state) {
+		this.state = Integer.valueOf(state, 2);
+	}
+	
+	/**
 	 * 添加某个优惠信息
 	 * @param t Type 优惠的类型
 	 */
