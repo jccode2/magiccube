@@ -320,3 +320,12 @@ CREATE  TABLE IF NOT EXISTS `1000funs`.`guest` (
   `deleted` TINYINT(1) NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- View `1000funs`.`phone_state`
+-- -----------------------------------------------------
+CREATE VIEW `phone_state` AS 
+select `u`.`phone` AS `phone`,`u`.`state` AS `state` from `users` `u` where (`u`.`deleted` = 0) 
+union 
+select `g`.`phone` AS `phone`,`g`.`state` AS `state` from `guest` `g` where (`g`.`deleted` = 0)
+
