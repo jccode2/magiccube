@@ -62,6 +62,9 @@ CREATE  TABLE IF NOT EXISTS `1000funs`.`users` (
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
+-- 添加状态字段.默认为0; 1:表示列为黑名单.
+alter table users add column state TINYINT(1) default 0;
+
 
 -- -----------------------------------------------------
 -- Table `1000funs`.`orders`
@@ -305,3 +308,15 @@ alter table orders add column actually_price double;
 -- 优惠编码
 alter table orders add column discount_code varchar(3);
 
+-- -----------------------------------------------------
+-- Table `1000funs`.`guest`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `1000funs`.`guest` ;
+
+CREATE  TABLE IF NOT EXISTS `1000funs`.`guest` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `phone` VARCHAR(45) NULL ,
+  `state` TINYINT(1) NULL default 0 COMMENT '0:normal\\n1:blacklist' ,
+  `deleted` TINYINT(1) NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
