@@ -38,7 +38,7 @@ public class FoodAction extends BaseAction {
 //	static ApplicationContext context = null;
 	
 	@Autowired
-	static FoodService foodService = null;
+	private FoodService foodService = null;
 	
 //	static{
 //		context = ApplicationContextInitor.getContext();
