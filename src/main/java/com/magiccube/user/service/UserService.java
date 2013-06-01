@@ -31,4 +31,27 @@ public class UserService {
 	public void setUserDAO(UserDAO testImpl) {
 		this.userDAO = testImpl;
 	}
+	
+	/**
+	 * 获取电话号码的相应状态.
+	 * @param phone
+	 * @return -1:表示新号码; 0:表示号码处于正常状态; 1:表示黑名单
+	 */
+	public int getPhoneState(String phone) {
+		return userDAO.getPhoneState(phone);
+	}
+	
+	/**
+	 * 批量获取多个电话号码的状态
+	 * @param phones
+	 * @return
+	 */
+	public int[] getPhoneStates(String[] phones) {
+		int[] ret = new int[phones.length];
+		for(int i = 0, len = phones.length; i < len; i++) {
+			ret[i] = getPhoneState(phones[i]);
+		}
+		return ret;
+	}
+	
 }

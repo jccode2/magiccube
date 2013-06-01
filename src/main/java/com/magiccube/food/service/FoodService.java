@@ -26,7 +26,6 @@ import com.magiccube.food.model.PackageVO;
  * @since jdk6.0
  * @version 2012-12-16 Xingling build
  */
-@Service
 public class FoodService extends BaseService {
 
 	final static Logger LOGGER = LoggerFactory.getLogger(FoodService.class);
