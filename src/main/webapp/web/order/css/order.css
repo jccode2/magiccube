@@ -609,4 +609,13 @@ body {
 	background: url("./images/order/cancle-btn-active.png");
 }
 
+#submit-success-tip {
+	width: 450px;
+	top: 70%;
+}
+#submit-success-tip .success-tip {
+	color: #999999;
+	padding-left: 15px;
+}
+
 

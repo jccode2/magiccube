@@ -263,8 +263,9 @@ $(document).ready(function() {
 		if((i+1)%3==2) {
 			addCls = 'centerone';
 		}
+		var palteTitle  = '我的餐盒'; //去掉餐盒概念后的处理
 		var html = '<div class="order-plate-item ' + addCls + '">'
-					+ '<h4 class="order-plate-title">餐盒' + (i+1) + '</h4>'
+					+ '<h4 class="order-plate-title">' + palteTitle + '</h4>'
 					+ '<ul class="order-plate-food">';
 		for(var j=0; j < plate.foodList.length; j++) {
 			var food = plate.foodList[j], strCount = '';
@@ -340,7 +341,7 @@ $(document).ready(function() {
 		
 		OrderAction.submitOrder(orderVO, function(result){
 			$('.order').modal('hide');
-			alert(result.message);
+			$('#submit-success-tip').modal('show');
 		});
 		
 		//$(".alert").alert();
@@ -354,6 +355,9 @@ $(document).ready(function() {
 		$('.order').modal('hide');
 	});
 	
+	$('#success-tip-btn').click(function(){
+		$('#submit-success-tip').modal('hide');
+	})
 	
 	
 	

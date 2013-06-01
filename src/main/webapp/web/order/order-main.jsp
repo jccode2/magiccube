@@ -124,6 +124,20 @@
 			<a href="#" class="submit-btn"></a> <a href="#" class="cancle-btn"></a>
 		</div>
 	</div>
+	
+	<div class="modal hide" id="submit-success-tip">
+	  <div class="modal-header">
+	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	    <h3>成功提交订单</h3>
+	  </div>
+	  <div class="modal-body">
+	    <p class="success-tip">你已成功提交订单，我们会及时处理您的订单，请耐心等候。</p>
+	  </div>
+	  <div class="modal-footer">
+	    <a href="#" class="btn btn-success" id="success-tip-btn">确定</a>
+	  </div>
+	</div>
+	
 
 
 	<script type="text/javascript" src="${webRoot}/web/js/jquery.cookie.js"></script>
