@@ -1,13 +1,14 @@
 package com.magiccube.app;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
+
+import com.magiccube.order.util.OrderDiscount;
 
 public class Test1 {
 
 	@Test
-	public void testSome() {
-		assertTrue(true);
+	public void testDiscount() {
+		OrderDiscount d = new OrderDiscount();
+		System.out.println(OrderDiscount.Type.FIRST_ORDER.values());
 	}
 }
