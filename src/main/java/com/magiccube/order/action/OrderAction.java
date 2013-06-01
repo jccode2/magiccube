@@ -4,7 +4,6 @@
  *****************************************************************************/
 package com.magiccube.order.action;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -14,22 +13,18 @@ import org.directwebremoting.annotations.RemoteProxy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 
 import com.magiccube.config.action.ConfigAction;
 import com.magiccube.core.base.action.BaseAction;
 import com.magiccube.core.base.model.ResultVO;
-import com.magiccube.core.springmvc.ApplicationContextInitor;
-import com.magiccube.core.util.tools.DateTimeFormatUtils;
-import com.magiccube.order.model.OrderFoodView;
+import com.magiccube.order.model.OrderConstants;
 import com.magiccube.order.model.OrderQueryCondition;
 import com.magiccube.order.model.OrderVO;
 import com.magiccube.order.model.OrderVOWithFood;
 import com.magiccube.order.model.OrderView;
-import com.magiccube.order.model.PlateVO;
-import com.magiccube.order.model.OrderConstants;
 import com.magiccube.order.service.OrderService;
+import com.magiccube.order.util.OrderUtils;
 
 /**
  * @author Xingling
@@ -42,17 +37,18 @@ public class OrderAction extends BaseAction {
 
 	final static Logger LOGGER = LoggerFactory.getLogger(OrderAction.class);
 
-	static ApplicationContext context = null;
-
-	static OrderService orderService = null;
+//	static ApplicationContext context = null;
+	
+	@Autowired
+	private OrderService orderService;
 
 	@Autowired
 	private ConfigAction configAction;
 
-	static {
-		context = ApplicationContextInitor.getContext();
-		orderService = (OrderService) context.getBean("OrderService");
-	}
+//	static {
+//		context = ApplicationContextInitor.getContext();
+//		orderService = (OrderService) context.getBean("OrderService");
+//	}
 
 	/**
 	 * 提交订单
@@ -114,13 +110,13 @@ public class OrderAction extends BaseAction {
 	}
 
 	/**
-	 * 更新Order的状态
-	 * 
-	 * @param orderVO
-	 *            订单VO
+	 * 更新order的状态
+	 * @param id 订单id
+	 * @param status 订单状态
+	 * @return
 	 */
-	public int updateOrderStatus(OrderVO orderVO) {
-		return orderService.updateOrderStatus(orderVO);
+	public boolean updateOrderStatus(int id, int status) {
+		return orderService.updateOrderStatus(id, status);
 	}
 
 	/**
@@ -149,7 +145,7 @@ public class OrderAction extends BaseAction {
 	public List<OrderView> queryNewOrderViewList(
 			OrderQueryCondition queryCondition) {
 		List<OrderVOWithFood> list0 = queryNewOrdersWithFood(queryCondition);
-		List<OrderView> list = transferOrderVOToView(list0);
+		List<OrderView> list = OrderUtils.transferOrderVOToView(list0);
 		return list;
 	}
 
@@ -175,7 +171,7 @@ public class OrderAction extends BaseAction {
 		List<OrderVOWithFood> list0 = queryHistoryOrdersWithFoodByPage(
 				queryCondition, queryCondition.getPageNo(),
 				queryCondition.getPageSize());
-		List<OrderView> list = transferOrderVOToView(list0);
+		List<OrderView> list = OrderUtils.transferOrderVOToView(list0);
 		return list;
 	}
 
@@ -204,9 +200,7 @@ public class OrderAction extends BaseAction {
 	 * @return OrderView
 	 */
 	public OrderView getOrderView(int orderId) {
-		List<OrderVOWithFood> list = this.getOrderWithFood(orderId);
-		List<OrderView> ret = transferOrderVOToView(list);
-		return ret.size() > 0 ? ret.get(0) : null;
+		return orderService.getOrderView(orderId);
 	}
 
 	/**
@@ -230,61 +224,14 @@ public class OrderAction extends BaseAction {
 				OrderConstants.CONFIG_KEY_AUTO_PRINT, "false");
 		return Boolean.valueOf(value).booleanValue();
 	}
-
+	
 	/**
-	 * 将List<OrderVOWithFood>转换为List<OrderViewVO>
-	 * 
-	 * @param list
-	 *            List<OrderVOWithFood>
-	 * @return List<OrderViewVO>
+	 * 出单
+	 * @param id
+	 * @return
 	 */
-	private List<OrderView> transferOrderVOToView(List<OrderVOWithFood> list) {
-		List<OrderView> ret = new ArrayList<OrderView>();
-		int oldOrderId = 0, oldPlate = 0;
-		OrderView view = null;
-		List<PlateVO> plateList = null;
-		PlateVO plate = null;
-		for (OrderVOWithFood vo : list) {
-			if (oldOrderId != vo.getId()) { // new
-				// reset
-				oldOrderId = vo.getId();
-				oldPlate = 0;
-
-				if (view != null)
-					ret.add(view); // add the prior one
-				view = new OrderView();
-				view.setId(vo.getId());
-				view.setAddress(vo.getAddress());
-				view.setContact(vo.getContact());
-				view.setCreateTime(DateTimeFormatUtils.formatDateTime(vo
-						.getCreateTime()));
-				view.setExceptTime(DateTimeFormatUtils.formatDateTime(vo
-						.getExceptTime()));
-				view.setOrderStatus(vo.getOrderStatus());
-				view.setPhone(vo.getPhone());
-				view.setTotalPrice(vo.getTotalPrice());
-
-				plateList = new ArrayList<PlateVO>();
-				view.setPlateList(plateList);
-			}
-
-			if (oldPlate != vo.getPlate()) {
-				oldPlate = vo.getPlate();
-				plate = new PlateVO(vo.getPlate());
-				plateList.add(plate);
-			}
-
-			OrderFoodView foodView = new OrderFoodView();
-			foodView.setId(vo.getFoodId());
-			foodView.setFood(vo.getFoodName());
-			foodView.setAmount(vo.getAmount());
-			foodView.setPrice(vo.getPrice());
-			plate.addFood(foodView);
-		}
-		if (view != null) { // add the last one
-			ret.add(view);
-		}
-		return ret;
+	public boolean issue(int id) {
+		return orderService.issue(id);
 	}
-
+	
 }

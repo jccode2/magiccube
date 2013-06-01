@@ -66,7 +66,7 @@
 										<span class="forestgreen">${order.phone}</span>
 									</div>
 									<div class="pull-right">
-										<span class="brown">${order.totalPrice}元</span>
+										<span class="brown">${order.actuallyPrice}元</span>
 										<a href="#" class="btn btn-mini order-btn-out" value="${order.id }"><i class="icon-print"></i>&nbsp;出单</a>
 									</div>
 								</div>

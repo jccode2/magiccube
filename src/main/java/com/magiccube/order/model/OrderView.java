@@ -29,6 +29,11 @@ public class OrderView extends BaseVO {
 	private double totalPrice;
 	
 	/**
+	 * 实际应付总价
+	 */
+	private double actuallyPrice;
+	
+	/**
 	 * 食品总数
 	 */
 //	private int totalAmount;
@@ -143,5 +148,13 @@ public class OrderView extends BaseVO {
 
 	public void setOrderStatus(int orderStatus) {
 		this.orderStatus = orderStatus;
+	}
+
+	public double getActuallyPrice() {
+		return actuallyPrice;
+	}
+
+	public void setActuallyPrice(double actuallyPrice) {
+		this.actuallyPrice = actuallyPrice;
 	}
 }

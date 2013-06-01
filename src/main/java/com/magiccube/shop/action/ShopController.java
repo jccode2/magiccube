@@ -2,6 +2,8 @@ package com.magiccube.shop.action;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -25,7 +27,6 @@ import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 import com.magiccube.common.model.EnvironmentInfoVO;
 import com.magiccube.core.base.action.QueryForm;
 import com.magiccube.core.util.tools.AjaxUtils;
-import com.magiccube.core.util.tools.PosPrinter;
 import com.magiccube.food.action.FoodAction;
 import com.magiccube.food.model.FoodGroupVO;
 import com.magiccube.food.model.FoodQueryCondition;
@@ -36,6 +37,7 @@ import com.magiccube.order.action.OrderAction;
 import com.magiccube.order.model.OrderQueryCondition;
 import com.magiccube.order.model.OrderVO;
 import com.magiccube.order.model.OrderView;
+import com.magiccube.order.service.OrderService;
 import com.magiccube.order.service.OrderWebSocketServlet;
 import com.magiccube.shop.model.FoodForm;
 import com.magiccube.shop.model.FoodReShopForm;
@@ -88,6 +90,8 @@ function			method				url
 @Controller
 @RequestMapping("/shop")
 public class ShopController {
+	
+	final static Logger logger = LoggerFactory.getLogger(ShopController.class);
 	
 	/**
 	 * orderAction
@@ -319,11 +323,7 @@ public class ShopController {
 	 */
 	@RequestMapping(value="/order/{id}", method=RequestMethod.PUT, params="status")
 	public @ResponseBody boolean updateOrderStatus(@PathVariable int id, @RequestParam int status) {
-		OrderVO vo = new OrderVO();
-		vo.setId(id);
-		vo.setOrderStatus(status);
-		int ret = orderAction.updateOrderStatus(vo);
-		return ret > 0;
+		return orderAction.updateOrderStatus(id, status);
 	}
 	
 	/**
@@ -444,19 +444,15 @@ public class ShopController {
 	
 	@RequestMapping(value="/issue/{id}", method=RequestMethod.PUT)
 	public @ResponseBody boolean issue(@PathVariable int id) {
-		boolean ret = this.updateOrderStatus(id, OrderVO.ORDER_STATUS_DEALED);
-		if(ret) {
-			OrderView orderView = orderAction.getOrderView(id);
-			PosPrinter.print(orderView);
-		}
-		return ret;
+		return orderAction.issue(id);
 	}
 	
 	
 	@ExceptionHandler
 	public String handle(Exception e) {
 		//return e.getMessage();
-		print(e);
+		e.printStackTrace();
+		logger.error("发生异常了", e);
 		return "error/500";
 	}
 	

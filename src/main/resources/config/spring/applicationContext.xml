@@ -17,6 +17,7 @@
         	 http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd
         	 http://www.springframework.org/schema/lang
         	 http://www.springframework.org/schema/lang/spring-lang-3.2.xsd">
+        	 
 	
 	<!-- 这个地方开始放置所有bean的配置信息  -->
 	
@@ -39,6 +40,7 @@
 	</bean>
 	<bean id="OrderService" class="com.magiccube.order.service.OrderService">   
 		<property name="orderDAO" ref="OrderDAOImpl" />
+		<property name="foodService" ref="FoodService"/>
 	</bean>
 	
 	<!-- 用户模块，注入数据源 -->

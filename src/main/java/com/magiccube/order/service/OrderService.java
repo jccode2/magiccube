@@ -4,17 +4,26 @@
  *****************************************************************************/
 package com.magiccube.order.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.magiccube.core.base.service.BaseService;
+import com.magiccube.core.util.tools.PosPrinter;
+import com.magiccube.food.service.FoodService;
 import com.magiccube.order.dao.OrderDAO;
-import com.magiccube.order.model.OrderItemVO;
+import com.magiccube.order.model.OrderFoodView;
 import com.magiccube.order.model.OrderQueryCondition;
 import com.magiccube.order.model.OrderVO;
 import com.magiccube.order.model.OrderVOWithFood;
+import com.magiccube.order.model.OrderView;
+import com.magiccube.order.model.PlateVO;
+import com.magiccube.order.util.OrderUtils;
 
 /**
  * @author Xingling
@@ -26,6 +35,8 @@ public class OrderService extends BaseService {
 	final static Logger LOGGER = LoggerFactory.getLogger(OrderService.class);
 
 	private OrderDAO orderDAO;
+	
+	private FoodService foodService;
 	
 	/**
 	 * 提交订单
@@ -47,6 +58,14 @@ public class OrderService extends BaseService {
 		this.orderDAO = orderDAO;
 	}
 	
+	public FoodService getFoodService() {
+		return foodService;
+	}
+
+	public void setFoodService(FoodService foodService) {
+		this.foodService = foodService;
+	}
+
 	/**
 	 * 根据用户id查询未处理订单
 	 * @param userId
@@ -84,11 +103,17 @@ public class OrderService extends BaseService {
 	}
 	
 	/**
-	 * 更新Order的状态
-	 * @param orderVO
+	 * 更新order的状态
+	 * @param id 订单id
+	 * @param status 订单状态
+	 * @return
 	 */
-	public int updateOrderStatus(OrderVO orderVO) {
-		return orderDAO.updateOrderStatus(orderVO);
+	public boolean updateOrderStatus(int id, int status) {
+		OrderVO vo = new OrderVO();
+		vo.setId(id);
+		vo.setOrderStatus(status);
+		int ret = orderDAO.updateOrderStatus(vo);
+		return ret > 0;
 	}
 	
 	/**
@@ -98,5 +123,61 @@ public class OrderService extends BaseService {
 	 */
 	public List<OrderVOWithFood> getOrderWithFood(int orderId) {
 		return orderDAO.getOrderWithFood(orderId);
+	}
+	
+
+	
+	/**
+	 * 获取一个订单(及其食物明细)
+	 * 
+	 * @param orderId
+	 *            订单ID
+	 * @return OrderView
+	 */
+	public OrderView getOrderView(int orderId) {
+		List<OrderVOWithFood> list = this.getOrderWithFood(orderId);
+		List<OrderView> ret = OrderUtils.transferOrderVOToView(list);
+		return ret.size() > 0 ? ret.get(0) : null;
+	}
+	
+	/**
+	 * 出单
+	 * @param id
+	 * @return
+	 */
+	@Transactional
+	public boolean issue(int id) {
+		boolean ret = this.updateOrderStatus(id, OrderVO.ORDER_STATUS_DEALED);
+		if(ret) {
+			OrderView orderView = getOrderView(id);
+			PosPrinter.print(orderView);
+			updateStock(orderView);
+		}
+		return ret;
+	}
+	
+	/**
+	 * 更新食物库存信息
+	 * @param orderView
+	 */
+	private void updateStock(OrderView orderView) {
+		// 更新食物库存信息; 这里需要对食物的数量先进行简单的汇总,以减少IO的次数.
+		Map<Integer, Integer> idAmountMap = new HashMap<Integer, Integer>();
+		for(PlateVO plateVO : orderView.getPlateList()) {
+			for(OrderFoodView foodView : plateVO.getFoodList()) {
+				Integer foodId = foodView.getId();
+				Integer amount = idAmountMap.get(foodId);
+				if(amount == null) {
+					idAmountMap.put(foodId, foodView.getAmount());
+				} else {
+					idAmountMap.put(foodId, amount + foodView.getAmount());
+				}
+			}
+		}
+		
+		Set<Integer> idSet = idAmountMap.keySet();
+		for(Integer id : idSet) {
+			foodService.updateFoodReShopStock(id, idAmountMap.get(id));
+		}
 	}
 }

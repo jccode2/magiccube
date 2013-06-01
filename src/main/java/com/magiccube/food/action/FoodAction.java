@@ -10,6 +10,7 @@ import org.directwebremoting.annotations.RemoteMethod;
 import org.directwebremoting.annotations.RemoteProxy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 
@@ -34,14 +35,15 @@ public class FoodAction extends BaseAction {
 	
 	final static Logger LOGGER = LoggerFactory.getLogger(FoodService.class);
 	
-	static ApplicationContext context = null;
+//	static ApplicationContext context = null;
 	
+	@Autowired
 	static FoodService foodService = null;
 	
-	static{
-		context = ApplicationContextInitor.getContext();
-		foodService = (FoodService)context.getBean("FoodService");
-	}
+//	static{
+//		context = ApplicationContextInitor.getContext();
+//		foodService = (FoodService)context.getBean("FoodService");
+//	}
 	
 	/**
 	 * 增加食物（同时指定到店铺）

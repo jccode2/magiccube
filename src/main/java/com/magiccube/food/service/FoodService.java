@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import com.magiccube.core.base.service.BaseService;
 import com.magiccube.core.util.tools.CodeGenerator;
@@ -25,6 +26,7 @@ import com.magiccube.food.model.PackageVO;
  * @since jdk6.0
  * @version 2012-12-16 Xingling build
  */
+@Service
 public class FoodService extends BaseService {
 
 	final static Logger LOGGER = LoggerFactory.getLogger(FoodService.class);
