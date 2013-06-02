@@ -46,16 +46,16 @@
 						<td class="food-area-head">${groupFoods.groupName}</td>
 						<td>
 							<ul class="item-list img-text-below food-area-list">
-								<c:forEach items="${groupFoods.packageList}" var="food">
-								<li id="item_${food.id }" class='<c:choose><c:when test="${food.droped }">drop</c:when><c:when test="${food.stock <= 0}"> stockout</c:when><c:otherwise></c:otherwise></c:choose>'>
+								<c:forEach items="${groupFoods.packageList}" var="packageVO">
+								<li id="item_${packageVO.id }" class='<c:choose><c:when test="${ packageVO.droped }">drop</c:when><c:when test="${packageVO.stock <= 0}"> stockout</c:when><c:otherwise></c:otherwise></c:choose>'>
 									<div>
-										<img src="${webRoot}/${food.image}" alt="${food.foodName}">
-										<b title="${food.foodName }"><c:choose><c:when test="${food.droped }">[下架]</c:when><c:when test="${food.stock <= 0}">[缺货]</c:when><c:otherwise></c:otherwise></c:choose>${food.foodName}</b>
+										<img src="${webRoot}/${packageVO.image}" alt="${packageVO.foodName}">
+										<b title="${packageVO.foodName }"><c:choose><c:when test="${packageVO.droped }">[下架]</c:when><c:when test="${packageVO.stock <= 0}">[缺货]</c:when><c:otherwise></c:otherwise></c:choose>${packageVO.foodName}</b>
 										<div class="package-detail">
-											<c:forEach items="${food.items }" var="item" varStatus="status2">${item.foodName } <c:if test="${fn:length(food.items) != status2.count}"> + </c:if> </c:forEach>
+											<c:forEach items="${packageVO.items }" var="item" varStatus="status2">${item.foodName } <c:if test="${fn:length(packageVO.items) != status2.count}"> + </c:if> </c:forEach>
 										</div>
 										<div class="btns">
-											<c:choose><c:when test="${food.droped }"><i id="drop_${food.id }" class="icon-upload" title="快速上架"></i></c:when><c:otherwise><i id="drop_${food.id }" class="icon-download" title="快速下架"></i></c:otherwise></c:choose>
+											<c:choose><c:when test="${packageVO.droped }"><i id="drop_${packageVO.id }" class="icon-upload" title="快速上架"></i></c:when><c:otherwise><i id="drop_${packageVO.id }" class="icon-download" title="快速下架"></i></c:otherwise></c:choose>
 											<i class="icon-edit" title="编辑食物"></i>
 											<i class="icon-remove" title="删除食物"></i>
 										</div>
