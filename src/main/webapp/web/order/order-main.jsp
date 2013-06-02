@@ -138,7 +138,7 @@
 	  </div>
 	</div>
 	
-
+	<%@ include file="/web/inc/foot.jsp"%>
 
 	<script type="text/javascript" src="${webRoot}/web/js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="${webRoot}/dwr/interface/OrderAction.js"></script>
