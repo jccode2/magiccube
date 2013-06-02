@@ -63,7 +63,7 @@
 								<div class="row-fluid head">
 									<div class="pull-left link left-panel">
 										<span class="">${order.address}</span>
-										<span class="forestgreen">${order.phone}</span>
+										<span class="forestgreen phone">${order.phone}</span>
 									</div>
 									<div class="pull-right">
 										<span class="brown">${order.actuallyPrice}元</span>

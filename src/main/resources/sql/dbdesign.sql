@@ -62,6 +62,9 @@ CREATE  TABLE IF NOT EXISTS `1000funs`.`users` (
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
+-- 添加状态字段.默认为0; 1:表示列为黑名单.
+alter table users add column state TINYINT(1) default 0;
+
 
 -- -----------------------------------------------------
 -- Table `1000funs`.`orders`
@@ -297,11 +300,32 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 
------------------------------
---orders 表增加2个字段
-------------------------------
---实际应付的价钱
+-- ---------------------------
+-- orders 表增加2个字段
+-- ----------------------------
+-- 实际应付的价钱
 alter table orders add column actually_price double;
---优惠编码
+-- 优惠编码
 alter table orders add column discount_code varchar(3);
+
+-- -----------------------------------------------------
+-- Table `1000funs`.`guest`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `1000funs`.`guest` ;
+
+CREATE  TABLE IF NOT EXISTS `1000funs`.`guest` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `phone` VARCHAR(45) NULL ,
+  `state` TINYINT(1) NULL default 0 COMMENT '0:normal\\n1:blacklist' ,
+  `deleted` TINYINT(1) NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- View `1000funs`.`phone_state`
+-- -----------------------------------------------------
+CREATE VIEW `phone_state` AS 
+select `u`.`phone` AS `phone`,`u`.`state` AS `state` from `users` `u` where (`u`.`deleted` = 0) 
+union 
+select `g`.`phone` AS `phone`,`g`.`state` AS `state` from `guest` `g` where (`g`.`deleted` = 0)
 

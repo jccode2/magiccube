@@ -59,6 +59,13 @@
 			submit order test <input type="text" id="txt_submit_order" class="input-small" value="" placeholder="orderId"/>
 			<input type="button" id="btn_submit_order" value="submit" class="btn"/>
 		</p>
+		<hr>
+		<p>
+			getPhoneState <input type="text" id="txt_phone_state" class="input" value="" placeholder="phone"/>
+			<input type="button" id="btn_phone_state" value="getPhoneState" class="btn"/> <br>
+			getPhoneStates <input type="text" id="txt_phone_states" class="input" value="" placeholder="phone1,phone2,..."/>
+			<input type="button" id="btn_phone_states" value="getPhoneStates" class="btn"/>
+		</p>
 
 
 		
@@ -95,6 +102,11 @@
 	
 			function showErrorFix(html) {
 				showMsgFixed(html, "alert-error");
+			}
+			
+			
+			function errorHandler(xhr) {
+				showError("<strong>Error!</strong> " + xhr.responseText);
 			}
 			
 			jQuery(function($) {
@@ -166,6 +178,20 @@
 					$.post( url, function(){
 						showSuccess("<strong>Well done!</strong> 订单提交成功" );
 					} );
+				});
+				
+				$("#btn_phone_state").click(function() {
+					var url = "${webRoot}/shop/phonestate?p=" + $("#txt_phone_state").val();
+					$.get(url, showSuccess).fail(errorHandler);
+				});
+				
+				$("#btn_phone_states").click(function() {
+					var url = "${webRoot}/shop/phonestates"
+					//?p=" + $("#txt_phone_state").val();
+					
+					$.post(url, {
+						phones: $("#txt_phone_states").val()
+					}, showSuccess, "text").fail(errorHandler);
 				});
 
 

@@ -37,13 +37,13 @@ import com.magiccube.order.action.OrderAction;
 import com.magiccube.order.model.OrderQueryCondition;
 import com.magiccube.order.model.OrderVO;
 import com.magiccube.order.model.OrderView;
-import com.magiccube.order.service.OrderService;
 import com.magiccube.order.service.OrderWebSocketServlet;
 import com.magiccube.shop.model.FoodForm;
 import com.magiccube.shop.model.FoodReShopForm;
 import com.magiccube.shop.model.GroupForm;
 import com.magiccube.shop.model.OrderQueryForm;
 import com.magiccube.shop.util.ShopUtil;
+import com.magiccube.user.action.UserAction;
 
 
 /**
@@ -82,6 +82,9 @@ function			method				url
 删除套餐				DELETE				/shop/package/{id}
 获取套餐				GET					/shop/package/{id}
 
+检测电话号码状态		GET					/shop/phonestate?phone={phone}
+批量检测电话号码状态	POST				/shop/phonestates?phones={phone1,phone2}
+
 
  * 
  * @author jcchen
@@ -104,6 +107,12 @@ public class ShopController {
 	 */
 	@Autowired
 	private FoodAction foodAction;
+	
+	/**
+	 * userAction
+	 */
+	@Autowired
+	private UserAction userAction;
 	
 	/**
 	 * 将model映射为json返回
@@ -554,6 +563,16 @@ public class ShopController {
 		vo.setId(id);
 		
 		return vo;
+	}
+	
+	@RequestMapping(value="/phonestate", params="p")
+	public @ResponseBody int getPhoneState(@RequestParam(value = "p") String phone) {
+		return userAction.getPhoneState(phone);
+	}
+	
+	@RequestMapping(value="/phonestates", method=RequestMethod.POST)
+	public @ResponseBody int[] getPhoneStates(String[] phones) {
+		return userAction.getPhoneStates(phones);
 	}
 	
 	

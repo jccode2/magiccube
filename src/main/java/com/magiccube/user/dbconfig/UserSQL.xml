@@ -27,4 +27,8 @@
 		SELECT * FROM users WHERE user_name=#{account} or email=#{account} or phone=#{account}
 	</select>
 
+	<select id="getPhoneState" parameterType="String" resultType="int">
+		select p.state from phone_state p where p.phone = #{phone};
+	</select>
+	
 </mapper>

@@ -21,6 +21,8 @@ public class UserVO extends BaseVO{
 	public static final int TYPE_EMPLOYEE = 1;
 	public static final int TYPE_MANAGER = 2;
 	public static final int TYPE_ADMIN = 3;
+	
+	public static final int USER_STATE_BLACKLIST = 1;
 
 	private int id;
 	
@@ -51,8 +53,15 @@ public class UserVO extends BaseVO{
 	private int userType;
 
 	private int score;
-
+	
 	private double quota;
+	
+	/**
+	 * 状态
+	 * 0 - normal
+	 * 1 - blacklist
+	 */
+	private int state;
 	
 	private boolean deleted;
 
@@ -196,6 +205,14 @@ public class UserVO extends BaseVO{
 		this.deleted = deleted;
 	}
 	
+	public int getState() {
+		return state;
+	}
+
+	public void setState(int state) {
+		this.state = state;
+	}
+
 	public static void main(String[] args) {
 		UserVO user = (UserVO)DataGenerator.get(UserVO.class);
 		System.out.println(user.toString());

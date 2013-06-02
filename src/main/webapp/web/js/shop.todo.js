@@ -12,6 +12,7 @@ define(function(require, exports, module) {
 		init();
 		initEvent();
 		initWebSocket();
+		checkIfNewPhone();
 	});
 
 	function init() {
@@ -90,6 +91,31 @@ define(function(require, exports, module) {
 		$("#tableList > ul").prepend(rowhtml);
 
 		TableList.resetBgColor().intervalBgColor();
+	}
+	
+	/**
+	 * 检查是否新号码
+	 */
+	function checkIfNewPhone() {
+		var phones = [];
+		$("#tableList .phone").each(function(idx, item) {
+			phones.push($(item).html());
+		});
+		
+		var url = webRoot + "/shop/phonestates";
+		$.post(url, {phones: phones.join(",")}, function(rets) {
+			var states = rets;
+			$("#tableList .phone").each(function(idx, item) {
+				if(states[idx] === -1) { //new phone
+					var phone = $(item).html();
+					$(item).removeClass().addClass("dark-yellow")
+						.html(phone+" (New)");
+				} 
+				else if(states[idx] === 1) { //blacklist
+					$(item).removeClass().addClass("phone-blacklist");
+				}
+			});
+		}, "json");
 	}
 
 
