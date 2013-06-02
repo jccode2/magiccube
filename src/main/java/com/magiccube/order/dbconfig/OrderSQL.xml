@@ -42,7 +42,8 @@
 	<select id="queryOrdersWithFood" parameterType="com.magiccube.order.model.OrderQueryCondition" resultType="com.magiccube.order.model.OrderVOWithFood">
 		select o.*, f.id as food_id, i.amount as amount, i.plate, f.food_name, f.image as food_image, fs.current_price price
 		from order_item i, orders o, food f, food_re_shop fs
-		where i.deleted = false and o.deleted = false and f.deleted = false and fs.deleted = false
+		where o.deleted = false 
+			<!-- and i.deleted = false and f.deleted = false and fs.deleted = false -->
 		  and o.id = i.order_id and i.item_id = f.id and o.shop_id = fs.shop_id and f.id = fs.food_id
 		  <!-- and i.item_type = #{itemType}  --> 
 		  and o.shop_id = #{shopId} <!-- and o.user_id = #{userId}  -->
@@ -50,8 +51,8 @@
 		  <foreach collection="orderStatusList" item="item" index="index" open="(" close=")" separator=",">
 		  	#{item}
 		  </foreach>
-		  <if test="keyword != null">
-		  	and concat(o.address,o.contact,o.phone) like concat('%',#{keyword},'%')
+		  <if test="keyword != null and keyword != ''">
+				and concat(ifnull(address,''),ifnull(contact,''),ifnull(phone,'')) like concat('%',#{keyword},'%')
 		  </if>
 		order by o.id, i.plate, f.food_name
 	</select>
@@ -65,8 +66,8 @@
 		   	  <foreach collection="orderStatusList" item="item" index="index" open="(" close=")" separator=",">
 			  	#{item}
 			  </foreach>
-			<if test="keyword != null">
-				and concat(address,contact,phone) like concat('%',#{keyword},'%')
+			<if test="keyword != null and keyword != ''">
+				and concat(ifnull(address,''),ifnull(contact,''),ifnull(phone,'')) like concat('%',#{keyword},'%')
 			</if>
 	</select>
 	
@@ -81,14 +82,15 @@
 					  <foreach collection="orderStatusList" item="item" index="index" open="(" close=")" separator=",">
 					  	#{item}
 					  </foreach>
-				<if test="keyword != null">
-					and concat(address,contact,phone) like concat('%',#{keyword},'%')
+				<if test="keyword != null and keyword != ''">
+					and concat(ifnull(address,''),ifnull(contact,''),ifnull(phone,'')) like concat('%',#{keyword},'%')
 				</if>
 		     	limit #{pageFrom}, #{pageSize}
 		     ) o, 
 		     food f, food_re_shop fs
-		where i.deleted = false and f.deleted = false and fs.deleted = false
-		  and o.id = i.order_id and i.item_id = f.id 
+		where 
+			<!-- i.deleted = false and f.deleted = false and fs.deleted = false and -->
+		  o.id = i.order_id and i.item_id = f.id 
 		  and o.shop_id = fs.shop_id and f.id = fs.food_id
 		order by o.id, i.plate, f.food_name
 	</select>
@@ -97,7 +99,8 @@
 	<select id="getOrderWithFood" parameterType="int" resultType="com.magiccube.order.model.OrderVOWithFood">
 		select o.*, f.id as food_id, i.amount as amount, i.plate, f.food_name, f.image as food_image, fs.current_price price
 		from order_item i, orders o, food f, food_re_shop fs
-		where i.deleted = false and o.deleted = false and f.deleted = false and fs.deleted = false
+		where o.deleted = false 
+			<!-- and i.deleted = false and f.deleted = false and fs.deleted = false -->
 		  and o.id = i.order_id and i.item_id = f.id and o.shop_id = fs.shop_id and f.id = fs.food_id
 		  and o.id = #{orderId}
 		order by i.plate, f.food_name;

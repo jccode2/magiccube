@@ -87,19 +87,19 @@
 	</update>
 		
 	<!-- 删除一个食物关联 -->
-	<delete id="deleteFoodReShop" parameterType="com.magiccube.food.model.FoodVO">
-		delete from food_re_shop where shop_id = #{shopId} and food_id = #{id};
-	</delete>
+	<update id="deleteFoodReShop" parameterType="com.magiccube.food.model.FoodVO">
+		UPDATE food_re_shop set deleted = true where shop_id = #{shopId} and food_id = #{id};
+	</update>
 	
 	<!-- 删除一个分组所有的食物关联 -->
-	<delete id="deleteFoodReShopByGroup" parameterType="com.magiccube.food.model.FoodVO">
-		delete from food_re_shop where shop_id = #{shopId} and group_id = #{groupId};
-	</delete>
+	<update id="deleteFoodReShopByGroup" parameterType="com.magiccube.food.model.FoodVO">
+		UPDATE food_re_shop set deleted = true where shop_id = #{shopId} and group_id = #{groupId};
+	</update>
 	
 	<!-- 删除PackageItem信息 -->
-	<delete id="deletePackageItem" parameterType="int">
-		delete from package_item where package_id = #{packageId};
-	</delete>
+	<update id="deletePackageItem" parameterType="int">
+		update package_item set deleted = true where package_id = #{packageId};
+	</update>
 
 	<!-- 根据shopId在架的所有单品-->
 	<select id="queryFoodsByShopId" parameterType="int"
