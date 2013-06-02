@@ -8,6 +8,7 @@
 <script type="text/javascript" src="${webRoot}/web/bubbletip/js/jQuery.bubbletip-1.0.6.js"></script>
 <script type="text/javascript" src="${webRoot}/dwr/engine.js"></script>
 <script type="text/javascript" src="${webRoot}/dwr/interface/LoginAction.js"></script>
+<script type="text/javascript" src="${webRoot}/dwr/interface/UserAction.js"></script>
 <link rel="stylesheet" href="${webRoot}/web/bootstrap/css/bootstrap.min.css" />
 <link href="${webRoot}/web/bubbletip/js/bubbletip/bubbletip.css" rel="stylesheet" type="text/css" />
 <!--[if IE]>
@@ -68,21 +69,149 @@
 </style>
 
 <script type="text/javascript">
-	var username;
-	var quicklogin;
+	var currentuser;
 
 	$(document).ready(function() {
-		$('#registlink').bubbletip($('#registboard'), {
-			deltaDirection : 'down',
-			deltaPosition : 50,
-			offsetTop : 0
-		});
-		$('#loginlink').bubbletip($('#loginboard'), {
-			deltaDirection : 'down',
-			deltaPosition : 50,
-			offsetTop : 0
+
+		UserAction.getCurrentUser(function(result) {
+			currentuser = result;
+
+			if (currentuser == null) {
+				$('#registlink').bubbletip($('#registboard'), {
+					deltaDirection : 'down',
+					deltaPosition : 50,
+					offsetTop : 0
+				});
+				$('#loginlink').bubbletip($('#loginboard'), {
+					deltaDirection : 'down',
+					deltaPosition : 50,
+					offsetTop : 0
+				});
+
+			} else {
+				initUserCenter();
+			}
+
 		});
 
+		initRegistButton();
+
+		initLoginButton();
+
+		initQuickLoginButton();
+
+		initLogoutButton();
+
+	});
+
+	function initUserCenter() {
+		$('#loginlink').hide();
+		$('#registlink').hide();
+		$('#usercenterlink').show();
+		$('#usercenterbutton').bubbletip($('#usercenter'), {
+			deltaDirection : 'down',
+			deltaPosition : 50,
+			offsetTop : 0
+		});
+		$('#usercenterlabel').text(currentuser.userName);
+		$('#userscore').text("积分:" + currentuser.score);
+		$('#userscorediv').tooltip({
+			title : "将来您可以通过积分享受各种优惠",
+			placement : "left"
+		});
+	}
+
+	function initLogoutButton() {
+		$('#logoutbutton').bind('click', function() {
+			LoginAction.exit(function() {
+				$('#usercenterlink').hide();
+				$('#usercenterbutton').removeBubbletip();
+				$('#loginlink').show();
+				$('#registlink').show();
+				$('#registlink').bubbletip($('#registboard'), {
+					deltaDirection : 'down',
+					deltaPosition : 50,
+					offsetTop : 0
+				});
+				$('#loginlink').bubbletip($('#loginboard'), {
+					deltaDirection : 'down',
+					deltaPosition : 50,
+					offsetTop : 0
+				});
+			});
+		});
+
+	}
+
+	function initQuickLoginButton() {
+		$('#loginafterregist').bind('click', function() {
+			var strUsername = $.trim($('#registerUsername').val());
+			var strPassword = $.trim($('#registerPassword').val());
+			$('#loginafterregist').tooltip('destroy');
+			LoginAction.login(strUsername, strPassword, function(result) {
+				if (result.success) {
+					$('#loginlink').removeBubbletip();
+					$('#registlink').removeBubbletip();
+					UserAction.getCurrentUser(function(result){
+						currentuser=result;
+						initUserCenter();
+					});
+				} else {
+					$('#loginafterregist').tooltip({
+						title : result.message
+					}).tooltip('show');
+				}
+			});
+		});
+	}
+
+	function initLoginButton() {
+		$('#loginbutton').bind('click', function() {
+			var inputRight = true;
+			var strUsername = $.trim($('#loginUsername').val());
+			var strPassword = $.trim($('#loginPassword').val());
+
+			if (strUsername == "") {
+				$('#loginUsername').tooltip({
+					title : '请输入用户名'
+				}).tooltip('show');
+				inputRight = false;
+			} else {
+				$('#loginUsername').tooltip('destroy');
+			}
+
+			if (strPassword == "") {
+				$('#loginPassword').tooltip({
+					title : '请输入密码'
+				}).tooltip('show');
+				inputRight = false;
+			} else {
+				$('#loginPassword').tooltip('destroy');
+			}
+
+			if (!inputRight) {
+				return;
+			}
+
+			LoginAction.login(strUsername, strPassword, function(result) {
+				$('#loginbutton').tooltip('destroy');
+				if (result.success) {
+					$('#loginlink').removeBubbletip();
+					$('#registlink').removeBubbletip();
+					UserAction.getCurrentUser(function(result){
+						currentuser=result;
+						initUserCenter();
+					});
+				} else {
+					$('#loginbutton').tooltip({
+						title : result.message
+					}).tooltip('show');
+				}
+			});
+		});
+	}
+
+	function initRegistButton() {
 		$('#submitregist').bind('click', function() {
 			var inputRight = true;
 			var strUsername = $.trim($('#registerUsername').val());
@@ -137,8 +266,6 @@
 				if (result.success) {
 					$('#regist1').hide();
 					$('#regist2').show();
-					username = strUsername;
-					quicklogin = 1;
 					$('#submitregist').tooltip('destroy');
 				} else {
 					$('#submitregist').tooltip('destroy');
@@ -148,106 +275,7 @@
 				}
 			});
 		})
-
-		$('#loginbutton').bind('click', function() {
-			var inputRight = true;
-			var strUsername = $.trim($('#loginUsername').val());
-			var strPassword = $.trim($('#loginPassword').val());
-
-			if (strUsername == "") {
-				$('#loginUsername').tooltip({
-					title : '请输入用户名'
-				}).tooltip('show');
-				inputRight = false;
-			} else {
-				$('#loginUsername').tooltip('destroy');
-			}
-
-			if (strPassword == "") {
-				$('#loginPassword').tooltip({
-					title : '请输入密码'
-				}).tooltip('show');
-				inputRight = false;
-			} else {
-				$('#loginPassword').tooltip('destroy');
-			}
-
-			if (!inputRight) {
-				return;
-			}
-
-			LoginAction.login(strUsername, strPassword, function(result) {
-				if (result.success) {
-					$('#loginlink').hide();
-					$('#registlink').hide();
-					$('#usercenterlink').show();
-					$('#loginlink').removeBubbletip();
-					$('#registlink').removeBubbletip();
-					username = strUsername;
-					$('#usercenterlabel').text(username);
-
-					$('#usercenterbutton').bubbletip($('#usercenter'), {
-						deltaDirection : 'down',
-						deltaPosition : 50,
-						offsetTop : 0
-					});
-					$('#loginbutton').tooltip('destroy');
-				} else {
-					$('#loginbutton').tooltip('destroy');
-					$('#loginbutton').tooltip({
-						title : result.message
-					}).tooltip('show');
-				}
-			});
-		});
-
-		$('#logoutbutton').bind('click', function() {
-			$('#usercenterlink').hide();
-			$('#usercenterbutton').removeBubbletip();
-			$('#loginlink').show();
-			$('#registlink').show();
-			$('#registlink').bubbletip($('#registboard'), {
-				deltaDirection : 'down',
-				deltaPosition : 50,
-				offsetTop : 0
-			});
-			$('#loginlink').bubbletip($('#loginboard'), {
-				deltaDirection : 'down',
-				deltaPosition : 50,
-				offsetTop : 0
-			});
-		});
-
-		$('#loginafterregist').bind('click', function() {
-			var strUsername = $.trim($('#registerUsername').val());
-			var strPassword = $.trim($('#registerPassword').val());
-
-			LoginAction.login(strUsername, strPassword, function(result) {
-				if (result.success) {
-					$('#loginlink').hide();
-					$('#registlink').hide();
-					$('#usercenterlink').show();
-					$('#loginlink').removeBubbletip();
-					$('#registlink').removeBubbletip();
-					username = strUsername;
-					$('#usercenterlabel').text(username);
-
-					$('#usercenterbutton').bubbletip($('#usercenter'), {
-						deltaDirection : 'down',
-						deltaPosition : 50,
-						offsetTop : 0
-					});
-					$('#loginafterregist').tooltip('destroy');
-				} else {
-					$('#loginafterregist').tooltip('destroy');
-					$('#loginafterregist').tooltip({
-						title : result.message
-					}).tooltip('show');
-				}
-			});
-		});
-
-	});
+	}
 </script>
 </head>
 <body>
@@ -296,33 +324,31 @@
 				</div>
 
 				<div id="usercenter" style="display: none;">
-					<form class="navbar-form pull-left">
-						<div class="usercenter-label">
-							<p class="text-warning">积分: 1900</p>
-						</div>
-						<hr class="usercenter-hr" />
-						<div class="usercenter-label">
-							<p class="text-success">
-								<a href="#">查看最近的订单</a>
-							</p>
-						</div>
-						<hr class="usercenter-hr" />
-						<div class="usercenter-label">
-							<p class="text-success">
-								<a href="#">查询订单历史记录</a>
-							</p>
-						</div>
-						<hr class="usercenter-hr" />
-						<div class="usercenter-label">
-							<p class="text-success">
-								<a href="#">个人信息维护</a>
-							</p>
-						</div>
-						<hr class="usercenter-hr" />
-						<div class="regist-button">
-							<button id="logoutbutton" class="btn btn-block">注销</button>
-						</div>
-					</form>
+					<div id="userscorediv" class="usercenter-label">
+						<span id="userscore" class="text-warning">积分:0</span>
+					</div>
+					<hr class="usercenter-hr" />
+					<div class="usercenter-label">
+						<p class="text-success">
+							<a href="#">查看我的订单</a>
+						</p>
+					</div>
+					<hr class="usercenter-hr" />
+					<div class="usercenter-label">
+						<p class="text-success">
+							<a id="suggestbutton" href="#">提出宝贵的意见或建议</a>
+						</p>
+					</div>
+					<hr class="usercenter-hr" />
+					<div class="usercenter-label">
+						<p class="text-success">
+							<a href="#">个人信息维护</a>
+						</p>
+					</div>
+					<hr class="usercenter-hr" />
+					<div class="regist-button">
+						<button id="logoutbutton" class="btn btn-block">注销</button>
+					</div>
 				</div>
 
 			</div>

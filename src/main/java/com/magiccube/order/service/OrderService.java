@@ -24,6 +24,7 @@ import com.magiccube.order.model.OrderVOWithFood;
 import com.magiccube.order.model.OrderView;
 import com.magiccube.order.model.PlateVO;
 import com.magiccube.order.util.OrderUtils;
+import com.magiccube.user.service.UserService;
 
 /**
  * @author Xingling
@@ -37,6 +38,8 @@ public class OrderService extends BaseService {
 	private OrderDAO orderDAO;
 	
 	private FoodService foodService;
+	
+	private UserService userService;
 	
 	/**
 	 * 提交订单
@@ -152,10 +155,20 @@ public class OrderService extends BaseService {
 			OrderView orderView = getOrderView(id);
 			PosPrinter.print(orderView);
 			updateStock(orderView);
+			addScoreForUser(id,orderView.getActuallyPrice());
 		}
 		return ret;
 	}
 	
+	private void addScoreForUser(int id,double price) {
+		String orderUser = (String) orderDAO.getOrderUser(id);
+		if(orderUser!=null){
+			//花了多少钱就加多少积分（临时）
+			userService.addScore(orderUser, (int)price);
+			System.out.println(orderUser+"/"+price);
+		}
+	}
+
 	/**
 	 * 更新食物库存信息
 	 * @param orderView
@@ -179,5 +192,13 @@ public class OrderService extends BaseService {
 		for(Integer id : idSet) {
 			foodService.updateFoodReShopStock(id, idAmountMap.get(id));
 		}
+	}
+
+	public UserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 }

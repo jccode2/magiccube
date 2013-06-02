@@ -31,4 +31,8 @@
 		select p.state from phone_state p where p.phone = #{phone};
 	</select>
 	
+	<update id="addScore" parameterType="com.magiccube.user.model.UserVO">
+		UPDATE 1000funs.users set score = score+#{score} where user_name=#{userName};
+	</update>
+	
 </mapper>

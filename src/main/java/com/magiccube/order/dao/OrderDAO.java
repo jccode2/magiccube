@@ -93,4 +93,14 @@ public class OrderDAO extends BaseDAO {
 		List<OrderVOWithFood> result = this.sqlSessionTemplate.selectList("com.magiccube.order.getOrderWithFood", orderId);
 		return result;
 	}
+	
+	/**
+	 * 根据订单ID获取提交者的userName
+	 * @param orderId
+	 * @return
+	 */
+	public String getOrderUser(int orderId) {
+		String result = (String)this.sqlSessionTemplate.selectOne("com.magiccube.order.getOrderUser", orderId);
+		return result;
+	}
 }

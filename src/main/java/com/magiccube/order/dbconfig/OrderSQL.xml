@@ -105,5 +105,12 @@
 		  and o.id = #{orderId}
 		order by i.plate, f.food_name;
 	</select>
+	
+	<!-- 根据orderId查询某个订单的提交者名称 -->
+	<select id="getOrderUser" parameterType="int" resultType="String">
+		select u.user_name from orders o, users u
+		where o.user_id = u.id
+		  and o.id = #{orderId}
+	</select>
 
 </mapper>

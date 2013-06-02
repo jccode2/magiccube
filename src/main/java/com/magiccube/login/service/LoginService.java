@@ -48,6 +48,9 @@ public class LoginService {
 		objEnvironmentInfoVO.setUser(userVO);
 		WebContext objWebContext = WebContextFactory.get();
 		objWebContext.getSession().setAttribute("environmentInfo", objEnvironmentInfoVO);
+		if(resultVO.isSuccess()){
+			objWebContext.getSession().setAttribute("current_user", userVO);
+		}
 		return resultVO;
 	}
 	
@@ -57,6 +60,7 @@ public class LoginService {
 	public void exit(){
 		WebContext objWebContext = WebContextFactory.get();
 		objWebContext.getSession().removeAttribute("environmentInfo");
+		objWebContext.getSession().removeAttribute("current_user");
 	}
 	
 	/**
@@ -73,6 +77,8 @@ public class LoginService {
 	 * @param userVO 用户信息
 	 */
 	public void regist(UserVO userVO){
+		//注册赠送10积分
+		userVO.setScore(10);
 		userDAO.insertUser(userVO);
 	}
 	

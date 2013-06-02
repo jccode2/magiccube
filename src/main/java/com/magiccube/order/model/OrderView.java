@@ -17,6 +17,7 @@ public class OrderView extends BaseVO {
 	private String address;
 	
 	/**
+	 * 联系人
 	 */
 	private String contact;
 	
