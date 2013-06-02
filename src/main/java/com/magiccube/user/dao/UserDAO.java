@@ -34,7 +34,7 @@ public class UserDAO extends BaseDAO {
 	public int getPhoneState(String phone) {
 		int ret = -1;
 		try {
-			ret = this.sqlSessionTemplate.selectOne("com.magiccube.user.getPhoneState", phone);
+			ret = (Integer)this.sqlSessionTemplate.selectOne("com.magiccube.user.getPhoneState", phone);
 		} catch (NullPointerException e) { //号码不存在,返回-1.
 		}
 		return ret;
