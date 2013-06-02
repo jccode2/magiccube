@@ -62,7 +62,7 @@
 									</div>
 								</li>
 								</c:forEach>
-								<li><img src="${webRoot}/web/img/plus.png" class="food-add" alt=""></li>
+								<li><img src="${webRoot}/web/img/plus.png" class="food-add" alt="" value="${groupFoods.id}"></li>
 							</ul>
 						</td>
 					 </tr>

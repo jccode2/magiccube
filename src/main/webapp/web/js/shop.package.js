@@ -17,8 +17,15 @@ define(function(require, exports, module) {
 				}
 			}, 
 			modal: function () {
-				$("#btn_add, .foods-area .food-add").click(function () {
+				$("#btn_add").click(function () {
 					showModal('add', null);
+				});
+				$(".foods-area .food-add").click(function () {
+					showModal('add', null);
+					
+					//下拉框自动选中元区
+					var groupValue = $(this).attr("value");
+					$("#groupId").val(groupValue);
 				});
 			}, 
 			checkboxEvt: function () {
