@@ -32,6 +32,7 @@ import com.magiccube.food.model.FoodGroupVO;
 import com.magiccube.food.model.FoodQueryCondition;
 import com.magiccube.food.model.FoodVO;
 import com.magiccube.food.model.GroupFoods;
+import com.magiccube.food.model.GroupPackages;
 import com.magiccube.food.model.PackageVO;
 import com.magiccube.order.action.OrderAction;
 import com.magiccube.order.model.OrderQueryCondition;
@@ -191,8 +192,12 @@ public class ShopController {
 	@RequestMapping("/package")
 	public String toPackage(Model model) {
 		int shopId = 1;
-		List<GroupFoods> packageFoodsList = getPackageFoods();
+		
+//		List<GroupFoods> packageFoodsList = getGroupPackages();
+		List<GroupPackages> packageFoodsList = getGroupPackages();
 		model.addAttribute("packageFoodsList", packageFoodsList);
+		
+		
 		
 		// 新增套餐时使用
 		FoodQueryCondition foodQueryCondition = new FoodQueryCondition(shopId, FoodVO.TYPE_FOOD);
@@ -471,30 +476,22 @@ public class ShopController {
 	 * @return List<GroupFoods> 
 	 */
 	private List<GroupFoods> getCateringFoods() {
-		return getAllGroupAndFoods(FoodVO.TYPE_FOOD);
+		int shopId = 1;
+		FoodQueryCondition foodQueryCondition = new FoodQueryCondition(shopId, FoodVO.TYPE_FOOD);
+		List<GroupFoods> lstGroupFoods = foodAction.queryAllGroupAndFoods(foodQueryCondition);
+		return lstGroupFoods;
 	}
 	
 	/**
 	 * 获取套餐所有食物列表
 	 * @return List<GroupFoods>
 	 */
-	private List<GroupFoods> getPackageFoods() {
-		return getAllGroupAndFoods(FoodVO.TYPE_PACKAGE);
-	}
-	
-	
-	
-	/**
-	 * 根据指定类型获取指定类型的所有食物及分组列表集合(outer join, 空分组也会查出来)
-	 * @param type int 食物的类型 
-	 * @return List<GroupFoods>
-	 */
-	private List<GroupFoods> getAllGroupAndFoods(int type) {
+	private List<GroupPackages> getGroupPackages() {
 		int shopId = 1;
-		FoodQueryCondition foodQueryCondition = new FoodQueryCondition(shopId, type);
-		List<GroupFoods> lstGroupFoods = foodAction.queryAllGroupAndFoods(foodQueryCondition);
-		return lstGroupFoods;
+		List<GroupPackages> groupPackages = foodAction.queryAllGroupPackages(shopId);
+		return groupPackages;
 	}
+	
 	
 	/**
 	 * 将GroupForm 转化为 FoodGroupVO

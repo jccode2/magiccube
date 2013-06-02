@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>餐点管理-配餐模式</title>
+		<title>餐点管理-套餐模式</title>
 		<link rel="stylesheet" href="${webRoot}/web/bootstrap/css/bootstrap.min.css">
 		<link rel="stylesheet" href="${webRoot}/web/css/order.css">
 		<style type="text/css">
@@ -34,7 +34,7 @@
 					<ul>
 						<c:forEach items="${packageFoodsList}" var="groupFoods" varStatus="status">
 						<li>
-							<label class="checkbox"><input type="checkbox" idx="${status.count }" <c:if test="${fn:length(groupFoods.foodList) > 0}">checked</c:if>
+							<label class="checkbox"><input type="checkbox" idx="${status.count }" <c:if test="${fn:length(groupFoods.packageList) > 0}">checked</c:if>
 							>${groupFoods.groupName}</label>
 						</li>
 						</c:forEach>
@@ -42,15 +42,18 @@
 				</div>
 				<table id="tb_foods" class="foods-area">
 					 <c:forEach items="${packageFoodsList}" var="groupFoods" varStatus="status">
-					 <tr id="tr_${status.count }" class="<c:if test="${fn:length(groupFoods.foodList) == 0}">hide</c:if>">
+					 <tr id="tr_${status.count }" class="<c:if test="${fn:length(groupFoods.packageList) == 0}">hide</c:if>">
 						<td class="food-area-head">${groupFoods.groupName}</td>
 						<td>
 							<ul class="item-list img-text-below food-area-list">
-								<c:forEach items="${groupFoods.foodList}" var="food">
+								<c:forEach items="${groupFoods.packageList}" var="food">
 								<li id="item_${food.id }" class='<c:choose><c:when test="${food.droped }">drop</c:when><c:when test="${food.stock <= 0}"> stockout</c:when><c:otherwise></c:otherwise></c:choose>'>
 									<div>
 										<img src="${webRoot}/${food.image}" alt="${food.foodName}">
-										<span title="${food.foodName }"><c:choose><c:when test="${food.droped }"><b>[下架]</b></c:when><c:when test="${food.stock <= 0}"><b>[缺货]</b></c:when><c:otherwise></c:otherwise></c:choose>${food.foodName}</span>
+										<b title="${food.foodName }"><c:choose><c:when test="${food.droped }">[下架]</c:when><c:when test="${food.stock <= 0}">[缺货]</c:when><c:otherwise></c:otherwise></c:choose>${food.foodName}</b>
+										<div class="package-detail">
+											<c:forEach items="${food.items }" var="item" varStatus="status2">${item.foodName } <c:if test="${fn:length(food.items) != status2.count}"> + </c:if> </c:forEach>
+										</div>
 										<div class="btns">
 											<c:choose><c:when test="${food.droped }"><i id="drop_${food.id }" class="icon-upload" title="快速上架"></i></c:when><c:otherwise><i id="drop_${food.id }" class="icon-download" title="快速下架"></i></c:otherwise></c:choose>
 											<i class="icon-edit" title="编辑食物"></i>

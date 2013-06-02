@@ -450,6 +450,11 @@ body {
 .foods-area .food-area-list li {
   position: relative;
 }
+.foods-area .food-area-list .package-detail {
+  font-size: 11px;
+  font-style: italic;
+  color: #666;
+}
 .foods-area .btns {
   position: absolute;
   top: 0px;
@@ -608,10 +613,6 @@ ul.item-list.img-text-below > li span {
 #dialog-add-package.dialog-select-food .modal-body {
   max-height: 250px;
 }
-.phone-blacklist {
-  color: #808080;
-  text-decoration: line-through;
-}
 .red {
   color: red;
 }
@@ -620,12 +621,6 @@ ul.item-list.img-text-below > li span {
 }
 .brown {
   color: #A52A2A;
-}
-.dark-yellow {
-  color: #999900;
-}
-.bg-grey {
-  background-color: #F2F2F2;
 }
 .center {
   text-align: center;
