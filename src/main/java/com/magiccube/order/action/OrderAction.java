@@ -8,6 +8,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.directwebremoting.annotations.RemoteMethod;
 import org.directwebremoting.annotations.RemoteProxy;
 import org.slf4j.Logger;
@@ -25,6 +27,7 @@ import com.magiccube.order.model.OrderVOWithFood;
 import com.magiccube.order.model.OrderView;
 import com.magiccube.order.service.OrderService;
 import com.magiccube.order.util.OrderUtils;
+import com.magiccube.user.model.UserVO;
 
 /**
  * @author Xingling
@@ -58,32 +61,10 @@ public class OrderAction extends BaseAction {
 	 * @return 提交是否成功
 	 */
 	@RemoteMethod
-	public ResultVO submitOrder(OrderVO orderVO) {
+	public ResultVO submitOrder(OrderVO orderVO,HttpServletRequest request) {
 		try {
-			Calendar objCal = Calendar.getInstance();
-			switch (orderVO.getExceptTimeType()) {
-			case 0: // 12点送达
-				objCal.set(Calendar.HOUR_OF_DAY, 12);
-				objCal.set(Calendar.MINUTE, 0);
-				objCal.set(Calendar.SECOND, 0);
-				break;
-			case 1: // 下午6点送达
-				objCal.set(Calendar.HOUR_OF_DAY, 18);
-				objCal.set(Calendar.MINUTE, 0);
-				objCal.set(Calendar.SECOND, 0);
-				break;
-			case 2: // 30分钟后送达
-				objCal.set(Calendar.MINUTE, objCal.get(Calendar.MINUTE) + 30);
-				break;
-			case 3: // 1小时后送达
-				objCal.set(Calendar.HOUR_OF_DAY,
-						objCal.get(Calendar.HOUR_OF_DAY) + 1);
-				break;
-			}
-			orderVO.setExceptTime(objCal.getTime());
-			orderVO.setCreateTime(new Date());
-			orderVO.setShopId(1);
-			orderService.submitOrder(orderVO);
+			UserVO currentUser = (UserVO) request.getSession().getAttribute("current_user");
+			orderService.submitOrder(orderVO,currentUser);
 		} catch (Exception e) {
 			LOGGER.error("submitOrder 出错：" + e);
 			return new ResultVO("提交订单时后台出现错误" + e);
