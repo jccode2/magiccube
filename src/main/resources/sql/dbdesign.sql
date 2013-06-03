@@ -329,3 +329,15 @@ select `u`.`phone` AS `phone`,`u`.`state` AS `state` from `users` `u` where (`u`
 union 
 select `g`.`phone` AS `phone`,`g`.`state` AS `state` from `guest` `g` where (`g`.`deleted` = 0)
 
+
+-- -----------------------------------------------------
+-- Table Suggest
+-- -----------------------------------------------------
+CREATE TABLE `suggest` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(45) DEFAULT NULL,
+  `suggest_content` varchar(1000) DEFAULT NULL,
+  `suggest_time` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB;
+
