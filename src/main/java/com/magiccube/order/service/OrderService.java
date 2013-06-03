@@ -25,6 +25,7 @@ import com.magiccube.order.model.OrderVO;
 import com.magiccube.order.model.OrderVOWithFood;
 import com.magiccube.order.model.OrderView;
 import com.magiccube.order.model.PlateVO;
+import com.magiccube.order.model.SuggestVO;
 import com.magiccube.order.util.OrderUtils;
 import com.magiccube.user.model.UserVO;
 import com.magiccube.user.service.UserService;
@@ -232,5 +233,11 @@ public class OrderService extends BaseService {
 
 	public void setUserService(UserService userService) {
 		this.userService = userService;
+	}
+
+	public void suggest(SuggestVO suggestVO) {
+		Calendar objCal = Calendar.getInstance();
+		suggestVO.setSuggestTime(objCal.getTime());
+		orderDAO.insertSuggest(suggestVO);
 	}
 }

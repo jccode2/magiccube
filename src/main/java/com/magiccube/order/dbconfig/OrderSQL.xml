@@ -112,5 +112,13 @@
 		where o.user_id = u.id
 		  and o.id = #{orderId}
 	</select>
+	
+	<!-- 插入Suggest数据 -->
+	<insert id="insertSuggest" parameterType="com.magiccube.order.model.SuggestVO">
+		INSERT INTO
+		suggest(user_name,suggest_content,suggest_time)
+		VALUES
+		(#{userName},#{suggestContent},#{suggestTime})
+	</insert>
 
 </mapper>

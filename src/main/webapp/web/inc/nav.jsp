@@ -66,6 +66,11 @@
 	font-style: inherit;
 	color: gray;
 }
+
+textarea {
+	width: 97%;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -101,8 +106,44 @@
 		initQuickLoginButton();
 
 		initLogoutButton();
+		
+		initSuggestButton();
 
 	});
+	
+	function initSuggestButton(){
+		$('#suggestbutton').click(function(e){
+			$('#suggest-frame').show();
+			$('#success-tip-btn').show();
+			$('#suggest-result').hide();
+		});
+		
+		$('#suggestclose').click(function(e){
+			$('#suggest-frame').hide();
+		});
+		
+		$('#suggestclose2').click(function(e){
+			$('#suggest-frame').hide();
+		});
+		
+		$('#success-tip-btn').click(function(e){
+			var suggestVO = {
+					userName : currentuser.userName,
+					suggestContent : $('#suggest-content').val()
+				};
+			$('#success-tip-btn').tooltip('destroy');
+				OrderAction.suggest(suggestVO, function(result) {
+					if(result.success){
+						$('#success-tip-btn').hide();
+						$('#suggest-result').show();
+					}else{
+						$('#success-tip-btn').tooltip({
+							title : result.message
+						}).tooltip('show');
+					}
+				});
+		});
+	}
 
 	function initUserCenter() {
 		$('#loginlink').hide();
@@ -152,8 +193,8 @@
 				if (result.success) {
 					$('#loginlink').removeBubbletip();
 					$('#registlink').removeBubbletip();
-					UserAction.getCurrentUser(function(result){
-						currentuser=result;
+					UserAction.getCurrentUser(function(result) {
+						currentuser = result;
 						initUserCenter();
 					});
 				} else {
@@ -198,8 +239,8 @@
 				if (result.success) {
 					$('#loginlink').removeBubbletip();
 					$('#registlink').removeBubbletip();
-					UserAction.getCurrentUser(function(result){
-						currentuser=result;
+					UserAction.getCurrentUser(function(result) {
+						currentuser = result;
 						initUserCenter();
 					});
 				} else {
@@ -336,7 +377,7 @@
 					<hr class="usercenter-hr" />
 					<div class="usercenter-label">
 						<p class="text-success">
-							<a id="suggestbutton" href="#">提出宝贵的意见或建议</a>
+							<a id="suggestbutton"  href="#">提出宝贵的意见或建议</a>
 						</p>
 					</div>
 					<hr class="usercenter-hr" />
@@ -350,7 +391,19 @@
 						<button id="logoutbutton" class="btn btn-block">注销</button>
 					</div>
 				</div>
-
+				<div class="modal hide" id="suggest-frame">
+					<div class="modal-header">
+						<button id="suggestclose" type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4>非常感谢您的支持，请填写您的建议</h4>
+					</div>
+					<div class="modal-body">
+						<textarea id="suggest-content" rows="4" maxlength=250></textarea>
+					</div>
+					<div class="modal-footer">
+						<a href="#" class="btn btn-success" id="success-tip-btn">提交建议</a>
+						<p id="suggest-result" class="text-success hide">非常感谢您的建议！<a id="suggestclose2" href="#">关闭建议窗口</a></p>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

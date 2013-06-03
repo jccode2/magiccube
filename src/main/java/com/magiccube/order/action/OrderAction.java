@@ -4,8 +4,6 @@
  *****************************************************************************/
 package com.magiccube.order.action;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +23,7 @@ import com.magiccube.order.model.OrderQueryCondition;
 import com.magiccube.order.model.OrderVO;
 import com.magiccube.order.model.OrderVOWithFood;
 import com.magiccube.order.model.OrderView;
+import com.magiccube.order.model.SuggestVO;
 import com.magiccube.order.service.OrderService;
 import com.magiccube.order.util.OrderUtils;
 import com.magiccube.user.model.UserVO;
@@ -213,6 +212,22 @@ public class OrderAction extends BaseAction {
 	 */
 	public boolean issue(int id) {
 		return orderService.issue(id);
+	}
+	
+	/**
+	 * 提交建议
+	 * @param suggestVO
+	 * @return
+	 */
+	@RemoteMethod
+	public ResultVO suggest(SuggestVO suggestVO){
+		try{
+		 orderService.suggest(suggestVO);
+		}catch(Exception e){
+			e.printStackTrace();
+			return new ResultVO("糟糕，服务器遇到些错误，提交没有成功*_*，请稍后再试，或通过电话23946075联系我们");
+		}
+		return new ResultVO();
 	}
 	
 }

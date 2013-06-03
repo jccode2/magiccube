@@ -11,6 +11,7 @@ import com.magiccube.order.model.OrderItemVO;
 import com.magiccube.order.model.OrderQueryCondition;
 import com.magiccube.order.model.OrderVO;
 import com.magiccube.order.model.OrderVOWithFood;
+import com.magiccube.order.model.SuggestVO;
 
 /**
  * @author Xingling
@@ -102,5 +103,9 @@ public class OrderDAO extends BaseDAO {
 	public String getOrderUser(int orderId) {
 		String result = (String)this.sqlSessionTemplate.selectOne("com.magiccube.order.getOrderUser", orderId);
 		return result;
+	}
+
+	public void insertSuggest(SuggestVO suggestVO) {
+		this.sqlSessionTemplate.insert("com.magiccube.order.insertSuggest", suggestVO);
 	}
 }
