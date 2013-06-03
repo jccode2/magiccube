@@ -70,7 +70,6 @@
 textarea {
 	width: 97%;
 }
-
 </style>
 
 <script type="text/javascript">
@@ -82,17 +81,29 @@ textarea {
 			currentuser = result;
 
 			if (currentuser == null) {
-				$('#registlink').bubbletip($('#registboard'), {
-					deltaDirection : 'down',
-					deltaPosition : 50,
-					offsetTop : 0
-				});
-				$('#loginlink').bubbletip($('#loginboard'), {
-					deltaDirection : 'down',
-					deltaPosition : 50,
-					offsetTop : 0
-				});
-
+				var username = $.cookie('rem10-u');
+				var password = $.cookie('rem10-p');
+				if (username != null) {
+					LoginAction.login(username, password, function(result) {
+						if (result.success) {
+							UserAction.getCurrentUser(function(result) {
+								currentuser = result;
+								initUserCenter();
+							});
+						}
+					});
+				} else {
+					$('#registlink').bubbletip($('#registboard'), {
+						deltaDirection : 'down',
+						deltaPosition : 50,
+						offsetTop : 0
+					});
+					$('#loginlink').bubbletip($('#loginboard'), {
+						deltaDirection : 'down',
+						deltaPosition : 50,
+						offsetTop : 0
+					});
+				}
 			} else {
 				initUserCenter();
 			}
@@ -106,42 +117,42 @@ textarea {
 		initQuickLoginButton();
 
 		initLogoutButton();
-		
+
 		initSuggestButton();
 
 	});
-	
-	function initSuggestButton(){
-		$('#suggestbutton').click(function(e){
+
+	function initSuggestButton() {
+		$('#suggestbutton').click(function(e) {
 			$('#suggest-frame').show();
 			$('#success-tip-btn').show();
 			$('#suggest-result').hide();
 		});
-		
-		$('#suggestclose').click(function(e){
+
+		$('#suggestclose').click(function(e) {
 			$('#suggest-frame').hide();
 		});
-		
-		$('#suggestclose2').click(function(e){
+
+		$('#suggestclose2').click(function(e) {
 			$('#suggest-frame').hide();
 		});
-		
-		$('#success-tip-btn').click(function(e){
+
+		$('#success-tip-btn').click(function(e) {
 			var suggestVO = {
-					userName : currentuser.userName,
-					suggestContent : $('#suggest-content').val()
-				};
+				userName : currentuser.userName,
+				suggestContent : $('#suggest-content').val()
+			};
 			$('#success-tip-btn').tooltip('destroy');
-				OrderAction.suggest(suggestVO, function(result) {
-					if(result.success){
-						$('#success-tip-btn').hide();
-						$('#suggest-result').show();
-					}else{
-						$('#success-tip-btn').tooltip({
-							title : result.message
-						}).tooltip('show');
-					}
-				});
+			OrderAction.suggest(suggestVO, function(result) {
+				if (result.success) {
+					$('#success-tip-btn').hide();
+					$('#suggest-result').show();
+				} else {
+					$('#success-tip-btn').tooltip({
+						title : result.message
+					}).tooltip('show');
+				}
+			});
 		});
 	}
 
@@ -158,6 +169,14 @@ textarea {
 		$('#userscore').text("积分:" + currentuser.score);
 		$('#userscorediv').tooltip({
 			title : "将来您可以通过积分享受各种优惠",
+			placement : "left"
+		});
+		$('#userbutton3').tooltip({
+			title : "即将推出",
+			placement : "left"
+		});
+		$('#userbutton4').tooltip({
+			title : "即将推出",
 			placement : "left"
 		});
 	}
@@ -179,6 +198,8 @@ textarea {
 					deltaPosition : 50,
 					offsetTop : 0
 				});
+				$.cookie("rem10-u", null);
+				$.cookie("rem10-p", null);
 			});
 		});
 
@@ -249,6 +270,19 @@ textarea {
 					}).tooltip('show');
 				}
 			});
+
+			if ($("#remember10day").attr('checked') == undefined) {
+			} else {
+				$.cookie('rem10-u', strUsername, {
+					path : '/',
+					expires: 10
+				});
+				$.cookie('rem10-p', strPassword, {
+					path : '/',
+					expires: 10
+				});
+			}
+
 		});
 	}
 
@@ -377,14 +411,16 @@ textarea {
 					<hr class="usercenter-hr" />
 					<div class="usercenter-label">
 						<p class="text-success">
-							<a id="suggestbutton"  href="#">提出宝贵的意见或建议</a>
+							<a id="suggestbutton" href="#">提出宝贵的意见或建议</a>
 						</p>
 					</div>
 					<hr class="usercenter-hr" />
-					<div class="usercenter-label">
-						<p class="text-success">
-							<a href="#">个人信息维护</a>
-						</p>
+					<div id="userbutton3" class="usercenter-label">
+						<p class="muted">提前预订</p>
+					</div>
+					<hr class="usercenter-hr"></hr>
+					<div id="userbutton4" class="usercenter-label">
+						<p class="muted">积分换礼</p>
 					</div>
 					<hr class="usercenter-hr" />
 					<div class="regist-button">
@@ -401,7 +437,9 @@ textarea {
 					</div>
 					<div class="modal-footer">
 						<a href="#" class="btn btn-success" id="success-tip-btn">提交建议</a>
-						<p id="suggest-result" class="text-success hide">非常感谢您的建议！<a id="suggestclose2" href="#">关闭建议窗口</a></p>
+						<p id="suggest-result" class="text-success hide">
+							非常感谢您的建议！<a id="suggestclose2" href="#">关闭建议窗口</a>
+						</p>
 					</div>
 				</div>
 			</div>
