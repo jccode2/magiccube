@@ -9,9 +9,7 @@
 </head>
 <body>
 	<div class="container order-content">
-		<div class="container order-ad">
-			
-		</div>
+		<div class="container order-ad"></div>
 		<div class="row-fluid">
 			<div class="span8 food-panel">
 				<ul class="food-tab">
@@ -93,7 +91,8 @@
 		<div class="modal-body order-plate-list">
 			<div class="plate-list-detail"></div>
 			<div class="order-tip">
-				<span class="order-price-total">合计<em id="order-price-total">45</em>元</span>
+				<span class="order-price-total">合计<em id="order-price-total">45</em>元
+				</span>
 				<ul class="order-discount">
 					<li>首次订餐每份优惠1元</li>
 					<li>订餐5份以上每份优惠1元</li>
@@ -124,22 +123,26 @@
 			<a href="#" class="submit-btn"></a> <a href="#" class="cancle-btn"></a>
 		</div>
 	</div>
-	
+
 	<div class="modal hide" id="submit-success-tip">
-	  <div class="modal-header">
-	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	    <h3>成功提交订单</h3>
-	  </div>
-	  <div class="modal-body">
-	    <p class="success-tip">你已成功提交订单，我们会及时处理您的订单，请耐心等候。</p>
-	  </div>
-	  <div class="modal-footer">
-	    <a href="#" class="btn btn-success" id="success-tip-btn">确定</a>
-	  </div>
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			<h3>成功提交订单</h3>
+		</div>
+		<div class="modal-body">
+			<p class="success-tip">你已成功提交订单，我们会及时处理您的订单，请耐心等候。</p>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn btn-success" id="success-tip-btn">确定</a>
+		</div>
 	</div>
 	
-
-
+	<div class="copyright">
+		<a href="http://www.beianbeian.com/beianxinxi/aa5a95a8-5a4a-44cf-bac2-1a00fbeae435.html" class="text-success">粤ICP备13009418号</a>
+		<p class="text-success">千方百味有限公司 版权所有</p>
+		<p class="text-success">Copyright © 2012-2017, 1000FUNS.COM, All Rights Reserved</p>
+	</div>
+	
 	<script type="text/javascript" src="${webRoot}/web/js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="${webRoot}/dwr/interface/OrderAction.js"></script>
 	<script type="text/javascript" src="${webRoot}/web/order/js/order.js"></script>
