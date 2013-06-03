@@ -91,7 +91,42 @@ $(document).ready(function() {
 		
 		$('.plate-item.first').show();
 		$('.plate-panel .price-total').show();
+		
+		//+1
+		showAddFoodTip(e);
+		//if(e.target.attr('tagName'))
+		//$(this).find('.add-food-tip').css({left:left, top: top}).fadeIn(1000).fadeOut(1000);
+		
 	});
+	
+	//+1
+	function showAddFoodTip(e) {
+		var $target = $(e.target);
+		if($target.hasClass('food-pic')) {
+			$target = $target.closest('.food-item');
+		}
+		$target.css({position: 'relative'});
+		if($target.find('.add-food-tip').length==0) {
+			$target.append('<span class="add-food-tip">+1</span>');
+		}
+		var left = e.offsetX + 10;
+		var top = e.offsetY;
+		
+		if($target.is('p')) {
+			top -= 20;
+		} else {
+			top-=10;
+		}
+		
+		$target.find('>.add-food-tip').css({left: left, top: top}).fadeIn(600).fadeOut(600);
+		
+		
+		//add-food-tip
+		
+		console.log(e);
+	}
+	
+	//<span class="add-food-tip">+1</span>
 	
 	//点击餐盘
 	$('.plate-item-title').live('click', function(e){
@@ -342,12 +377,23 @@ $(document).ready(function() {
 		OrderAction.submitOrder(orderVO, function(result){
 			$('.order').modal('hide');
 			$('#submit-success-tip').modal('show');
+			initMyPlate();
 		});
 		
 		//$(".alert").alert();
 		
 		
 	});
+	
+	//提交订单后重新初始化我的餐盒
+	function initMyPlate() {
+		var plateContent = '<div class="plate-item first curr">'
+							+ '<h2 class="plate-item-title">餐盒1<em class="plate-price"></em></h2>'
+							+ '<ul class="plate-food-list"></ul>'
+						+ '</div>';
+		$('.plate-list').html(plateContent);
+		$('.price-total').hide().find('em').html('￥0');
+	}
 	
 	
 	//取消按钮

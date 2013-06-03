@@ -7,5 +7,7 @@
 	text-align: center;
 	font-size: 12px;
 	color: #636363;
+	height: 50px;
+	line-height: 50px;
 }
 </style>
