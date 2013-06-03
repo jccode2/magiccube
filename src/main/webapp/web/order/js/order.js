@@ -113,9 +113,10 @@ $(document).ready(function() {
 		var top = e.offsetY;
 		
 		if($target.is('p')) {
-			top -= 20;
+			left-=10;
+			top -= 25;
 		} else {
-			top-=10;
+			top-=15;
 		}
 		
 		$target.find('>.add-food-tip').css({left: left, top: top}).fadeIn(600).fadeOut(600);

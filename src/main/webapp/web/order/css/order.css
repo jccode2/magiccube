@@ -17,6 +17,7 @@ body {
 
 .order-ad {
 	height: 150px;
+	background: url("./images/logo.png") 20px 30px no-repeat;
 	background-color: rgba(81, 173, 12, .4);
 	margin-bottom: 2px;
 }
