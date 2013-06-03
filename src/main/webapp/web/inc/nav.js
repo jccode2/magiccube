@@ -109,7 +109,6 @@ $(document).ready(function() {
 		
 		//render
 		OrderAction.queryOrdersByUserId(userId, function(orderViewList) {
-			console.log(orderViewList);
 			var data = {"orderViewList": orderViewList};
 			dust.loadSource(dust.compile($("#recentOrderTemplate").html(), "recentOrder"));
 			dust.render("recentOrder", data, function(err,out) {
