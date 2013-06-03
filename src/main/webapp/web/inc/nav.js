@@ -1,7 +1,7 @@
 	var currentuser;
 
 	$(document).ready(function() {
-
+		
 		UserAction.getCurrentUser(function(result) {
 			currentuser = result;
 
@@ -133,7 +133,7 @@
 	function initQuickLoginButton() {
 		$('#loginafterregist').bind('click', function() {
 			var strUsername = $.trim($('#registerUsername').val());
-			var strPassword = $.trim($('#registerPassword').val());
+			var strPassword = $.md5($.trim($('#registerPassword').val()));
 			$('#loginafterregist').tooltip('destroy');
 			LoginAction.login(strUsername, strPassword, function(result) {
 				if (result.success) {
@@ -156,7 +156,7 @@
 		$('#loginbutton').bind('click', function() {
 			var inputRight = true;
 			var strUsername = $.trim($('#loginUsername').val());
-			var strPassword = $.trim($('#loginPassword').val());
+			var strPassword = $.md5($.trim($('#loginPassword').val()));
 
 			if (strUsername == "") {
 				$('#loginUsername').tooltip({
@@ -215,8 +215,8 @@
 		$('#submitregist').bind('click', function() {
 			var inputRight = true;
 			var strUsername = $.trim($('#registerUsername').val());
-			var strPassword = $.trim($('#registerPassword').val());
-			var strConfirm = $.trim($('#registerConfirm').val());
+			var strPassword = $.md5($.trim($('#registerPassword').val()));
+			var strConfirm = $.md5($.trim($('#registerConfirm').val()));
 
 			if ($("#isAgree").attr('checked') == undefined) {
 				$('#policy').tooltip({
@@ -260,7 +260,7 @@
 
 			var userVO = {
 				userName : strUsername,
-				password : $.trim($('#registerPassword').val())
+				password : $.md5($.trim($('#registerPassword').val()))
 			};
 			LoginAction.regist(userVO, function(result) {
 				if (result.success) {

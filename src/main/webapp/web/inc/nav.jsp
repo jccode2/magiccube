@@ -4,6 +4,7 @@
 <head>
 <%@ include file="/web/inc/head.jsp"%>
 <script type="text/javascript" src="${webRoot}/web/js/jquery-1.8.0.js"></script>
+<script type="text/javascript" src="${webRoot}/web/js/jquery.md5.js"></script>
 <script type="text/javascript" src="${webRoot}/web/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${webRoot}/web/bubbletip/js/jQuery.bubbletip-1.0.6.js"></script>
 <script type="text/javascript" src="${webRoot}/dwr/engine.js"></script>
