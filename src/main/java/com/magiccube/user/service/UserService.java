@@ -54,4 +54,14 @@ public class UserService {
 		return ret;
 	}
 	
+	/**
+	 * 增加积分（设置参数为负即为减少积分）
+	 * @param userName
+	 * @param score
+	 * @return
+	 */
+	public int addScore(String userName , int score){
+		return userDAO.addScore(userName,score);
+	}
+	
 }

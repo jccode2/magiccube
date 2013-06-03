@@ -4,6 +4,8 @@
  *****************************************************************************/
 package com.magiccube.order.service;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +25,10 @@ import com.magiccube.order.model.OrderVO;
 import com.magiccube.order.model.OrderVOWithFood;
 import com.magiccube.order.model.OrderView;
 import com.magiccube.order.model.PlateVO;
+import com.magiccube.order.model.SuggestVO;
 import com.magiccube.order.util.OrderUtils;
+import com.magiccube.user.model.UserVO;
+import com.magiccube.user.service.UserService;
 
 /**
  * @author Xingling
@@ -38,11 +43,42 @@ public class OrderService extends BaseService {
 	
 	private FoodService foodService;
 	
+	private UserService userService;
+	
 	/**
 	 * 提交订单
 	 * @param orderVO
 	 */
-	public void submitOrder(OrderVO orderVO) {
+	public void submitOrder(OrderVO orderVO,UserVO currentUser) {
+		
+		Calendar objCal = Calendar.getInstance();
+		switch (orderVO.getExceptTimeType()) {
+		case 0: // 12点送达
+			objCal.set(Calendar.HOUR_OF_DAY, 12);
+			objCal.set(Calendar.MINUTE, 0);
+			objCal.set(Calendar.SECOND, 0);
+			break;
+		case 1: // 下午6点送达
+			objCal.set(Calendar.HOUR_OF_DAY, 18);
+			objCal.set(Calendar.MINUTE, 0);
+			objCal.set(Calendar.SECOND, 0);
+			break;
+		case 2: // 30分钟后送达
+			objCal.set(Calendar.MINUTE, objCal.get(Calendar.MINUTE) + 30);
+			break;
+		case 3: // 1小时后送达
+			objCal.set(Calendar.HOUR_OF_DAY,
+					objCal.get(Calendar.HOUR_OF_DAY) + 1);
+			break;
+		}
+		orderVO.setExceptTime(objCal.getTime());
+		orderVO.setCreateTime(new Date());
+		orderVO.setShopId(1);
+		
+		if(currentUser!=null){
+			orderVO.setUserId(currentUser.getId());
+		}
+		
 		orderDAO.insertOrder(orderVO);
 		for(int i = 0;i < orderVO.getFoodList().size();++i){
 			orderVO.getFoodList().get(i).setOrderId(orderVO.getId());
@@ -152,10 +188,20 @@ public class OrderService extends BaseService {
 			OrderView orderView = getOrderView(id);
 			PosPrinter.print(orderView);
 			updateStock(orderView);
+			addScoreForUser(id,orderView.getActuallyPrice());
 		}
 		return ret;
 	}
 	
+	private void addScoreForUser(int id,double price) {
+		String orderUser = (String) orderDAO.getOrderUser(id);
+		if(orderUser!=null){
+			//花了多少钱就加多少积分（临时）
+			userService.addScore(orderUser, (int)price);
+			System.out.println(orderUser+"/"+price);
+		}
+	}
+
 	/**
 	 * 更新食物库存信息
 	 * @param orderView
@@ -179,5 +225,19 @@ public class OrderService extends BaseService {
 		for(Integer id : idSet) {
 			foodService.updateFoodReShopStock(id, idAmountMap.get(id));
 		}
+	}
+
+	public UserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
+	public void suggest(SuggestVO suggestVO) {
+		Calendar objCal = Calendar.getInstance();
+		suggestVO.setSuggestTime(objCal.getTime());
+		orderDAO.insertSuggest(suggestVO);
 	}
 }

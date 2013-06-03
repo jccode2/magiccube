@@ -1,0 +1,57 @@
+@CHARSET "UTF-8";
+
+.user-center-link {
+	background: url("../img/user-center-icon.png") 0 7px
+		no-repeat;
+}
+
+.user-center-link em {
+	font-style: normal;
+	margin-left: 3px;
+}
+
+.adress-info {
+	display: none;
+	float: left;
+	margin-left: 150px;
+	padding: 10px 20px 10px;
+	cursor: pointer;
+}
+
+.adress-info:hover {
+	color: white;
+}
+
+.regist-tips {
+	text-align: center;
+	font-style: inherit;
+	color: gray;
+}
+
+.regist-button {
+	text-align: center;
+}
+
+.regist-checkbox {
+	text-align: center;
+}
+
+.regist-hr {
+	-webkit-margin-before: 0.4em;
+	-webkit-margin-after: 0.3em;
+}
+
+.usercenter-hr {
+	-webkit-margin-before: 0.4em;
+	-webkit-margin-after: 0.3em;
+}
+
+.usercenter-label {
+	text-align: center;
+	font-style: inherit;
+	color: gray;
+}
+
+textarea {
+	width: 97%;
+}

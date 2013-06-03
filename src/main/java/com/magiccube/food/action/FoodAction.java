@@ -20,6 +20,7 @@ import com.magiccube.food.model.FoodGroupVO;
 import com.magiccube.food.model.FoodQueryCondition;
 import com.magiccube.food.model.FoodVO;
 import com.magiccube.food.model.GroupFoods;
+import com.magiccube.food.model.GroupPackages;
 import com.magiccube.food.model.PackageItemVO;
 import com.magiccube.food.model.PackageVO;
 import com.magiccube.food.service.FoodService;
@@ -174,6 +175,10 @@ public class FoodAction extends BaseAction {
 	
 	public List<GroupFoods> queryAvailableGroupAndFoods(FoodQueryCondition foodQueryCondition) {
 		return foodService.queryAvailableGroupAndFoods(foodQueryCondition);
+	}
+	
+	public List<GroupPackages> queryAllGroupPackages(int shopId) {
+		return foodService.queryAllGroupPackages(shopId);
 	}
 	
 	@RemoteMethod

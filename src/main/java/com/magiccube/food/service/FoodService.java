@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.magiccube.core.base.service.BaseService;
 import com.magiccube.core.util.tools.CodeGenerator;
@@ -111,6 +111,7 @@ public class FoodService extends BaseService {
 	 * @param packageVO
 	 * @return
 	 */
+	@Transactional(readOnly = true)
 	public int insertPackage(PackageVO packageVO) {
 		// 1. 先往food表插入一个记录
 		int packageId = insertFood(packageVO);
@@ -129,6 +130,7 @@ public class FoodService extends BaseService {
 	 * @param packageVO
 	 * @return true-成功; false-失败
 	 */
+	@Transactional
 	public boolean updatePackage(PackageVO packageVO) {
 		// 1. 先更新food表
 		updateFood(packageVO);
@@ -151,6 +153,7 @@ public class FoodService extends BaseService {
 	 * @param packageId
 	 * @return
 	 */
+	@Transactional(readOnly = true)
 	public boolean insertPackageItems(List<PackageItemVO> items, int packageId) {
 		for (PackageItemVO packageItem : items) {
 			packageItem.setPackageId(packageId);
@@ -254,7 +257,8 @@ public class FoodService extends BaseService {
 	public List<FoodGroupVO> queryAllGroups() {
 		return foodDAO.queryAllGroups();
 	}
-
+	
+	@Transactional
 	public int deleteGroup(int id) {
 		int ret = foodDAO.deleteGroup(id);
 
@@ -262,7 +266,8 @@ public class FoodService extends BaseService {
 		foodDAO.deleteFoodReShopByGroup(id);
 		return ret;
 	}
-
+	
+	@Transactional
 	public int deleteFood(int id) {
 		int ret = foodDAO.deleteFood(id);
 
@@ -277,6 +282,7 @@ public class FoodService extends BaseService {
 	 * @param packageVO
 	 * @return
 	 */
+	@Transactional
 	public boolean deletePackage(int packageId) {
 		// 1.删除food_re_shop中的相关关联信息
 		deleteFoodReShop(packageId);

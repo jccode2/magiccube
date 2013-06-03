@@ -41,6 +41,7 @@
 	<bean id="OrderService" class="com.magiccube.order.service.OrderService">   
 		<property name="orderDAO" ref="OrderDAOImpl" />
 		<property name="foodService" ref="FoodService"/>
+		<property name="userService" ref="UserService"/>
 	</bean>
 	
 	<!-- 用户模块，注入数据源 -->

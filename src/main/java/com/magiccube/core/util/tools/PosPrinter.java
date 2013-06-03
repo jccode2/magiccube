@@ -23,10 +23,14 @@ import javax.print.attribute.PrintRequestAttributeSet;
 import javax.print.attribute.Size2DSyntax;
 import javax.print.attribute.standard.MediaPrintableArea;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.magiccube.common.model.EnvironmentInfoVO;
 import com.magiccube.order.model.OrderFoodView;
 import com.magiccube.order.model.OrderView;
 import com.magiccube.order.model.PlateVO;
+import com.magiccube.order.service.OrderService;
 
 /**
  * 
@@ -36,6 +40,8 @@ import com.magiccube.order.model.PlateVO;
  * @version  2013-3-25 黄科林
  */
 public class PosPrinter {
+	
+	final static Logger LOGGER = LoggerFactory.getLogger(PosPrinter.class);
 	
 	public static String LOGO_PATH = EnvironmentInfoVO.WEBROOT+"web/img/logo.png";
 	
@@ -89,7 +95,7 @@ public class PosPrinter {
 		
 		DocFlavor flavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
 		try {
-		    System.out.println(sbPrinter.toString());
+		    LOGGER.debug("打印小票: --->", sbPrinter.toString());
 			
 			// 使用默认打印机，如果默认打印机不是POS打印机，请通过名称查找。    
 		    PrintService printer = PrintServiceLookup.lookupDefaultPrintService();
@@ -113,7 +119,7 @@ public class PosPrinter {
 				job.print(doc, null);
 			}
 		}catch (Exception e) {
-		    e.printStackTrace();
+		    LOGGER.error("打印小票出错啦~~~~~~~~~~~~~~~~", e);
 		}
 		
 	}

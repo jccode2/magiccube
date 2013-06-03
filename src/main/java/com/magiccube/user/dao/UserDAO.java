@@ -39,5 +39,24 @@ public class UserDAO extends BaseDAO {
 		}
 		return ret;
 	}
+
+	/**
+	 * 为用户增加积分
+	 * @param userName
+	 * @param getScore
+	 * @return
+	 */
+	public int addScore(String userName, int getScore) {
+		UserVO userVO = new UserVO();
+		userVO.setUserName(userName);
+		userVO.setScore(getScore);
+		try{
+			this.sqlSessionTemplate.update("com.magiccube.user.addScore", userVO);
+		}catch(Exception e){
+			e.printStackTrace();
+			return -1;
+		}
+		return 0;
+	}
 	
 }

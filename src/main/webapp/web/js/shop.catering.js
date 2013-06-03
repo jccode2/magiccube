@@ -18,8 +18,15 @@ define(function(require, exports, module) {
 				}
 			}, 
 			modal: function () {
-				$("#btn_add, .food-add").click(function () {
+				$("#btn_add").click(function () {
 					showModal("add", null);
+				});
+				$(".food-add").click(function () {
+					showModal("add", null);
+					
+					//下拉框自动选中元区
+					var groupValue = $(this).attr("value");
+					$("#groupId").val(groupValue);
 				});
 			}, 
 			checkboxEvt: function () {

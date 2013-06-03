@@ -176,7 +176,7 @@ public class FoodDAO extends BaseDAO {
 		FoodVO foodVO = new FoodVO();
 		foodVO.setId(foodId);
 		foodVO.setShopId(shopId);
-		return this.sqlSessionTemplate.delete(
+		return this.sqlSessionTemplate.update(
 				"com.magiccube.food.deleteFoodReShop", foodVO);
 	}
 
@@ -191,7 +191,7 @@ public class FoodDAO extends BaseDAO {
 		FoodVO foodVO = new FoodVO();
 		foodVO.setShopId(shopId);
 		foodVO.setGroupId(groupId);
-		return this.sqlSessionTemplate.delete(
+		return this.sqlSessionTemplate.update(
 				"com.magiccube.food.deleteFoodReShopByGroup", foodVO);
 	}
 
@@ -203,7 +203,7 @@ public class FoodDAO extends BaseDAO {
 	 * @return 成功删除的条数
 	 */
 	public int deletePackageItem(int packageId) {
-		return this.sqlSessionTemplate.delete(
+		return this.sqlSessionTemplate.update(
 				"com.magiccube.food.deletePackageItem", packageId);
 	}
 

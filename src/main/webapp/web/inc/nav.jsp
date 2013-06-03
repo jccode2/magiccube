@@ -8,247 +8,13 @@
 <script type="text/javascript" src="${webRoot}/web/bubbletip/js/jQuery.bubbletip-1.0.6.js"></script>
 <script type="text/javascript" src="${webRoot}/dwr/engine.js"></script>
 <script type="text/javascript" src="${webRoot}/dwr/interface/LoginAction.js"></script>
+<script type="text/javascript" src="${webRoot}/dwr/interface/UserAction.js"></script>
 <link rel="stylesheet" href="${webRoot}/web/bootstrap/css/bootstrap.min.css" />
-<link href="${webRoot}/web/bubbletip/js/bubbletip/bubbletip.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="${webRoot}/web/bubbletip/js/bubbletip/bubbletip.css" />
 <!--[if IE]>
 	<link href="${webRoot}/web/bubbletip/js/bubbletip/bubbletip-IE.css" rel="stylesheet" type="text/css" />
 	<![endif]-->
-<style type="text/css">
-.user-center-link {
-	background: url("${webRoot}/web/img/user-center-icon.png") 0 7px
-		no-repeat;
-}
-
-.user-center-link em {
-	font-style: normal;
-	margin-left: 3px;
-}
-
-.adress-info {
-	display: none;
-	float: left;
-	margin-left: 150px;
-	padding: 10px 20px 10px;
-	cursor: pointer;
-}
-
-.adress-info:hover {
-	color: white;
-}
-
-.regist-tips {
-	text-align: center;
-	font-style: inherit;
-	color: gray;
-}
-
-.regist-button {
-	text-align: center;
-}
-
-.regist-checkbox {
-	text-align: center;
-}
-
-.regist-hr {
-	-webkit-margin-before: 0.4em;
-	-webkit-margin-after: 0.3em;
-}
-
-.usercenter-hr {
-	-webkit-margin-before: 0.4em;
-	-webkit-margin-after: 0.3em;
-}
-
-.usercenter-label {
-	text-align: center;
-	font-style: inherit;
-	color: gray;
-}
-</style>
-
-<script type="text/javascript">
-	var username;
-	var quicklogin;
-
-	$(document).ready(function() {
-		$('#registlink').bubbletip($('#registboard'), {
-			deltaDirection : 'down',
-			deltaPosition : 50,
-			offsetTop : 0
-		});
-		$('#loginlink').bubbletip($('#loginboard'), {
-			deltaDirection : 'down',
-			deltaPosition : 50,
-			offsetTop : 0
-		});
-
-		$('#submitregist').bind('click', function() {
-			var inputRight = true;
-			var strUsername = $.trim($('#registerUsername').val());
-			var strPassword = $.trim($('#registerPassword').val());
-			var strConfirm = $.trim($('#registerConfirm').val());
-
-			if ($("#isAgree").attr('checked') == undefined) {
-				$('#policy').tooltip({
-					title : '请先阅读并同意使用条款和协议'
-				}).tooltip('show');
-				inputRight = false;
-			} else {
-				$('#policy').tooltip('destroy');
-			}
-
-			if (strUsername == "") {
-				$('#registerUsername').tooltip({
-					title : '请输入用户名'
-				}).tooltip('show');
-				inputRight = false;
-			} else {
-				$('#registerUsername').tooltip('destroy');
-			}
-
-			if (strPassword == "") {
-				$('#registerPassword').tooltip({
-					title : '请输入密码'
-				}).tooltip('show');
-				inputRight = false;
-			} else {
-				$('#registerPassword').tooltip('destroy');
-			}
-
-			if (strPassword != strConfirm) {
-				$('#registerConfirm').tooltip({
-					title : '两次输入的密码不一致，请检查'
-				}).tooltip('show');
-				inputRight = false;
-			} else {
-				$('#registerConfirm').tooltip('destroy');
-			}
-
-			if (!inputRight) {
-				return;
-			}
-
-			var userVO = {
-				userName : strUsername,
-				password : $.trim($('#registerPassword').val())
-			};
-			LoginAction.regist(userVO, function(result) {
-				if (result.success) {
-					$('#regist1').hide();
-					$('#regist2').show();
-					username = strUsername;
-					quicklogin = 1;
-					$('#submitregist').tooltip('destroy');
-				} else {
-					$('#submitregist').tooltip('destroy');
-					$('#submitregist').tooltip({
-						title : result.message
-					}).tooltip('show');
-				}
-			});
-		})
-
-		$('#loginbutton').bind('click', function() {
-			var inputRight = true;
-			var strUsername = $.trim($('#loginUsername').val());
-			var strPassword = $.trim($('#loginPassword').val());
-
-			if (strUsername == "") {
-				$('#loginUsername').tooltip({
-					title : '请输入用户名'
-				}).tooltip('show');
-				inputRight = false;
-			} else {
-				$('#loginUsername').tooltip('destroy');
-			}
-
-			if (strPassword == "") {
-				$('#loginPassword').tooltip({
-					title : '请输入密码'
-				}).tooltip('show');
-				inputRight = false;
-			} else {
-				$('#loginPassword').tooltip('destroy');
-			}
-
-			if (!inputRight) {
-				return;
-			}
-
-			LoginAction.login(strUsername, strPassword, function(result) {
-				if (result.success) {
-					$('#loginlink').hide();
-					$('#registlink').hide();
-					$('#usercenterlink').show();
-					$('#loginlink').removeBubbletip();
-					$('#registlink').removeBubbletip();
-					username = strUsername;
-					$('#usercenterlabel').text(username);
-
-					$('#usercenterbutton').bubbletip($('#usercenter'), {
-						deltaDirection : 'down',
-						deltaPosition : 50,
-						offsetTop : 0
-					});
-					$('#loginbutton').tooltip('destroy');
-				} else {
-					$('#loginbutton').tooltip('destroy');
-					$('#loginbutton').tooltip({
-						title : result.message
-					}).tooltip('show');
-				}
-			});
-		});
-
-		$('#logoutbutton').bind('click', function() {
-			$('#usercenterlink').hide();
-			$('#usercenterbutton').removeBubbletip();
-			$('#loginlink').show();
-			$('#registlink').show();
-			$('#registlink').bubbletip($('#registboard'), {
-				deltaDirection : 'down',
-				deltaPosition : 50,
-				offsetTop : 0
-			});
-			$('#loginlink').bubbletip($('#loginboard'), {
-				deltaDirection : 'down',
-				deltaPosition : 50,
-				offsetTop : 0
-			});
-		});
-
-		$('#loginafterregist').bind('click', function() {
-			var strUsername = $.trim($('#registerUsername').val());
-			var strPassword = $.trim($('#registerPassword').val());
-
-			LoginAction.login(strUsername, strPassword, function(result) {
-				if (result.success) {
-					$('#loginlink').hide();
-					$('#registlink').hide();
-					$('#usercenterlink').show();
-					$('#loginlink').removeBubbletip();
-					$('#registlink').removeBubbletip();
-					username = strUsername;
-					$('#usercenterlabel').text(username);
-
-					$('#usercenterbutton').bubbletip($('#usercenter'), {
-						deltaDirection : 'down',
-						deltaPosition : 50,
-						offsetTop : 0
-					});
-					$('#loginafterregist').tooltip('destroy');
-				} else {
-					$('#loginafterregist').tooltip('destroy');
-					$('#loginafterregist').tooltip({
-						title : result.message
-					}).tooltip('show');
-				}
-			});
-		});
-
-	});
-</script>
+<link rel="stylesheet" href="${webRoot}/web/inc/nav.css" />
 </head>
 <body>
 	<div class="navbar navbar-inverse navbar-fixed-top">
@@ -296,37 +62,52 @@
 				</div>
 
 				<div id="usercenter" style="display: none;">
-					<form class="navbar-form pull-left">
-						<div class="usercenter-label">
-							<p class="text-warning">积分: 1900</p>
-						</div>
-						<hr class="usercenter-hr" />
-						<div class="usercenter-label">
-							<p class="text-success">
-								<a href="#">查看最近的订单</a>
-							</p>
-						</div>
-						<hr class="usercenter-hr" />
-						<div class="usercenter-label">
-							<p class="text-success">
-								<a href="#">查询订单历史记录</a>
-							</p>
-						</div>
-						<hr class="usercenter-hr" />
-						<div class="usercenter-label">
-							<p class="text-success">
-								<a href="#">个人信息维护</a>
-							</p>
-						</div>
-						<hr class="usercenter-hr" />
-						<div class="regist-button">
-							<button id="logoutbutton" class="btn btn-block">注销</button>
-						</div>
-					</form>
+					<div id="userscorediv" class="usercenter-label">
+						<span id="userscore" class="text-warning">积分:0</span>
+					</div>
+					<hr class="usercenter-hr" />
+					<div class="usercenter-label">
+						<p class="text-success">
+							<a href="#">查看我的订单</a>
+						</p>
+					</div>
+					<hr class="usercenter-hr" />
+					<div class="usercenter-label">
+						<p class="text-success">
+							<a id="suggestbutton" href="#">提出宝贵的意见或建议</a>
+						</p>
+					</div>
+					<hr class="usercenter-hr" />
+					<div id="userbutton3" class="usercenter-label">
+						<p class="muted">提前预订</p>
+					</div>
+					<hr class="usercenter-hr"></hr>
+					<div id="userbutton4" class="usercenter-label">
+						<p class="muted">积分换礼</p>
+					</div>
+					<hr class="usercenter-hr" />
+					<div class="regist-button">
+						<button id="logoutbutton" class="btn btn-block">注销</button>
+					</div>
 				</div>
-
+				<div class="modal hide" id="suggest-frame">
+					<div class="modal-header">
+						<button id="suggestclose" type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4>非常感谢您的支持，请填写您的建议</h4>
+					</div>
+					<div class="modal-body">
+						<textarea id="suggest-content" rows="4" maxlength=250></textarea>
+					</div>
+					<div class="modal-footer">
+						<a href="#" class="btn btn-success" id="success-tip-btn">提交建议</a>
+						<p id="suggest-result" class="text-success hide">
+							非常感谢您的建议！<a id="suggestclose2" href="#">关闭建议窗口</a>
+						</p>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript" src="${webRoot}/web/inc/nav.js"></script>
 </body>
 </html>

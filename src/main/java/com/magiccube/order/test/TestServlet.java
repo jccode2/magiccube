@@ -17,16 +17,16 @@ public class TestServlet extends HttpServlet {
 
 	static OrderAction action = new OrderAction();
 
-	public static void submitOrder(OrderVO orderVO) {
+	public static void submitOrder(OrderVO orderVO,HttpServletRequest req) {
 		orderVO.setContact("1237382832");
-		ResultVO result = action.submitOrder(orderVO);
+		ResultVO result = action.submitOrder(orderVO,req);
 		System.out.println(result.isSuccess());
 	}
 	
-	public static void queryUnEvaluateOrder(int userId) {
+	public static void queryUnEvaluateOrder(int userId,HttpServletRequest req) {
 		//init datas
 		OrderVO orderVO = (OrderVO)DataGenerator.get(OrderVO.class);
-		action.submitOrder(orderVO);
+		action.submitOrder(orderVO,req);
 		List<OrderVO> result = action.queryUnEvaluateOrder(userId);
 		System.out.println(result.size());
 	}
@@ -43,9 +43,9 @@ public class TestServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		if (req.getRequestURI().contains("submitOrder")) {
-			submitOrder(new OrderVO());
+			submitOrder(new OrderVO(),req);
 		} else if (req.getRequestURI().contains("queryUnEvaluateOrder")) {
-			queryUnEvaluateOrder(1);
+			queryUnEvaluateOrder(1,req);
 		} else if (req.getRequestURI().contains("addTempAddress")) {
 			//
 		}
