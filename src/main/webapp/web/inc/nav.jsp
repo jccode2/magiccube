@@ -29,7 +29,7 @@
 				</ul>
 
 				<div id="loginboard" style="display: none;">
-					<input id="loginUsername" type="text" class="span3 " placeholder="请输入用户名" /><br /> <input id="loginPassword" type="password" class="span3" placeholder="请输入密码" /><br />
+					<input id="loginUsername" type="text" maxlength=14 class="span3 " placeholder="请输入用户名" /><br /> <input id="loginPassword" type="password" class="span3" placeholder="请输入密码" maxlength=14/><br />
 					<hr class="regist-hr" />
 					<label class="checkbox"><input id="remember10day" class="checkbox" type="checkbox" checked /> 十天内自动登录 </label>
 					<hr class="regist-hr" />
@@ -44,8 +44,8 @@
 							<p class="text-success">免费注册，享受个性化订餐服务</p>
 						</div>
 						<hr class="regist-hr" />
-						<input id="registerUsername" type="text" class="span3 " placeholder="请输入用户名" /><br /> <input id="registerPassword" type="password" class="span3" placeholder="请输入密码" /><br /> <input
-							id="registerConfirm" type="password" class="span3" placeholder="请确认密码" /><br />
+						<input id="registerUsername" type="text" class="span3 " placeholder="请输入用户名" maxlength=14/><br /> <input id="registerPassword" type="password" class="span3" placeholder="请输入密码" maxlength=14/><br /> <input
+							id="registerConfirm" type="password" class="span3" placeholder="请确认密码" maxlength=14/><br />
 						<hr class="regist-hr" />
 						<label class="checkbox"><input id="isAgree" class="checkbox" type="checkbox" /> 我同意<a id="policy" href="#">使用条款和协议</a> </label>
 						<hr class="regist-hr" />
