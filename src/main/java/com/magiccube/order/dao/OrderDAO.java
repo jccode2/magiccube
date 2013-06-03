@@ -108,4 +108,14 @@ public class OrderDAO extends BaseDAO {
 	public void insertSuggest(SuggestVO suggestVO) {
 		this.sqlSessionTemplate.insert("com.magiccube.order.insertSuggest", suggestVO);
 	}
+	
+	/**
+	 * 根据用户ID查询用户的订单
+	 * @param params
+	 * @return
+	 */
+	public List<OrderVOWithFood> queryOrdersByUserId(OrderQueryCondition params) {
+		List<OrderVOWithFood> result = this.sqlSessionTemplate.selectList("com.magiccube.order.queryOrdersByUserId", params);
+		return result;
+	}
 }

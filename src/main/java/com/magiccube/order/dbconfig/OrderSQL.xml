@@ -120,5 +120,21 @@
 		VALUES
 		(#{userName},#{suggestContent},#{suggestTime})
 	</insert>
+	
+	<!-- 查询用户的订单 -->
+	<select id="queryOrdersByUserId" parameterType="com.magiccube.order.model.OrderQueryCondition" resultType="com.magiccube.order.model.OrderVOWithFood">
+		select o.*, f.id as food_id, i.amount as amount, i.plate, f.food_name, f.image as food_image, fs.current_price price
+		from order_item i, 
+		     (select * from orders 
+		     	where deleted = false 
+		     		and user_id = #{userId}
+		     	limit #{pageFrom}, #{pageSize}
+		     ) o, 
+		     food f, food_re_shop fs
+		where 
+		  o.id = i.order_id and i.item_id = f.id 
+		  and o.shop_id = fs.shop_id and f.id = fs.food_id
+		order by o.create_time desc
+	</select>
 
 </mapper>

@@ -5,17 +5,21 @@
 <%@ include file="/web/inc/head.jsp"%>
 <script type="text/javascript" src="${webRoot}/web/js/jquery-1.8.0.js"></script>
 <script type="text/javascript" src="${webRoot}/web/js/jquery.md5.js"></script>
+<script type="text/javascript" src="${webRoot}/web/js/dust-full-1.2.5.min.js"></script>
 <script type="text/javascript" src="${webRoot}/web/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${webRoot}/web/bubbletip/js/jQuery.bubbletip-1.0.6.js"></script>
 <script type="text/javascript" src="${webRoot}/dwr/engine.js"></script>
 <script type="text/javascript" src="${webRoot}/dwr/interface/LoginAction.js"></script>
 <script type="text/javascript" src="${webRoot}/dwr/interface/UserAction.js"></script>
+<script type="text/javascript" src="${webRoot}/dwr/interface/OrderAction.js"></script>
+<script type="text/javascript" src="${webRoot}/web/js/order-tablelist.js"></script>
 <link rel="stylesheet" href="${webRoot}/web/bootstrap/css/bootstrap.min.css" />
 <link rel="stylesheet" href="${webRoot}/web/bubbletip/js/bubbletip/bubbletip.css" />
 <!--[if IE]>
 	<link href="${webRoot}/web/bubbletip/js/bubbletip/bubbletip-IE.css" rel="stylesheet" type="text/css" />
 	<![endif]-->
 <link rel="stylesheet" href="${webRoot}/web/inc/nav.css" />
+<link rel="stylesheet" href="${webRoot}/web/css/order.css"/>
 </head>
 <body>
 	<div class="navbar navbar-inverse navbar-fixed-top">
@@ -69,7 +73,7 @@
 					<hr class="usercenter-hr" />
 					<div class="usercenter-label">
 						<p class="text-success">
-							<a href="#">查看我的订单</a>
+							<a id="viewRecentOrder" href="#">查看我的订单</a>
 						</p>
 					</div>
 					<hr class="usercenter-hr" />
@@ -106,6 +110,82 @@
 						</p>
 					</div>
 				</div>
+				
+				<div class="modal hide" id="recent-order-frame">
+					<div class="modal-header">
+						<button id="recent-order-close" type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4>我的订单(只显示最近的5条)</h4>
+					</div>
+					<div class="modal-body" style="min-height:300px;overflow-y:auto;">
+						Hey~ guys :)
+					</div>
+					<div class="modal-footer">
+						<a href="#" class="btn btn-success" id="recent-order-close-btn">关闭</a>
+					</div>
+				</div>
+				
+				<script type="text/template" id="recentOrderTemplate">
+				<div class="common-list table-list">
+					{?orderViewList}
+					<ul>
+						{#orderViewList}
+						<li>
+							<div id="table_item_{id}" class="list-item table-item ">
+								<div class="row-fluid head">
+									<div class="pull-left link left-panel">
+										<span class=""> {address} </span>
+										<span class="forestgreen"> {phone} </span>
+									</div>
+									<div class="pull-right">
+										<span class="brown">{actuallyPrice}元 </span>
+									</div>
+								</div>
+								<div class="row-fluid body">
+									<div>
+										<span class="order-number">订单号: {id}</span>
+										<span class="order-time">
+											下单时间: {createTime}
+										</span>
+									</div>
+									<div class="food-collapse">
+										<p class="food-list">
+										{#plateList}
+											<span>餐盘{no}:</span>
+											{#foodList}
+												<span>{food} {@if cond="{amount} > 1"}x{amount}{/if}</span>
+											{/foodList}
+										{/plateList}
+										</p>
+									</div>
+									<div class="food-expand">
+										<ul class="plate-list">
+										{#plateList}
+											<li>
+												<ul class="food-list">
+													{#foodList}
+													<li>
+														{food}{@if cond="{amount} > 1"}x{amount}{/if}
+													</li>
+													{/foodList}
+													<li><span class="price">￥{price}</span></li>
+												</ul>
+											</li>
+										{/plateList}
+										</ul>
+									</div>
+								</div>
+							</div>
+						</li>
+						{/orderViewList}
+					{:else}
+						<div class="list-item table-item center">
+							本列表暂无记录
+						</div>
+					</ul>
+					{/orderViewList}
+				</div>
+				</script>
+				
 			</div>
 		</div>
 	</div>

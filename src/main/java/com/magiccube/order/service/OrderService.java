@@ -240,4 +240,13 @@ public class OrderService extends BaseService {
 		suggestVO.setSuggestTime(objCal.getTime());
 		orderDAO.insertSuggest(suggestVO);
 	}
+	
+	/**
+	 * 根据用户ID查询用户的订单
+	 * @param params
+	 * @return
+	 */
+	public List<OrderVOWithFood> queryOrdersByUserId(OrderQueryCondition params) {
+		return orderDAO.queryOrdersByUserId(params);
+	}
 }

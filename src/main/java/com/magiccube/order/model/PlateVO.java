@@ -3,12 +3,15 @@ package com.magiccube.order.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.directwebremoting.annotations.DataTransferObject;
+
 
 /**
  * 餐盘实体
  * @author jcchen
  *
  */
+@DataTransferObject
 public class PlateVO {
 
 	/**

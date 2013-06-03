@@ -230,4 +230,19 @@ public class OrderAction extends BaseAction {
 		return new ResultVO();
 	}
 	
+	/**
+	 * 根据用户ID查询用户的订单
+	 * @param int userId
+	 * @return
+	 */
+	@RemoteMethod
+	public List<OrderView> queryOrdersByUserId(int userId) {
+		OrderQueryCondition queryCondition = new OrderQueryCondition();
+		queryCondition.setUserId(userId);
+		queryCondition.setPageNo(1);
+		queryCondition.setPageSize(5);
+		List<OrderVOWithFood> list0 = orderService.queryOrdersByUserId(queryCondition);
+		List<OrderView> list = OrderUtils.transferOrderVOToView(list0);
+		return list;
+	}
 }
