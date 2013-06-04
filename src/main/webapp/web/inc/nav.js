@@ -19,111 +19,6 @@ $(document).ready(function() {
 					}
 				});
 			} else {
-				initUserCenter();
-			}
-
-		});
-
-		initRegistButton();
-
-		initLoginButton();
-
-		initQuickLoginButton();
-
-		initLogoutButton();
-
-		initSuggestButton();
-		
-	});
-	
-	function initSuggestButton() {
-		$('#suggestbutton').click(function(e) {
-			$('#suggest-frame').show();
-			$('#success-tip-btn').show();
-			$('#suggest-result').hide();
-		});
-
-		$('#suggestclose').click(function(e) {
-			$('#suggest-frame').hide();
-		});
-
-		$('#suggestclose2').click(function(e) {
-			$('#suggest-frame').hide();
-		});
-
-		$('#success-tip-btn').click(function(e) {
-			var suggestVO = {
-				userName : currentuser.userName,
-				suggestContent : $('#suggest-content').val()
-			};
-			$('#success-tip-btn').tooltip('destroy');
-			OrderAction.suggest(suggestVO, function(result) {
-				if (result.success) {
-					$('#success-tip-btn').hide();
-					$('#suggest-result').show();
-				} else {
-					$('#success-tip-btn').tooltip({
-						title : result.message
-					}).tooltip('show');
-				}
-			});
-		});
-	}
-
-	function initUserCenter() {
-		$('#loginlink').hide();
-		$('#registlink').hide();
-		$('#usercenterlink').show();
-		$('#usercenterbutton').bubbletip($('#usercenter'), {
-			deltaDirection : 'down',
-			deltaPosition : 50,
-			offsetTop : 0
-		});
-		$('#usercenterlabel').text(currentuser.userName);
-		$('#userscore').text("积分:" + currentuser.score);
-		$('#userscorediv').tooltip({
-			title : "将来您可以通过积分享受各种优惠",
-			placement : "left"
-		});
-		$('#userbutton3').tooltip({
-			title : "即将推出",
-			placement : "left"
-		});
-		$('#userbutton4').tooltip({
-			title : "即将推出",
-			placement : "left"
-		});
-		
-		// 加载用户最近订单
-		initMyRecentOrder(currentuser.id);
-	}
-	
-	function initMyRecentOrder(userId) {
-		$("#viewRecentOrder").click(function() {
-			$("#recent-order-frame").show();
-		});
-		
-		$("#recent-order-close, #recent-order-close-btn").click(function() {
-			$("#recent-order-frame").hide();
-		});
-		
-		//render
-		OrderAction.queryOrdersByUserId(userId, function(orderViewList) {
-			var data = {"orderViewList": orderViewList};
-			dust.loadSource(dust.compile($("#recentOrderTemplate").html(), "recentOrder"));
-			dust.render("recentOrder", data, function(err,out) {
-				$("#recent-order-frame .modal-body").html(out);
-			});
-		});
-	}
-
-	function initLogoutButton() {
-		$('#logoutbutton').bind('click', function() {
-			LoginAction.exit(function() {
-				$('#usercenterlink').hide();
-				$('#usercenterbutton').removeBubbletip();
-				$('#loginlink').show();
-				$('#registlink').show();
 				$('#registlink').bubbletip($('#registboard'), {
 					deltaDirection : 'down',
 					deltaPosition : 50,
@@ -228,7 +123,30 @@ function initUserCenter() {
 		title : "即将推出",
 		placement : "left"
 	});
+	
+	// 加载用户最近订单
+	initMyRecentOrder(currentuser.id);
 }
+
+function initMyRecentOrder(userId) {
+	$("#viewRecentOrder").click(function() {
+		$("#recent-order-frame").show();
+	});
+	
+	$("#recent-order-close, #recent-order-close-btn").click(function() {
+		$("#recent-order-frame").hide();
+	});
+	
+	//render
+	OrderAction.queryOrdersByUserId(userId, function(orderViewList) {
+		var data = {"orderViewList": orderViewList};
+		dust.loadSource(dust.compile($("#recentOrderTemplate").html(), "recentOrder"));
+		dust.render("recentOrder", data, function(err,out) {
+			$("#recent-order-frame .modal-body").html(out);
+		});
+	});
+}
+
 
 function initLogoutButton() {
 	$('#logoutbutton').bind('click', function() {

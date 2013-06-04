@@ -582,9 +582,10 @@ public class ShopController {
 	}
 	
 	@RequestMapping("/testprint/{id}")
-	public void testprint(@PathVariable int id) {
+	public @ResponseBody String testprint(@PathVariable int id) {
 		OrderView orderView = orderAction.getOrderView(id);
 		PosService.print(orderView);
+		return "{}";
 	}
 	
 	@RequestMapping("/websocket")
