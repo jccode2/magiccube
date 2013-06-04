@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.magiccube.core.base.service.BaseService;
-import com.magiccube.core.util.tools.PosPrinter;
+import com.magiccube.core.util.tools.PosService;
 import com.magiccube.food.service.FoodService;
 import com.magiccube.order.dao.OrderDAO;
 import com.magiccube.order.model.OrderFoodView;
@@ -186,7 +186,7 @@ public class OrderService extends BaseService {
 		boolean ret = this.updateOrderStatus(id, OrderVO.ORDER_STATUS_DEALED);
 		if(ret) {
 			OrderView orderView = getOrderView(id);
-			PosPrinter.print(orderView);
+			PosService.print(orderView);
 			updateStock(orderView);
 			addScoreForUser(id,orderView.getActuallyPrice());
 		}

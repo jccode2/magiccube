@@ -66,6 +66,11 @@
 			getPhoneStates <input type="text" id="txt_phone_states" class="input" value="" placeholder="phone1,phone2,..."/>
 			<input type="button" id="btn_phone_states" value="getPhoneStates" class="btn"/>
 		</p>
+		<hr>
+		<p>
+			test print order<input type="text" id="txt_test_print" class="input" value="" placeholder="orderId"/>
+			<input type="button" id="btn_test_print" class="btn" value="testPrintOrder" />
+		</p>
 
 
 		
@@ -192,6 +197,11 @@
 					$.post(url, {
 						phones: $("#txt_phone_states").val()
 					}, showSuccess, "text").fail(errorHandler);
+				});
+				
+				$("#btn_test_print").click(function() {
+					var url = "${webRoot}/shop/testprint/"+$("#txt_test_print").val();
+					$.get(url, showSuccess).fail(errorHandler);
 				});
 
 
