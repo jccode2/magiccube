@@ -1,6 +1,9 @@
 package com.magiccube.shop.action;
 
+import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +30,7 @@ import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 import com.magiccube.common.model.EnvironmentInfoVO;
 import com.magiccube.core.base.action.QueryForm;
 import com.magiccube.core.util.tools.AjaxUtils;
+import com.magiccube.core.util.tools.JsonUtil;
 import com.magiccube.core.util.tools.PosService;
 import com.magiccube.food.action.FoodAction;
 import com.magiccube.food.model.FoodGroupVO;
@@ -46,6 +50,7 @@ import com.magiccube.shop.model.GroupForm;
 import com.magiccube.shop.model.OrderQueryForm;
 import com.magiccube.shop.util.ShopUtil;
 import com.magiccube.user.action.UserAction;
+import com.magiccube.user.model.UserVO;
 
 
 /**
@@ -87,6 +92,7 @@ function			method				url
 检测电话号码状态		GET					/shop/phonestate?phone={phone}
 批量检测电话号码状态	POST				/shop/phonestates?phones={phone1,phone2}
 
+店铺基本数据			GET					/shop/shopdata
 
  * 
  * @author jcchen
@@ -571,6 +577,17 @@ public class ShopController {
 	@RequestMapping(value="/phonestates", method=RequestMethod.POST)
 	public @ResponseBody int[] getPhoneStates(String[] phones) {
 		return userAction.getPhoneStates(phones);
+	}
+	
+	@RequestMapping(value="/shopdata", method=RequestMethod.GET)
+	public @ResponseBody String getShopData() {
+		UserVO user = userAction.getCurrentUser();
+		
+		Map<String, Object> ret = new HashMap<String, Object>();
+		ret.put("user", user);
+		
+		String json = JsonUtil.objectToJson(ret);
+		return json;
 	}
 	
 	

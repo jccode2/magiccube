@@ -37,7 +37,7 @@
 						</li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								<i class="icon-user"></i> 张三
+								<i class="icon-user"></i> <span class="username">小芳</span>
 							</a>
 							<div class="dropdown-menu" style="">
 								<div class="user-info">
@@ -46,8 +46,8 @@
 									</div>
 									<div class="user-text-info">
 										<p>
-											<b>张三</b> <br>
-											<span>zhangshan@gmail.com</span>
+											<b class="username">小芳</b> <br>
+											<span id="user-email">xiaofang@gmail.com</span>
 										</p>
 										<div>
 											<input type="button" class="btn" value="查看个人资料">

@@ -8,6 +8,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ApplicationObjectSupport;
 import org.springframework.stereotype.Controller;
 
+import com.magiccube.common.util.EnvUtils;
 import com.magiccube.core.springmvc.ApplicationContextInitor;
 import com.magiccube.core.util.tools.DataGenerator;
 import com.magiccube.user.model.UserVO;
@@ -45,6 +46,10 @@ public class UserAction extends ApplicationObjectSupport {
 	@RemoteMethod
 	public UserVO getCurrentUser(HttpServletRequest request) {
 		return (UserVO) request.getSession().getAttribute("current_user");
+	}
+	
+	public UserVO getCurrentUser() {
+		return (UserVO) EnvUtils.session().getAttribute("current_user");
 	}
 	
 	/**

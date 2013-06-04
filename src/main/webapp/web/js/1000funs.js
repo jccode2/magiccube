@@ -82,11 +82,19 @@
 		});
 	}
 	
+	/**
+	 * to json
+	 */
+	function toJSON(str) {
+		return JSON ? JSON.parse(str) : eval("(" + str + ")");
+	}
+	
 	
 	// exports
 	exports.webRoot = webRoot;
 	exports.getParam = getParam;
 	exports.setParam = setParam;
+	exports.toJSON = toJSON;
 	exports.imagePreview = imagePreview;
 	
 }));

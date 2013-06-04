@@ -1,6 +1,8 @@
 define(function (require, exports, module) {
 	
-	var $ = require('jquery');
+	var $ = require('jquery'), 
+		util = require('util'), 
+		webRoot = util.webRoot;
 	require('bootstrap');
 
 	jQuery(function () {
@@ -16,6 +18,8 @@ define(function (require, exports, module) {
 		.eq(1).click();
 
 		initHeight();
+		
+		initData();
 
 		$(window).bind("resize", initHeight);
 
@@ -28,5 +32,17 @@ define(function (require, exports, module) {
 	function initHeight () {
 		var height = $(window).height() - $(".navbar-fixed-top").outerHeight() - 60;
 		$("#mainFrame").attr("height", height);
+	}
+	
+	function initData() {
+		var url = webRoot = "/shop/shopdata";
+		$.get(url, function(data) {
+			var vo = util.toJSON(data), 
+				userVO = vo["user"];
+			if(userVO) {
+				$(".username").html(userVO["userName"]);
+				$("#user-email").html(userVO["email"]);
+			}
+		});
 	}
 });
