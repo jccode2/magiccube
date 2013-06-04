@@ -489,7 +489,7 @@ public class ShopController {
 	 */
 	private List<GroupPackages> getGroupPackages() {
 		int shopId = 1;
-		List<GroupPackages> groupPackages = foodAction.queryAllGroupPackages(shopId);
+		List<GroupPackages> groupPackages = foodAction.queryAllGroupPackagesIncludeEmpty(shopId);
 		return groupPackages;
 	}
 	
