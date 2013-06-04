@@ -139,7 +139,7 @@
 			<p class="success-tip">你已成功提交订单，我们会及时处理您的订单，请耐心等候。</p>
 		</div>
 		<div class="modal-footer">
-			<a href="#" class="btn btn-success" id="success-tip-btn">确定</a>
+			<a href="#" class="btn btn-success order-success-btn" id="success-tip-btn">确定</a>
 		</div>
 	</div>
 	

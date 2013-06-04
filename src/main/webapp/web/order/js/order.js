@@ -402,9 +402,9 @@ $(document).ready(function() {
 		$('.order').modal('hide');
 	});
 	
-	$('#success-tip-btn').click(function(){
+	$('.order-success-btn').click(function(){
 		$('#submit-success-tip').modal('hide');
-	})
+	});
 	
 	
 	

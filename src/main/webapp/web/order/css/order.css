@@ -17,7 +17,7 @@ body {
 
 .order-ad {
 	height: 150px;
-	background: url("./images/logo.png") 20px 30px no-repeat;
+	background: url("./images/logo.png") 50px 30px no-repeat;
 	background-color: rgba(81, 173, 12, .4);
 	margin-bottom: 2px;
 }
@@ -25,11 +25,13 @@ body {
 .order-ad .ad-content {
 	text-align: left;
 	color: white;
-	font-size: 22px;
-	margin-left: 450px;
+	font-size: 20px;
+	margin-left: 380px;
 	height: 100%;
 	padding: 36px 0;
+	padding-left: 60px;
 	font-weight: bold;
+	background: url("./images/laba.png") 0px 58px no-repeat;
 }
 
 
@@ -232,6 +234,10 @@ body {
 .food-list.package .package-food-list p {
 	margin: 0;
 	height: 18px;
+}
+
+.food-list.package .package-food-list p.pakage-name {
+	color: #2E292C;
 }
 
 /***我的餐盘 **/
@@ -493,7 +499,7 @@ body {
 
 .order .order-discount {
 	list-style-type: none;
-	margin-left: 250px;
+	margin-left: 220px;
 	width: 250px;
 	display: inline-block;
 	vertical-align: middle;
@@ -506,7 +512,7 @@ body {
 }
 
 .order .order-reality {
-	margin-left: 145px;
+	margin-left: 135px;
 }
 
 #order-reality-price {
