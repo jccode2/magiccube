@@ -244,6 +244,49 @@ public class FoodDAO extends BaseDAO {
 				foodQueryCondition);
 		return transferFoodVOToGroupFoods(foods);
 	}
+	
+	
+	/**
+	 * 查询所有套餐分组(包括空分组)
+	 * 
+	 * @param shopId
+	 * @return
+	 */
+	public List<GroupPackages> queryAllGroupPackagesIncludeEmpty(int shopId) {
+		FoodQueryCondition foodQueryCondition = new FoodQueryCondition(shopId,
+				2);
+		List<FoodVO> foods = this.sqlSessionTemplate.selectList(
+				"com.magiccube.food.queryAllGroupAndFoods",
+				foodQueryCondition);
+
+		List<GroupPackages> lst = new ArrayList<GroupPackages>();
+		int oldGroupId = 0;
+		GroupPackages groupPackages = null;
+		for (FoodVO food : foods) {
+			int groupId = food.getGroupId();
+			if (groupId != oldGroupId) {
+				// reset oldid
+				oldGroupId = groupId;
+
+				groupPackages = new GroupPackages();
+				groupPackages.setId(groupId);
+				groupPackages.setGroupName(food.getGroupName());
+				groupPackages.setImage(food.getGroupImage());
+				groupPackages.setDetail(food.getGroupDetail());
+				lst.add(groupPackages);
+			}
+			if (food.getId() != 0) {
+				PackageVO packageVO = getPackage(food.getId());
+				groupPackages.add(packageVO);
+			}
+		}
+		// add last one
+		if (groupPackages != null && !lst.contains(groupPackages))
+			lst.add(groupPackages);
+
+		return lst;
+	}
+	
 
 	/**
 	 * 查询所有套餐分组

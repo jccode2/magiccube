@@ -244,6 +244,10 @@ public class FoodService extends BaseService {
 	public List<GroupPackages> queryAllGroupPackages(int shopId) {
 		return foodDAO.queryAllGroupPackages(shopId);
 	}
+	
+	public List<GroupPackages> queryAllGroupPackagesIncludeEmpty(int shopId) {
+		return foodDAO.queryAllGroupPackagesIncludeEmpty(shopId);
+	}
 
 	public List<GroupFoods> queryAvailableGroupAndFoods(
 			FoodQueryCondition foodQueryCondition) {

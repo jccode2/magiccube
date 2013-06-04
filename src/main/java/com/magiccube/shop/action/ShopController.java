@@ -27,6 +27,7 @@ import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 import com.magiccube.common.model.EnvironmentInfoVO;
 import com.magiccube.core.base.action.QueryForm;
 import com.magiccube.core.util.tools.AjaxUtils;
+import com.magiccube.core.util.tools.PosService;
 import com.magiccube.food.action.FoodAction;
 import com.magiccube.food.model.FoodGroupVO;
 import com.magiccube.food.model.FoodQueryCondition;
@@ -488,7 +489,7 @@ public class ShopController {
 	 */
 	private List<GroupPackages> getGroupPackages() {
 		int shopId = 1;
-		List<GroupPackages> groupPackages = foodAction.queryAllGroupPackages(shopId);
+		List<GroupPackages> groupPackages = foodAction.queryAllGroupPackagesIncludeEmpty(shopId);
 		return groupPackages;
 	}
 	
@@ -578,6 +579,13 @@ public class ShopController {
 	@RequestMapping("/test")
 	public @ResponseBody String test() {
 		return EnvironmentInfoVO.WEBROOT;
+	}
+	
+	@RequestMapping("/testprint/{id}")
+	public @ResponseBody String testprint(@PathVariable int id) {
+		OrderView orderView = orderAction.getOrderView(id);
+		PosService.print(orderView);
+		return "{}";
 	}
 	
 	@RequestMapping("/websocket")

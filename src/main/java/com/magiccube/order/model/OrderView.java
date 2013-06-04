@@ -58,6 +58,11 @@ public class OrderView extends BaseVO {
 	 * 订单状态: 0:new 1:dealed 2:exception 3:evaluated
 	 */
 	private int orderStatus;
+	
+	//优惠编码 ,为3位2进制数。'0'表示无优惠，'1'表示有优惠
+	//自右到左：第一位表示首次订餐优惠，第二位表示订餐5份以上优惠，第三位表示10点半前下单优惠
+	//例如"001"表示只有首次订餐优惠
+	private String discountCode;
 
 	public int getId() {
 		return id;
@@ -158,4 +163,23 @@ public class OrderView extends BaseVO {
 	public void setActuallyPrice(double actuallyPrice) {
 		this.actuallyPrice = actuallyPrice;
 	}
+
+	public String getDiscountCode() {
+		return discountCode;
+	}
+
+	public void setDiscountCode(String discountCode) {
+		this.discountCode = discountCode;
+	}
+	
+	public int getFoundAmount() {
+		int amount = 0;
+		for(PlateVO plate : plateList) {
+			for(OrderFoodView orderFood : plate.getFoodList()) {
+				amount += orderFood.getAmount();
+			}
+		}
+		return amount;
+	}
+	
 }

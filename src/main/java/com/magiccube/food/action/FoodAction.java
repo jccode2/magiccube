@@ -181,6 +181,10 @@ public class FoodAction extends BaseAction {
 		return foodService.queryAllGroupPackages(shopId);
 	}
 	
+	public List<GroupPackages> queryAllGroupPackagesIncludeEmpty(int shopId) {
+		return foodService.queryAllGroupPackagesIncludeEmpty(shopId);
+	}
+	
 	@RemoteMethod
 	public List<FoodGroupVO> queryGroups(int type) {
 		return foodService.queryGroups(type);
