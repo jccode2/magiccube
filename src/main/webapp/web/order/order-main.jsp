@@ -9,7 +9,13 @@
 </head>
 <body>
 	<div class="container order-content">
-		<div class="container order-ad"></div>
+		<div class="container order-ad">
+			<div class="ad-content">
+				<p>优惠1：首次网上订餐，每份优惠一元</p>
+				<p>优惠2：订餐满5份，每份再优惠一元</p>
+				<P>优惠3：10点半前下单，送超值饮品</P>
+			</div>
+		</div>
 		<div class="row-fluid">
 			<div class="span8 food-panel">
 				<ul class="food-tab">

@@ -22,6 +22,17 @@ body {
 	margin-bottom: 2px;
 }
 
+.order-ad .ad-content {
+	text-align: left;
+	color: white;
+	font-size: 22px;
+	margin-left: 450px;
+	height: 100%;
+	padding: 36px 0;
+	font-weight: bold;
+}
+
+
 .food-panel {
 	
 }
