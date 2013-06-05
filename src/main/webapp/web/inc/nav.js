@@ -123,7 +123,7 @@ function initUserCenter() {
 		title : "即将推出",
 		placement : "left"
 	});
-	
+
 	// 加载用户最近订单
 	initMyRecentOrder(currentuser.id);
 }
@@ -132,21 +132,22 @@ function initMyRecentOrder(userId) {
 	$("#viewRecentOrder").click(function() {
 		$("#recent-order-frame").show();
 	});
-	
+
 	$("#recent-order-close, #recent-order-close-btn").click(function() {
 		$("#recent-order-frame").hide();
 	});
-	
-	//render
+
+	// render
 	OrderAction.queryOrdersByUserId(userId, function(orderViewList) {
-		var data = {"orderViewList": orderViewList};
+		var data = {
+			"orderViewList" : orderViewList
+		};
 		dust.loadSource(dust.compile($("#recentOrderTemplate").html(), "recentOrder"));
-		dust.render("recentOrder", data, function(err,out) {
+		dust.render("recentOrder", data, function(err, out) {
 			$("#recent-order-frame .modal-body").html(out);
 		});
 	});
 }
-
 
 function initLogoutButton() {
 	$('#logoutbutton').bind('click', function() {
@@ -299,10 +300,11 @@ function initRegistButton() {
 		if (!inputRight) {
 			return;
 		}
-
 		var userVO = {
 			userName : strUsername,
-			password : $.md5($.trim($('#registerPassword').val()))
+			password : $.md5($.trim($('#registerPassword').val())),
+			defaultAddress : $.cookie('address'),
+			phone : $.cookie('phone')
 		};
 		LoginAction.regist(userVO, function(result) {
 			if (result.success) {
