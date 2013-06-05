@@ -43,12 +43,12 @@ public class OrderController {
 		model.addAttribute("addressList", addressList);
 
 		// 获取食物列表，包括配餐和套餐
-		List<GroupFoods> groupFoods = foodService
-				.queryAvailableGroupAndFoods(new FoodQueryCondition(1, 1));
+//		List<GroupFoods> groupFoods = foodService
+//				.queryAvailableGroupAndFoods(new FoodQueryCondition(1, 1));
+		//model.addAttribute("groupFoods", groupFoods); //暂时屏蔽自由配餐
+
 		List<GroupPackages> groupPackages = foodService
 				.queryAllGroupPackages(1);
-
-		model.addAttribute("groupFoods", groupFoods);
 		model.addAttribute("groupPackages", groupPackages);
 
 		// 获取当前时间，判断是否为午餐时间
