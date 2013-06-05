@@ -327,7 +327,7 @@ ENGINE = InnoDB;
 CREATE VIEW `phone_state` AS 
 select `u`.`phone` AS `phone`,`u`.`state` AS `state` from `users` `u` where (`u`.`deleted` = 0) 
 union 
-select `g`.`phone` AS `phone`,`g`.`state` AS `state` from `guest` `g` where (`g`.`deleted` = 0)
+select `g`.`phone` AS `phone`,`g`.`state` AS `state` from `guest` `g` where (`g`.`deleted` = 0);
 
 
 -- -----------------------------------------------------
