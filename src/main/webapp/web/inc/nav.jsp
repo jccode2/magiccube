@@ -117,7 +117,7 @@
 						<h4>我的订单(只显示最近的5条)</h4>
 					</div>
 					<div class="modal-body" style="min-height:300px;overflow-y:auto;">
-						Hey~ guys :)
+						Hey~ guys :) data loading....
 					</div>
 					<div class="modal-footer">
 						<a href="#" class="btn btn-success" id="recent-order-close-btn">关闭</a>
@@ -135,6 +135,11 @@
 									<div class="pull-left link left-panel">
 										<span class=""> {address} </span>
 										<span class="forestgreen"> {phone} </span>
+                                        {?orderStatus}
+                                        <span>已出单</span>
+                                        {:else}
+                                        <span>处理中</span>
+                                        {/orderStatus}
 									</div>
 									<div class="pull-right">
 										<span class="brown">{actuallyPrice}元 </span>
@@ -146,11 +151,12 @@
 										<span class="order-time">
 											下单时间: {createTime}
 										</span>
+                                        <span> 预计送达时间:{exceptTime}</span>
 									</div>
 									<div class="food-collapse">
 										<p class="food-list">
 										{#plateList}
-											<span>餐盘{no}:</span>
+											<!-- <span>餐盘{no}:</span> -->
 											{#foodList}
 												<span>{food} {@if cond="{amount} > 1"}x{amount}{/if}</span>
 											{/foodList}

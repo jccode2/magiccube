@@ -131,6 +131,7 @@ function initMyRecentOrder() {
 	$("#viewRecentOrder").click(function() {
         // render
 	    OrderAction.queryOrdersByUserId(currentuser.id, function(orderViewList) {
+            console.log(orderViewList);
 		    var data = {
 			    "orderViewList" : orderViewList
 		    };
