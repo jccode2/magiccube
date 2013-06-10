@@ -43,7 +43,9 @@
 				<table id="tb_foods" class="foods-area">
 					 <c:forEach items="${packageFoodsList}" var="groupFoods" varStatus="status">
 					 <tr id="tr_${status.count }" class="<c:if test="${fn:length(groupFoods.packageList) == 0}">hide</c:if>">
-						<td class="food-area-head">${groupFoods.groupName}</td>
+					 <td class="food-area-head">
+                         <img src="${webRoot}/${groupFoods.image}" alt="${groupFoods.groupName}"/>
+                     </td>
 						<td>
 							<ul class="item-list img-text-below food-area-list">
 								<c:forEach items="${groupFoods.packageList}" var="packageVO">
