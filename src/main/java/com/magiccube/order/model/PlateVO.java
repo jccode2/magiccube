@@ -5,22 +5,24 @@ import java.util.List;
 
 import org.directwebremoting.annotations.DataTransferObject;
 
+import com.magiccube.core.base.model.BaseVO;
+
 
 /**
- * 餐盘实体
+ * plate entity
  * @author jcchen
  *
  */
 @DataTransferObject
-public class PlateVO {
+public class PlateVO extends BaseVO {
 
 	/**
-	 * 餐盘号
+	 * plate no
 	 */
 	private int no;
 	
 	/**
-	 * 食物列表
+	 * food list
 	 */
 	private List<OrderFoodView> foodList = new ArrayList<OrderFoodView>();
 	
@@ -38,7 +40,7 @@ public class PlateVO {
 		this.no = no;
 	}
 	/**
-	 * 获取餐盘总价
+	 * plate price
 	 * @return
 	 */
 	public double getPrice() {
