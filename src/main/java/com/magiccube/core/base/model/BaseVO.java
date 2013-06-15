@@ -5,6 +5,8 @@
 *****************************************************************************/
 package com.magiccube.core.base.model;
 
+import java.io.Serializable;
+
 import org.directwebremoting.annotations.DataTransferObject;
 
 import com.magiccube.core.util.tools.JsonUtil;
@@ -19,7 +21,7 @@ import com.magiccube.core.util.tools.JsonUtil;
  * 
  */
 @DataTransferObject
-public class BaseVO {
+public class BaseVO implements Serializable {
 	
 	public String toString() {
 		return JsonUtil.objectToJson(this) ;

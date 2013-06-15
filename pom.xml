@@ -12,6 +12,7 @@
 		<junit.version>4.8.1</junit.version>
 		<spring.version>3.2.0.RELEASE</spring.version>
 		<tomcat.version>7.0.37</tomcat.version>
+		<netty.version>3.4.0.Final</netty.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -197,6 +198,15 @@
 			<version>${tomcat.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		
+		<!-- Netty -->
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty</artifactId>
+			<version>${netty.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		
 	</dependencies>
 	<build>
 		<finalName>1000funs</finalName>
@@ -239,8 +249,37 @@
 					<path>/</path>
 				</configuration>
 			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.4</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<classifier>client</classifier>
+							<includes>
+								<include>com/magiccube/order/model/**/*</include>
+								<include>com/magiccube/core/base/model/**/*</include>
+							</includes>
+							<archive>
+								<manifest>
+									<addClasspath>true</addClasspath>
+									<mainClass>com.magiccube.client.App</mainClass>
+								</manifest>
+							</archive>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
 		</plugins>
 	</build>
+	
 	<repositories>
 		<repository>
 			<id>oss-sonatype-snapshots</id>
