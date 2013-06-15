@@ -193,7 +193,7 @@
 		where
 		    fs.deleted = false and f.deleted = false and g.deleted = false
 		    and shop_id = #{shopId} and f.type = #{type}
-		order by g.sort asc, g.group_name desc;
+		order by g.sort asc, f.food_name asc;
 	</select>
 	
 	<!-- 根据类型(套餐还是配餐)查询所有分组信息 -->

@@ -358,6 +358,20 @@ $(document).ready(function() {
 			return;
 		}
 		
+		if(orderVO.address.length > 20) {
+			$('#address').tooltip('destroy').tooltip({
+				title: '地址最多输入20个字符'
+			}).tooltip('show');
+			return;
+		}
+		
+		if(orderVO.userRemark.length > 20) {
+			$('#remark').tooltip('destroy').tooltip({
+				title: '备注最多输入20个字符'
+			}).tooltip('show');
+			return;
+		}
+		
 		for(var i=0; i < orderData.plateList.length; i++){
 			var plate = orderData.plateList[i];
 			for(var j=0; j < plate.foodList.length; j++) {
