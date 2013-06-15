@@ -69,6 +69,9 @@
 										<span class="order-time">
 											下单时间: ${order.createTime }
 										</span>
+										<c:if test="${!empty order.userRemark}">
+										<span>备注:${order.userRemark }</span>
+										</c:if>
 									</div>
 									<div class="food-collapse">
 										<p class="food-list">

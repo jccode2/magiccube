@@ -47,6 +47,7 @@ public class OrderUtils {
 				view.setTotalPrice(vo.getTotalPrice());
 				view.setActuallyPrice(vo.getActuallyPrice());
 				view.setDiscountCode(vo.getDiscountCode());
+				view.setUserRemark(vo.getUserRemark());
 
 				plateList = new ArrayList<PlateVO>();
 				view.setPlateList(plateList);

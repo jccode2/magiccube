@@ -63,6 +63,11 @@ public class OrderView extends BaseVO {
 	//自右到左：第一位表示首次订餐优惠，第二位表示订餐5份以上优惠，第三位表示10点半前下单优惠
 	//例如"001"表示只有首次订餐优惠
 	private String discountCode;
+	
+	/**
+	 * 备注信息
+	 */
+	private String userRemark;
 
 	public int getId() {
 		return id;
@@ -172,6 +177,14 @@ public class OrderView extends BaseVO {
 		this.discountCode = discountCode;
 	}
 	
+	public String getUserRemark() {
+		return userRemark;
+	}
+
+	public void setUserRemark(String userRemark) {
+		this.userRemark = userRemark;
+	}
+
 	public int getFoundAmount() {
 		int amount = 0;
 		for(PlateVO plate : plateList) {
