@@ -31,6 +31,7 @@ public class SendPrintMessage extends Thread {
 		chatServer = new ChatServer();
 		chatServer.init();
 		chatServer.startup();
+		logger.info("启动打印服务器....");
 	}
 
 	public void run() {

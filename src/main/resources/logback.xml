@@ -46,9 +46,22 @@
 			<pattern>[%-5p] %d{yyyy-MM-dd HH:mm:ss} %logger \(%file:%line\) - %message%n</pattern>
 		</encoder>
 	</appender>
+	
+	<appender name="OrderPrintLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${logs.dir}/pringlog.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+	    <Append>true</Append>
+	    <encoder>
+			<pattern>[%-5p] %d{yyyy-MM-dd HH:mm:ss} %logger \(%file:%line\) - %message%n</pattern>
+		</encoder>
+	</appender>
+	
 	<!-- <appender name="SOCKET" class="ch.qos.logback.classic.net.SocketAppender"> <filter class="ch.qos.logback.classic.filter.ThresholdFilter"> 
 		<level>INFO</level> </filter> <RemoteHost>127.0.0.1</RemoteHost> <Port>4445</Port> <ReconnectionDelay>10000</ReconnectionDelay> 
 		<IncludeCallerData>true</IncludeCallerData> </appender> -->
+		
 	<!-- MyBatis 日志配置 -->
 	<logger name="org.apache.ibatis" level="DEBUG" additivity="true">
 		<appender-ref ref="SqlLogLogger" />
@@ -87,9 +100,16 @@
 	<logger name="jsp.request" level="DEBUG" additivity="false">
 		<appender-ref ref="StdoutLogger" />
 	</logger>
+	
+	<logger name="com.magiccube.core.util.tools.socket" level="DEBUG" additivity="true">
+	    <appender-ref ref="OrderPrintLog"></appender-ref>
+	    <appender-ref ref="StdoutLogger"></appender-ref>
+	</logger>
+	
 	<root level="DEBUG">
 		<appender-ref ref="AllLogger" />
 		<appender-ref ref="StdoutLogger" />
 		<appender-ref ref="WarnLogger" />
+		<appender-ref ref="OrderPrintLog" />
 	</root>
 </configuration>
