@@ -217,21 +217,28 @@ $(document).ready(function() {
 		}
 		var $discountList = $('.order-discount li');
 		
+		/*
 		var phone = $.cookie('phone');
 		if(phone==null||phone=='') {
 			$discountList.eq(0).show();
 			discountCode[2] = '1';
 			actuallyPrice -= foodCount;
 		}
+		*/
 		if(foodCount >= 5) {
-			$discountList.eq(1).show();
+			$discountList.eq(0).show();
 			discountCode[1] = '1';
 			actuallyPrice -= foodCount;
+		}else {
+			$discountList.eq(0).hide();
 		}
+		
 		var now = new Date();
 		if(now.getHours()<=10 && now.getMinutes()<=30) {
-			$discountList.eq(2).show();
+			$discountList.eq(1).show();
 			discountCode[0] = '1';
+		} else {
+			$discountList.eq(1).hide();
 		}
 		
 		orderData.discountCode = discountCode.join('');

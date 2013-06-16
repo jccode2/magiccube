@@ -11,9 +11,8 @@
 	<div class="container order-content">
 		<div class="container order-ad">
 			<div class="ad-content">
-				<p>优惠1：首次网上订餐，每份优惠一元</p>
-				<p>优惠2：订餐满5份，每份再优惠一元</p>
-				<P>优惠3：10点半前下单，送超值饮品</P>
+				<p>优惠1：订餐满5份，每份再优惠一元</p>
+				<P>优惠2：10点半前下单，送新鲜水果一份</P>
 			</div>
 		</div>
 		<div class="row-fluid">
@@ -100,9 +99,8 @@
 				<span class="order-price-total">合计<em id="order-price-total">45</em>元
 				</span>
 				<ul class="order-discount">
-					<li>首次订餐每份优惠1元</li>
 					<li>订餐5份以上每份优惠1元</li>
-					<li>10:30分之前提交订单送靓汤一份</li>
+					<li>10:30分之前提交订单送新鲜水果一份</li>
 				</ul>
 				<span class="order-reality">实际需付<em id="order-reality-price">42</em>元
 				</span>
