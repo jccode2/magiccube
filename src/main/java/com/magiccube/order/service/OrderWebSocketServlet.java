@@ -62,10 +62,12 @@ public class OrderWebSocketServlet extends WebSocketServlet {
 		@Override
 		protected void onClose(int status) {
 			OrderWebSocketServlet.this.connections.remove(this);
+			LOGGER.info("客户端"+id+", 退出websocket服务器");
 		}
 		
 		@Override
 		protected void onOpen(WsOutbound outbound) {
+			LOGGER.info("客户端"+id+", 加入websocket服务器");
 			OrderWebSocketServlet.this.connections.add(this);
 		}
 

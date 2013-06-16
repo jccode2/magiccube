@@ -118,4 +118,14 @@ public class OrderDAO extends BaseDAO {
 		List<OrderVOWithFood> result = this.sqlSessionTemplate.selectList("com.magiccube.order.queryOrdersByUserId", params);
 		return result;
 	}
+	
+	/**
+	 * 获取待办数据
+	 * @param shopId
+	 * @return
+	 */
+	public int getTodoCount(int shopId) {
+		int ret = (Integer)this.sqlSessionTemplate.selectOne("com.magiccube.order.getTodoCount", shopId);
+		return ret;
+	}
 }

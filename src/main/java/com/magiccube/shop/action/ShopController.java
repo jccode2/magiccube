@@ -1,6 +1,5 @@
 package com.magiccube.shop.action;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -168,7 +167,7 @@ public class ShopController {
 			queryForm = new OrderQueryForm();
 		}
 		if(queryForm.getPageNo() == 0) queryForm.setPageNo(1);
-		if(queryForm.getPageSize() == 0) queryForm.setPageSize(4);
+		if(queryForm.getPageSize() == 0) queryForm.setPageSize(QueryForm.SIZE_DEFAULT);
 		if(queryForm.getOrderStatus() == null) queryForm.setOrderStatus(
 				OrderVO.ORDER_STATUS_DEALED+","+
 					OrderVO.ORDER_STATUS_EXCEPTION+","+
@@ -583,8 +582,12 @@ public class ShopController {
 	public @ResponseBody String getShopData() {
 		UserVO user = userAction.getCurrentUser();
 		
+		int currShopId = 1;
+		int todoCount = orderAction.getTodoCount(currShopId);
+		
 		Map<String, Object> ret = new HashMap<String, Object>();
 		ret.put("user", user);
+		ret.put("todo", todoCount);
 		
 		String json = JsonUtil.objectToJson(ret);
 		return json;

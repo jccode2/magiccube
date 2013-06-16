@@ -27,7 +27,7 @@
 					<ul class="nav pull-right">
 						<li>
 							<a href="#">
-								<i class="icon-bell"></i> 待处理(<span class="red">20</span>)
+								<i class="icon-bell"></i> 待处理(<span class="red" id="todo-count">?</span>)
 							</a>
 						</li>
 						<li>

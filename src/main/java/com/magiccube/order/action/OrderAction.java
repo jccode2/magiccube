@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.magiccube.config.action.ConfigAction;
-import com.magiccube.core.base.action.BaseAction;
 import com.magiccube.core.base.model.ResultVO;
 import com.magiccube.order.model.OrderConstants;
 import com.magiccube.order.model.OrderQueryCondition;
@@ -25,6 +24,7 @@ import com.magiccube.order.model.OrderVOWithFood;
 import com.magiccube.order.model.OrderView;
 import com.magiccube.order.model.SuggestVO;
 import com.magiccube.order.service.OrderService;
+import com.magiccube.order.util.OrderStatePublisher;
 import com.magiccube.order.util.OrderUtils;
 import com.magiccube.user.model.UserVO;
 
@@ -35,7 +35,7 @@ import com.magiccube.user.model.UserVO;
  */
 @Controller
 @RemoteProxy
-public class OrderAction extends BaseAction {
+public class OrderAction extends OrderStatePublisher {
 
 	final static Logger LOGGER = LoggerFactory.getLogger(OrderAction.class);
 
@@ -64,6 +64,8 @@ public class OrderAction extends BaseAction {
 		try {
 			UserVO currentUser = (UserVO) request.getSession().getAttribute("current_user");
 			orderService.submitOrder(orderVO,currentUser);
+			
+			notify(orderVO);
 		} catch (Exception e) {
 			LOGGER.error("submitOrder 出错：" + e);
 			return new ResultVO("提交订单时后台出现错误" + e);
@@ -244,5 +246,14 @@ public class OrderAction extends BaseAction {
 		List<OrderVOWithFood> list0 = orderService.queryOrdersByUserId(queryCondition);
 		List<OrderView> list = OrderUtils.transferOrderVOToView(list0);
 		return list;
+	}
+	
+	/**
+	 * 获取待办数据
+	 * @param shopId
+	 * @return
+	 */
+	public int getTodoCount(int shopId) {
+		return orderService.getTodoCount(shopId);
 	}
 }

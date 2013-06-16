@@ -143,6 +143,7 @@ define(function(require, exports, module) {
 											<span class="order-time">\
 												预计送达时间: ${order.exceptTime} (下单时间: ${order.createTime})\
 											</span>\
+											${tpl_user_remark}\
 										</div>\
 										<div class="food-collapse">\
 											<p class="food-list">\
@@ -170,7 +171,9 @@ define(function(require, exports, module) {
 													</ul>\
 												</li>', 
 
-			tpl_expand_items = '<li>${food.food} ${food_amount}</li>';
+			tpl_expand_items = '<li>${food.food} ${food_amount}</li>', 
+			
+			tpl_user_remark = '<span>备注:${order.userRemark}</span>';
 
 
 		// replaceAll
@@ -178,6 +181,17 @@ define(function(require, exports, module) {
 			String.prototype.replaceAll = function(s1, s2) {
 				return this.replace(new RegExp(s1, "gm"), s2);
 			};
+		}
+		
+		/**
+		 * <span>备注:${order.userRemark }</span>
+		 */
+		function buildUserRemark(userRemark) {
+			if(userRemark && userRemark.length > 0) {
+				return tpl_user_remark.replaceAll("\\${order.userRemark}", userRemark);
+			} else {
+				return "";
+			}
 		}
 
 		/**
@@ -267,6 +281,7 @@ define(function(require, exports, module) {
 
 			build: function(order) {
 				var html = tpl_main, 
+					htmlUserRemark = buildUserRemark(order.userRemark), 
 					htmlCollapse = buildCollapse(order.plateList), 
 					htmlExpand = buildExpand(order.plateList);
 
@@ -276,6 +291,7 @@ define(function(require, exports, module) {
 							.replaceAll('\\${order.totalPrice}', order.totalPrice)
 							.replaceAll('\\${order.exceptTime}', order.exceptTime)
 							.replaceAll('\\${order.createTime}', order.createTime)
+							.replaceAll('\\${tpl_user_remark}', htmlUserRemark)
 							.replaceAll('\\${tpl_collapse}', htmlCollapse)
 							.replaceAll('\\${tpl_expand}', htmlExpand);
 			}
