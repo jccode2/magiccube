@@ -253,4 +253,13 @@ public class OrderService extends BaseService {
 	public List<OrderVOWithFood> queryOrdersByUserId(OrderQueryCondition params) {
 		return orderDAO.queryOrdersByUserId(params);
 	}
+	
+	/**
+	 * 获取待办数据
+	 * @param shopId
+	 * @return
+	 */
+	public int getTodoCount(int shopId) {
+		return orderDAO.getTodoCount(shopId);
+	}
 }

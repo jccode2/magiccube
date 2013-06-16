@@ -1,6 +1,5 @@
 package com.magiccube.shop.action;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -583,8 +582,12 @@ public class ShopController {
 	public @ResponseBody String getShopData() {
 		UserVO user = userAction.getCurrentUser();
 		
+		int currShopId = 1;
+		int todoCount = orderAction.getTodoCount(currShopId);
+		
 		Map<String, Object> ret = new HashMap<String, Object>();
 		ret.put("user", user);
+		ret.put("todo", todoCount);
 		
 		String json = JsonUtil.objectToJson(ret);
 		return json;

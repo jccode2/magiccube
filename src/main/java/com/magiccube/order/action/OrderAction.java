@@ -245,4 +245,13 @@ public class OrderAction extends BaseAction {
 		List<OrderView> list = OrderUtils.transferOrderVOToView(list0);
 		return list;
 	}
+	
+	/**
+	 * 获取待办数据
+	 * @param shopId
+	 * @return
+	 */
+	public int getTodoCount(int shopId) {
+		return orderService.getTodoCount(shopId);
+	}
 }

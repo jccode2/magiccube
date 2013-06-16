@@ -136,5 +136,9 @@
 		  and o.shop_id = fs.shop_id and f.id = fs.food_id
 		order by o.create_time desc
 	</select>
+	
+	<select id="getTodoCount" parameterType="int" resultType="int">
+	    select count(0) from orders where deleted = false and order_status = 0 and shop_id = #{shopId};
+	</select>
 
 </mapper>

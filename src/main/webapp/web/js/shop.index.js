@@ -43,6 +43,9 @@ define(function (require, exports, module) {
 				$(".username").html(userVO["userName"]);
 				$("#user-email").html(userVO["email"]);
 			}
+			
+			// todo-count
+			$("#todo-count").html(vo["todo"]);
 		});
 	}
 });
