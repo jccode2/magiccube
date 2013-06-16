@@ -32,6 +32,7 @@ public class OrderAutoPrintListener implements OrderStateListener {
 		} else { // websocket推送刷新列表; 只有不开启"自动出单"时,才会通知列表页面刷新.
 			String json = JsonUtil.objectToJson(orderView);
 			OrderWebSocketServlet.broadcast(json);
+			LOGGER.debug("websocket推送更新列表.");
 		}
 	}
 
