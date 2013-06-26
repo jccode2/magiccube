@@ -109,8 +109,10 @@
 				<tr>
 					<td class="info-title">联系电话</td>
 					<td class="info-content"><input type="text" name="phone" id="phone" data-toggle="tooltip" style="width: 200px;" /><span style="margin-left: 20px; color: #469E0A">期望送达时间：</span> <span
-						class="excepttime-list"> <a class="lunch-time <c:if test='${isLunchTime}' >curr</c:if>" data-type="0"></a> <a class="dinner-time <c:if test='${!isLunchTime}' >curr</c:if>" data-type="1"></a>
-							<a class="thirty-time" data-type="2"></a> <a class="hour-time" data-type="3"></a>
+						class="excepttime-list"> 
+						<c:if test='${isLunchTime}' ><a class="lunch-time curr" title="11:30-12:30" data-type="0"></a></c:if>
+						<c:if test='${isDinnerTime}' ><a class="dinner-time curr" data-type="1" title="17:30-18:30"></a></c:if>
+						<a class="thirty-time" data-type="2" ></a> <a class="hour-time" data-type="3"></a>
 					</span></td>
 				</tr>
 				<tr>

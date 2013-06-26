@@ -46,16 +46,23 @@ public class OrderController {
 //		List<GroupFoods> groupFoods = foodService
 //				.queryAvailableGroupAndFoods(new FoodQueryCondition(1, 1));
 		//model.addAttribute("groupFoods", groupFoods); //暂时屏蔽自由配餐
-
+		//判断是否在服务时间以及判断是否是午餐时间还是晚餐时间
+		GregorianCalendar curDate = new GregorianCalendar();
+		int hour = curDate.get(GregorianCalendar.HOUR_OF_DAY);
+		if(hour > 19 || hour < 9) {
+			return "order/no-service";
+		}
+		
+		Boolean isLunchTime = hour <= 11 ? true : false;
+		Boolean isDinnerTime = (hour >=13 && hour<= 19) ? true : false;
+		model.addAttribute("isLunchTime", isLunchTime);
+		model.addAttribute("isDinnerTime", isDinnerTime);
+		
 		List<GroupPackages> groupPackages = foodService
 				.queryAllGroupPackages(1);
 		model.addAttribute("groupPackages", groupPackages);
 
 		// 获取当前时间，判断是否为午餐时间
-		GregorianCalendar curDate = new GregorianCalendar();
-		int hour = curDate.get(GregorianCalendar.HOUR_OF_DAY);
-		Boolean isLunchTime = hour >= 14 ? false : true;
-		model.addAttribute("isLunchTime", isLunchTime);
 
 		return "order/order-main";
 	}

@@ -213,7 +213,9 @@ $(document).ready(function() {
 		var foodList = orderData.plateList[0].foodList;
 		var foodCount = 0;
 		for(i in foodList) {
-			foodCount += foodList[i].count;
+			if(!foodList[i].price<10) {
+				foodCount += foodList[i].count;
+			}
 		}
 		var $discountList = $('.order-discount li');
 		
