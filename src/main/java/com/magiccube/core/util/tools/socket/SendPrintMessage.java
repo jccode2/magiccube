@@ -16,7 +16,7 @@ import com.magiccube.order.model.OrderView;
  * @version 2013-6-12 黄科林
  */
 public class SendPrintMessage extends Thread {
-	
+
 	final static Logger logger = LoggerFactory.getLogger(SendPrintMessage.class);
 	private static ChatServer chatServer;
 
@@ -41,13 +41,18 @@ public class SendPrintMessage extends Thread {
 					Thread.sleep(5000);
 					logger.debug("开始发送打印消息至客户端！:size="
 							+ ChatServerHandler.channelGroup.size());
+					
+					OrderView orderView = (OrderView) SendPrintMessage.vectPrintMessage.get(0);
+					
 					for (Channel ch : ChatServerHandler.channelGroup) {
 						logger.debug("发送打印消息至客户端！:" + ch.getId());
-						ch.write((OrderView) SendPrintMessage.vectPrintMessage
-								.get(0));
+						ch.write(orderView);
 					}
-					OrderView ov = SendPrintMessage.vectPrintMessage.remove(0);
-					logger.info("客户端打印: "+ov);
+					
+					if (ChatServerHandler.channelGroup.size() > 0) {
+						OrderView ov = SendPrintMessage.vectPrintMessage.remove(0);
+						logger.info("客户端打印: "+ov);
+					}
 				} catch (Exception e) {
 					logger.error("发送打印消息至客户端失败,异常：" + e);
 				}
