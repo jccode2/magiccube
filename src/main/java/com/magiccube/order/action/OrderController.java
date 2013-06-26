@@ -50,7 +50,7 @@ public class OrderController {
 		GregorianCalendar curDate = new GregorianCalendar();
 		int hour = curDate.get(GregorianCalendar.HOUR_OF_DAY);
 		if(hour > 19 || hour < 9) {
-			return "order/no-service";
+			//return "order/no-service";
 		}
 		
 		Boolean isLunchTime = hour <= 11 ? true : false;
