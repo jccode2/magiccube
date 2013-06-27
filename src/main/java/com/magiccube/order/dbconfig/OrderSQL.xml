@@ -52,7 +52,7 @@
 		  	#{item}
 		  </foreach>
 		  <if test="keyword != null and keyword != ''">
-				and concat(ifnull(address,''),ifnull(contact,''),ifnull(phone,'')) like concat('%',#{keyword},'%')
+				and concat(ifnull(address,''),ifnull(contact,''),ifnull(phone,''),ifnull(o.id,''),ifnull(user_remark,'')) like concat('%',#{keyword},'%')
 		  </if>
 		order by o.id, i.plate, f.food_name
 	</select>
@@ -67,7 +67,7 @@
 			  	#{item}
 			  </foreach>
 			<if test="keyword != null and keyword != ''">
-				and concat(ifnull(address,''),ifnull(contact,''),ifnull(phone,'')) like concat('%',#{keyword},'%')
+				and concat(ifnull(address,''),ifnull(contact,''),ifnull(phone,''),ifnull(id,''),ifnull(user_remark,'')) like concat('%',#{keyword},'%')
 			</if>
 	</select>
 	
@@ -83,7 +83,7 @@
 					  	#{item}
 					  </foreach>
 				<if test="keyword != null and keyword != ''">
-					and concat(ifnull(address,''),ifnull(contact,''),ifnull(phone,'')) like concat('%',#{keyword},'%')
+					and concat(ifnull(address,''),ifnull(contact,''),ifnull(phone,''),ifnull(id,''),ifnull(user_remark,'')) like concat('%',#{keyword},'%')
 				</if>
 		     	limit #{pageFrom}, #{pageSize}
 		     ) o, 
