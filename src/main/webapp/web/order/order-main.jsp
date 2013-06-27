@@ -11,8 +11,8 @@
 	<div class="container order-content">
 		<div class="container order-ad">
 			<div class="ad-content">
-				<p>优惠1：订餐满5份，每份再优惠一元</p>
-				<P>优惠2：10点半前下单，送新鲜水果一份</P>
+				<p>优惠1：订餐满5份，每份优惠一元</p>
+				<P>优惠2：10:30前下单，送新鲜水果一份</P>
 			</div>
 		</div>
 		<div class="row-fluid">

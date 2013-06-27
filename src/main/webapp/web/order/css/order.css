@@ -29,9 +29,9 @@ body {
 	margin-left: 380px;
 	height: 100%;
 	padding: 50px 0;
-	padding-left: 60px;
+	padding-left: 160px;
 	font-weight: bold;
-	background: url("./images/laba.png") 0px 58px no-repeat;
+	background: url("./images/laba.png") 100px 58px no-repeat;
 }
 
 
@@ -512,7 +512,7 @@ body {
 }
 
 .order .order-reality {
-	margin-left: 135px;
+	margin-left: 120px;
 }
 
 #order-reality-price {
