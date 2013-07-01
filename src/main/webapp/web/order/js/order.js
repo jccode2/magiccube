@@ -236,7 +236,10 @@ $(document).ready(function() {
 		}
 		
 		var now = new Date();
-		if(now.getHours()<=10 && now.getMinutes()<=30) {
+		var discountTime = new Date();
+		discountTime.setHours(10);
+		discountTime.setMinutes(30);
+		if(now.getTime() <= discountTime.getTime()) {
 			$discountList.eq(1).show();
 			discountCode[0] = '1';
 		} else {
