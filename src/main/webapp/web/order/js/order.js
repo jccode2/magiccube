@@ -9,11 +9,10 @@ $(document).ready(function() {
 	
 	//是否为手机号码
 	function isMobile(input) {
-		var a = /^(13[0-9]|15[0|3|6|7|8|9]|18[6|8|9])\d{8}$/.test(input); //联通
-		var b = /^1(3[4-9]|5[012789]|8[78])\d{8}$/.test(input); //移动
-		
-		return (a||b) ;
-	
+		var a = /^(13[0-9]|15[0|3|6|7|8|9]|18[5|6])\d{8}$/.test(input); //联通
+		var b = /^1(3[4-9]|5[0123789]|8[78])\d{8}$/.test(input); //移动
+		var c = /^1(8[9|0])\d{8}$/.test(input); //电信
+		return (a||b||c) ;
 	}
 	
 	//是否为电话号码
