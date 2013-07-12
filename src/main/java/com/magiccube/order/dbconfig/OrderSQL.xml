@@ -54,7 +54,7 @@
 		  <if test="keyword != null and keyword != ''">
 				and concat(ifnull(address,''),ifnull(contact,''),ifnull(phone,''),ifnull(o.id,''),ifnull(user_remark,'')) like concat('%',#{keyword},'%')
 		  </if>
-		order by o.id, i.plate, f.food_name
+		order by o.id desc, i.plate, f.food_name
 	</select>
 	
 	<!-- 根据shopId查询某个店铺的待处理的订单列表总数 -->
@@ -85,6 +85,7 @@
 				<if test="keyword != null and keyword != ''">
 					and concat(ifnull(address,''),ifnull(contact,''),ifnull(phone,''),ifnull(id,''),ifnull(user_remark,'')) like concat('%',#{keyword},'%')
 				</if>
+				order by id desc 
 		     	limit #{pageFrom}, #{pageSize}
 		     ) o, 
 		     food f, food_re_shop fs
@@ -92,7 +93,7 @@
 			<!-- i.deleted = false and f.deleted = false and fs.deleted = false and -->
 		  o.id = i.order_id and i.item_id = f.id 
 		  and o.shop_id = fs.shop_id and f.id = fs.food_id
-		order by o.id, i.plate, f.food_name
+		order by o.id desc, i.plate, f.food_name
 	</select>
 
 	<!-- 根据orderId查询某个订单(包括所有的食物) -->
