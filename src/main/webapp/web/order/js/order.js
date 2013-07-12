@@ -123,7 +123,7 @@ $(document).ready(function() {
 		
 		//add-food-tip
 		
-		console.log(e);
+		//console.log(e);
 	}
 	
 	//<span class="add-food-tip">+1</span>
