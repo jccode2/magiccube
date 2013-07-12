@@ -8,6 +8,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,7 +37,13 @@ public class OrderController {
 	FoodService foodService;
 
 	@RequestMapping("")
-	public String main(Model model) {
+	public String main(Model model, HttpServletRequest request) {
+		
+		Boolean isIE6 =  request.getHeader("USER-AGENT").toLowerCase().indexOf("msie 6")>0 ? true : false ;
+		if(isIE6){
+			return "order/order-ie6";
+		}
+		
 
 		// 读取地址列表
 		List<RegionVO> addressList = addressService.queryChildRegion(-1);
