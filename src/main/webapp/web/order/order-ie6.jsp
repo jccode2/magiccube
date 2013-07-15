@@ -8,21 +8,26 @@
 
 <style type="text/css">
 	h3 {
-		margin-top: 250px;
-		line-height: 40px;
-		font-size: 28.5px;
+		line-height: 30px;
+		font-size: 24.5px;
 		font-family: inherit;
 		color: white;
 		text-align: center;
 	}
-	.common-foot {
-		margin-top: 250px;
+	
+	.caidan {
+		text-align: center;
 	}
+	
 </style>
 
 </head>
 <body>
-		<h3>亲， 我们的网站暂时不支持IE6，推荐您使用chrome、firefox或IE8以上的浏览器进行浏览</h3>
+	<h3>亲， 我们的网站暂时不支持IE6点餐，</h3>
+	<h3>推荐您使用chrome、firefox或IE8以上的浏览器进行点餐</h3>
+	<h3>您也可以通过QQ、电话进行订餐</h3>
+	<h3>订餐QQ：2589430737  &nbsp;&nbsp;&nbsp; 订餐电话：23946075</h3>
+	<div class="caidan"><img src="/web/img/order.jpg" /></div>
 	<%@ include file="/web/inc/foot.jsp"%>
 </body>
 </html>
