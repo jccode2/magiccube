@@ -397,8 +397,8 @@ $(document).ready(function() {
 		}
 		
 		//保存地址和电话信息到cookie
-		$.cookie('address', orderVO.address, {path: '/'});
-		$.cookie('phone', orderVO.phone, {path: '/'});
+		$.cookie('address', orderVO.address, {path: '/', expires: 365 });
+		$.cookie('phone', orderVO.phone, {path: '/', expires: 365 });
 		
 		OrderAction.submitOrder(orderVO, function(result){
 			$('.order').modal('hide');
