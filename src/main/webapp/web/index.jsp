@@ -11,12 +11,12 @@ function onload(){
 }
 
 function redirectToUI(){
-	window.location = "test/index.jsp";
+	window.location = "/order";
 }
 </script>
-<title>Test 编码测试</title>
+<title>LoadingPage</title>
 </head>
 <body onload="onload();">
-	sunxiaofan edit
+	loading
 </body>
 </html>
