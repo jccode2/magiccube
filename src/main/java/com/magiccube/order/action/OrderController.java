@@ -56,14 +56,18 @@ public class OrderController {
 		//判断是否在服务时间以及判断是否是午餐时间还是晚餐时间
 		GregorianCalendar curDate = new GregorianCalendar();
 		int hour = curDate.get(GregorianCalendar.HOUR_OF_DAY);
+		int minute = curDate.get(GregorianCalendar.MINUTE);
 		if(hour > 19 || hour < 9) {
 			//return "order/no-service";
 		}
 		
-		Boolean isLunchTime = hour <= 11 ? true : false;
-		Boolean isDinnerTime = (hour >=13 && hour<= 19) ? true : false;
+		Boolean isLunchTime = hour <= 11 ? true : false; //是否午餐时间
+		Boolean isDinnerTime = (hour >=13 && hour<= 19) ? true : false; //是否晚餐时间
+		Boolean isPeakTime = (hour==11 && minute>=30) ||(hour==12 && minute<=30) ? true : false; //是否订餐高峰期（11:30-12:30）
+
 		model.addAttribute("isLunchTime", isLunchTime);
 		model.addAttribute("isDinnerTime", isDinnerTime);
+		model.addAttribute("isPeakTime", isPeakTime);
 		
 		List<GroupPackages> groupPackages = foodService
 				.queryAllGroupPackages(1);

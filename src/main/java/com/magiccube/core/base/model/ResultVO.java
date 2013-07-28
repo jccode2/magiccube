@@ -8,6 +8,7 @@ package com.magiccube.core.base.model;
 public class ResultVO extends BaseVO {
 	private boolean success;
 	private String message;
+	private int orderId;
 
 	public ResultVO(boolean s, String m) {
 		success = s;
@@ -40,11 +41,28 @@ public class ResultVO extends BaseVO {
 		this.message = message;
 	}
 	
+	
+	
+	/**
+	 * @return the orderId
+	 */
+	public int getOrderId() {
+		return orderId;
+	}
+
+	/**
+	 * @param orderId the orderId to set
+	 */
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
+	}
+
 	public String toString(){
 		StringBuffer sb = new StringBuffer(128);
 		sb.append("ResultVO=\n");
 		sb.append("    success:"+success+"\n");
-		sb.append("    message:"+message);
+		sb.append("    message:"+message+"\n" );
+		sb.append("    orderId:"+orderId);
 		return sb.toString();
 	}
 

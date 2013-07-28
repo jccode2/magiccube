@@ -402,6 +402,8 @@ $(document).ready(function() {
 		
 		OrderAction.submitOrder(orderVO, function(result){
 			$('.order').modal('hide');
+			var tip = '你已成功提交订单，订单号：' +　result.orderId + '，我们会及时处理您的订单，请耐心等候。';
+			$('#submit-success-tip').find('.success-tip').html(tip);
 			$('#submit-success-tip').modal('show');
 			initMyPlate();
 		});

@@ -66,11 +66,18 @@ public class OrderAction extends OrderStatePublisher {
 			orderService.submitOrder(orderVO,currentUser);
 			
 			notify(orderVO);
+			
+			ResultVO result = new ResultVO();
+			result.setMessage("订餐成功！");
+			result.setOrderId(orderVO.getId());
+			return result;
+			
 		} catch (Exception e) {
 			LOGGER.error("submitOrder 出错：" + e);
 			return new ResultVO("提交订单时后台出现错误" + e);
 		}
-		return new ResultVO("订餐成功！");
+		
+		
 	}
 	
 

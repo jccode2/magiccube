@@ -79,7 +79,9 @@ public class OrderService extends BaseService {
 			orderVO.setUserId(currentUser.getId());
 		}
 		
-		orderDAO.insertOrder(orderVO);
+		int orderId = orderDAO.insertOrder(orderVO);
+		orderVO.setId(orderId);
+		
 		for(int i = 0;i < orderVO.getFoodList().size();++i){
 			orderVO.getFoodList().get(i).setOrderId(orderVO.getId());
 			orderDAO.insertOrderItem(orderVO.getFoodList().get(i));

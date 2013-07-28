@@ -108,12 +108,26 @@
 			<table class="order-info">
 				<tr>
 					<td class="info-title">联系电话</td>
-					<td class="info-content"><input type="text" name="phone" id="phone" data-toggle="tooltip" style="width: 200px;" /><span style="margin-left: 20px; color: #469E0A">期望送达时间：</span> <span
-						class="excepttime-list"> 
-						<c:if test='${isLunchTime}' ><a class="lunch-time curr" title="11:30-12:30" data-type="0"></a></c:if>
-						<c:if test='${isDinnerTime}' ><a class="dinner-time curr" data-type="1" title="17:30-18:30"></a></c:if>
-						<a class="thirty-time" data-type="2" ></a> <a class="hour-time" data-type="3"></a>
-					</span></td>
+					<td class="info-content">
+						<input type="text" name="phone" id="phone" data-toggle="tooltip" style="width: 200px;" />
+						<c:choose>
+							<c:when test="${isPeakTime }">
+								<span class="excepttime-list" style="display:none;">
+									<a class="thirty-time curr" data-type="2" ></a>
+								</span>
+								<span style="margin-left: 15px;color:#760700;"><span style="font-size: 16px;font-weight: bold;">温馨提示：</span>现在是订餐高峰期，您的餐盒将在50分钟内送达，建议您下次提前订餐！</span>
+							</c:when>
+							<c:otherwise>
+								
+								<span style="margin-left: 20px; color: #469E0A">期望送达时间：</span>
+								<span class="excepttime-list">
+									<c:if test='${isLunchTime}' ><a class="lunch-time curr" title="11:30-12:30" data-type="0"></a></c:if>
+									<c:if test='${isDinnerTime}' ><a class="dinner-time curr" data-type="1" title="17:30-18:30"></a></c:if>
+									<a class="thirty-time" data-type="2" ></a> <a class="hour-time" data-type="3"></a>
+								</span>
+							</c:otherwise>
+						</c:choose>
+					</td>
 				</tr>
 				<tr>
 					<td class="info-title">详细地址</td>
@@ -136,7 +150,7 @@
 			<h3>成功提交订单</h3>
 		</div>
 		<div class="modal-body">
-			<p class="success-tip">你已成功提交订单，我们会及时处理您的订单，请耐心等候。</p>
+			<p class="success-tip"></p>
 		</div>
 		<div class="modal-footer">
 			<a href="#" class="btn btn-success order-success-btn" id="success-tip-btn">确定</a>
