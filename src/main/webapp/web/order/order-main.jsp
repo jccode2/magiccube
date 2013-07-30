@@ -6,6 +6,16 @@
 <title>选择食物</title>
 <%@ include file="/web/inc/nav.jsp"%>
 <link rel="stylesheet" href="${webRoot}/web/order/css/order.css" />
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-42821433-1', '1000funs.com');
+  ga('send', 'pageview');
+
+</script>
 </head>
 <body>
 	<div class="container order-content">
