@@ -123,7 +123,7 @@
 								<span class="excepttime-list">
 									<c:if test='${isLunchTime}' ><a class="lunch-time curr" title="11:30-12:30" data-type="0"></a></c:if>
 									<c:if test='${isDinnerTime}' ><a class="dinner-time curr" data-type="1" title="17:30-18:30"></a></c:if>
-									<a class="thirty-time" data-type="2" ></a> <a class="hour-time" data-type="3"></a>
+									<a class="thirty-time <c:if test='${!isDinnerTime && !isLunchTime }' >curr</c:if>" data-type="2" ></a> <a class="hour-time" data-type="3"></a>
 								</span>
 							</c:otherwise>
 						</c:choose>
