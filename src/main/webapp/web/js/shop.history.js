@@ -22,6 +22,7 @@ define(function(require, exports, module) {
 	function initEvent() {
 		$("#page").pagination({
 			className: "pagination-right", 
+			num: 10,
 			page: $("#pageNo").val(), 
 			count: $("#pageCount").val(), 
 			callback: function (current_page, new_page) {
@@ -37,13 +38,16 @@ define(function(require, exports, module) {
 		});
 		
 		$(".order-btn-abnormal").click(function() {
-			markAsException($(this).attr("value"));
+			if($(this).attr("status") != 2) {
+				markAsException($(this));
+			}
 			return false;
 		});
 	}
 	
 	//标记为异常
-	function markAsException(id) {
+	function markAsException($btn) {
+		var id = $btn.attr("value");
 		$.ajax({
 			type: "put", 
 			url: webRoot+"/shop/order/"+id+"?status=2"
@@ -51,6 +55,7 @@ define(function(require, exports, module) {
 		.done(function(data) {
 			if(data == true) {
 				$("#table_item_"+id).addClass("abnormal");
+				$btn.attr("status", 2);
 				return true;
 			} else {
 				alert("标记为异常失败");

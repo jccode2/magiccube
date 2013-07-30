@@ -16,8 +16,14 @@ import org.directwebremoting.annotations.RemoteMethod;
 import org.directwebremoting.annotations.RemoteProxy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ApplicationObjectSupport;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.magiccube.component.email.IMailWrapper;
 import com.magiccube.component.email.MailResource;
@@ -36,19 +42,23 @@ import com.magiccube.user.model.UserVO;
  * @since jdk6.0
  * @version 2013-1-13 黄科林
  */
+@Controller
 @RemoteProxy
 public class LoginAction extends ApplicationObjectSupport {
     
     final static Logger LOGGER = LoggerFactory.getLogger(LoginAction.class);
     
-    static ApplicationContext context = null;
+//    static ApplicationContext context = null;
+//    
+//    static LoginService loginService = null;
+//    
+//    static {
+//        context = ApplicationContextInitor.getContext();
+//        loginService = (LoginService) context.getBean("LoginService");
+//    }
     
-    static LoginService loginService = null;
-    
-    static {
-        context = ApplicationContextInitor.getContext();
-        loginService = (LoginService) context.getBean("LoginService");
-    }
+    @Autowired
+    private LoginService loginService;
     
     /**
      * 登录
@@ -64,7 +74,8 @@ public class LoginAction extends ApplicationObjectSupport {
 	 * 退出系统
 	 */
     @RemoteMethod
-	public void exit(){
+    @RequestMapping(value="/logout", method=RequestMethod.POST)
+	public @ResponseBody void exit(){
 		loginService.exit();
 	}
     

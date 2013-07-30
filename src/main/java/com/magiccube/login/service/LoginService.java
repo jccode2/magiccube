@@ -5,12 +5,15 @@
 ******************************************************************************/
 package com.magiccube.login.service;
 
+import javax.servlet.http.HttpSession;
+
 import org.directwebremoting.WebContext;
 import org.directwebremoting.WebContextFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.magiccube.common.model.EnvironmentInfoVO;
+import com.magiccube.common.util.EnvUtils;
 import com.magiccube.core.base.model.ResultVO;
 import com.magiccube.user.dao.UserDAO;
 import com.magiccube.user.model.UserVO;
@@ -58,9 +61,9 @@ public class LoginService {
 	 * 退出系统
 	 */
 	public void exit(){
-		WebContext objWebContext = WebContextFactory.get();
-		objWebContext.getSession().removeAttribute("environmentInfo");
-		objWebContext.getSession().removeAttribute("current_user");
+		HttpSession session = EnvUtils.session();
+		session.removeAttribute("environmentInfo");
+		session.removeAttribute("current_user");
 	}
 	
 	/**

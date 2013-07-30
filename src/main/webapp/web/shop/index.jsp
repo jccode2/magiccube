@@ -51,7 +51,7 @@
 										</p>
 										<div>
 											<input type="button" class="btn" value="查看个人资料">
-											<input type="button" class="btn pull-right" value="退出登录">
+											<input type="button" class="btn pull-right" id="btn_logout" value="退出登录">
 										</div>
 									</div>
 								</div><!--/ user-info -->
