@@ -14,7 +14,7 @@ public class QueryForm {
 	private int pageNo = 1;
 	
 	/** 每页记录的条数 */
-	private int pageSize = 6;
+	private int pageSize = SIZE_DEFAULT;
 	
 	/** 总的记录条数 */
 	private int recordCount;

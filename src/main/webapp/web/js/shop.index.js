@@ -4,6 +4,7 @@ define(function (require, exports, module) {
 		util = require('util'), 
 		webRoot = util.webRoot;
 	require('bootstrap');
+	require('jquery.cookie');
 
 	jQuery(function () {
 		
@@ -20,6 +21,8 @@ define(function (require, exports, module) {
 		initHeight();
 		
 		initData();
+		
+		btnEvent();
 
 		$(window).bind("resize", initHeight);
 
@@ -35,7 +38,7 @@ define(function (require, exports, module) {
 	}
 	
 	function initData() {
-		var url = webRoot = "/shop/shopdata";
+		var url = webRoot + "/shop/shopdata";
 		$.get(url, function(data) {
 			var vo = util.toJSON(data), 
 				userVO = vo["user"];
@@ -47,5 +50,17 @@ define(function (require, exports, module) {
 			// todo-count
 			$("#todo-count").html(vo["todo"]);
 		});
+	}
+	
+	function btnEvent() {
+		$("#btn_logout").on("click", function() {
+			var url = webRoot + "/logout";
+			$.post(url, function() {
+				$.cookie("rem10-u", null);
+				$.cookie("rem10-p", null);
+				window.location.href = webRoot + "/order";
+			});
+		});
+		
 	}
 });

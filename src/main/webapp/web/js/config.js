@@ -12,6 +12,10 @@ seajs.config({
 			src: 'js/jquery-1.8.0.js', 
 			exports: 'jQuery'
 		},
+		'jquery.cookie': {
+			src: 'js/jquery.cookie.js', 
+			deps: ['jquery']
+		},
 		'bootstrap' : {
 			src: 'bootstrap/js/bootstrap.min.js', 
 			deps: ['jquery']

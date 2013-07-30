@@ -60,7 +60,7 @@
 									</div>
 									<div class="pull-right">
 										<span class="brown">${order.totalPrice }元 </span>
-										<a href="#" class="btn btn-mini order-btn-abnormal" value="${order.id }"><i class="icon-warning-sign"></i>&nbsp;异常</a>
+										<a href="#" class="btn btn-mini order-btn-abnormal" value="${order.id }" status="${order.orderStatus}"><i class="icon-warning-sign"></i>&nbsp;异常</a>
 									</div>
 								</div>
 								<div class="row-fluid body">
