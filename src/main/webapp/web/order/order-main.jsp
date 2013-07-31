@@ -128,7 +128,6 @@
 								<span style="margin-left: 15px;color:#760700;"><span style="font-size: 16px;font-weight: bold;">温馨提示：</span>现在是订餐高峰期，您的餐盒将在50分钟内送达，建议您下次提前订餐！</span>
 							</c:when>
 							<c:otherwise>
-								
 								<span style="margin-left: 20px; color: #469E0A">期望送达时间：</span>
 								<span class="excepttime-list">
 									<c:if test='${isLunchTime}' ><a class="lunch-time curr" title="11:30-12:30" data-type="0"></a></c:if>
@@ -138,6 +137,10 @@
 							</c:otherwise>
 						</c:choose>
 					</td>
+				</tr>
+				<tr>
+					<td class="info-title">姓名</td>
+					<td class="info-content"><input type="text" name="name" id="name" data-toggle="tooltip"  style="width: 200px;" /></td>
 				</tr>
 				<tr>
 					<td class="info-title">详细地址</td>

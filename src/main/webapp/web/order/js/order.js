@@ -364,6 +364,14 @@ $(document).ready(function() {
 			return;
 		}
 		
+		var name = $.trim($('#name').val());
+		if(name=='') {
+			$('#name').attr('title','请输入你的姓名').tooltip('show');
+			return;
+		} else {
+			orderVO.address = orderVO.address + '（' + name + '）';
+		}
+		
 		if(orderVO.address=='') {
 			$('#address').attr('title','请输入你的地址').tooltip('show');
 			return;
