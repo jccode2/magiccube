@@ -199,6 +199,7 @@ $(document).ready(function() {
 		//从cookie获取电话和地址信息
 		$('#address').val($.cookie('address'));
 		$('#phone').val($.cookie('phone'));
+		$('#name').val($.cookie('name'));
 		
 		$('.order').modal('show');
 		$('.order-plate-null').height( $('.order-plate-item').height());
@@ -405,8 +406,9 @@ $(document).ready(function() {
 		}
 		
 		//保存地址和电话信息到cookie
-		$.cookie('address', orderVO.address, {path: '/', expires: 365 });
+		$.cookie('address', $.trim($('#address').val()), {path: '/', expires: 365 });
 		$.cookie('phone', orderVO.phone, {path: '/', expires: 365 });
+		$.cookie('name', name, {path: '/', expires: 365 });
 		
 		OrderAction.submitOrder(orderVO, function(result){
 			$('.order').modal('hide');
