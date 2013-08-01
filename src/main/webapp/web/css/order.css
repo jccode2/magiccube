@@ -379,6 +379,9 @@ body {
 .table-list .body .food-expand {
   display: none;
 }
+.table-list .body ul.plate-list {
+  margin: 2px 0px 5px;
+}
 .table-list .body ul.plate-list > li {
   display: inline-block;
   *display: inline;

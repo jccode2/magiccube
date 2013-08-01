@@ -28,6 +28,16 @@
 	<update id="updateOrderStatus" parameterType="com.magiccube.order.model.OrderVO">
 		update orders set order_status = #{orderStatus} where id = #{id};
 	</update>
+	
+	<!-- 设置订单为异常状态 -->
+	<update id="updateExceptionDetailAndAsException" parameterType="com.magiccube.order.model.OrderVO">
+	    update orders 
+	    <set>
+	        <if test="exceptionDesc != null">exception_desc=#{exceptionDesc},</if>
+	        order_status = 2 
+	    </set>
+		where id = #{id};
+	</update>
 
 	<!-- 根据userId查询用户未评价的订单 order_status=1表示订单状态：已处理-->
 	<select id="queryUnEvaluateOrder" parameterType="int"

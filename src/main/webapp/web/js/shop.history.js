@@ -39,23 +39,41 @@ define(function(require, exports, module) {
 		
 		$(".order-btn-abnormal").click(function() {
 			if($(this).attr("status") != 2) {
-				markAsException($(this));
+                showExceptionDetailDlg( $(this).attr("value") );
 			}
 			return false;
 		});
+
+
+        $("#btn_save_exception").on("click", function(){
+            // save and mark as exception
+			markAsException($(this));
+            $("#exception_detail_dlg").modal("hide");
+            return false;
+        });
 	}
+
+    function showExceptionDetailDlg(orderId){
+        $("#exception_detail_area").val("");
+        $("#exception_detail_dlg").data("orderId", orderId).modal();
+    }
+
 	
 	//标记为异常
-	function markAsException($btn) {
-		var id = $btn.attr("value");
+	function markAsException() {
+		var id = $("#exception_detail_dlg").data("orderId"), 
+            exceptionDesc = $("#exception_detail_area").val();
+
 		$.ajax({
 			type: "put", 
-			url: webRoot+"/shop/order/"+id+"?status=2"
+			url: webRoot+"/shop/order/"+id+"?exceptionDesc="+exceptionDesc
 		})
 		.done(function(data) {
 			if(data == true) {
-				$("#table_item_"+id).addClass("abnormal");
-				$btn.attr("status", 2);
+                var $tableItem = $("#table_item_"+id);
+				$tableItem.addClass("abnormal");
+				$(".order-btn-abnormal", $tableItem).attr("status", 2);
+                $(".exception-desc", $tableItem).html("异常描述:&nbsp;"+exceptionDesc);
 				return true;
 			} else {
 				alert("标记为异常失败");

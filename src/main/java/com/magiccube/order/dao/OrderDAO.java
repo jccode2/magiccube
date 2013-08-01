@@ -46,6 +46,19 @@ public class OrderDAO extends BaseDAO {
 	}
 	
 	/**
+	 * 更新exception desc并设置为异常
+	 * @param orderId
+	 * @param exceptionDesc
+	 * @return
+	 */
+	public int updateExceptionDetailAndAsException(int orderId, String exceptionDesc) {
+		OrderVO param = new OrderVO();
+		param.setId(orderId);
+		param.setExceptionDesc(exceptionDesc);
+		return this.sqlSessionTemplate.update("com.magiccube.order.updateExceptionDetailAndAsException", param);
+	}
+	
+	/**
 	 * 根据用户id查询未处理订单
 	 * @param userId
 	 * @return 未处理的订单对象集合

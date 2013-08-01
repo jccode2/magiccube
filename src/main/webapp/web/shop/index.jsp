@@ -85,9 +85,12 @@
 							<li><a href="${webRoot}/shop/catering">配餐模式</a></li>
 							<li><a href="${webRoot}/shop/package">套餐模式</a></li>
 							<li class="nav-header">店铺管理</li>
-							<li><a href="${webRoot}/web/shop/test.jsp">基本信息</a></li>
+							<li><a href="#">基本信息</a></li>
+							<li><a href="#">公告管理</a></li>
 							<li class="nav-header">评价管理</li>
 							<li><a href="#">查看评价</a></li>
+							<li class="nav-header">测试</li>
+							<li><a href="${webRoot}/web/shop/test.jsp">测试一</a></li>
 						</ul>
 					</div>
 				</div>
