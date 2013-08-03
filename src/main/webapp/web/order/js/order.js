@@ -71,6 +71,12 @@ $(document).ready(function() {
 	
 	//点击食物
 	$('.food-panel .food-item').click(function(e){
+		
+		if($(this).hasClass('drop')){
+			alert('该套餐已经被订完啦！');
+			return;
+		}
+		
 		//alert($(this).data('group'));
 		//alert($(this).data('foodname'));
 		var foodName =  $(this).data('foodname'),

@@ -60,11 +60,11 @@
 							</div>
 							<div class="class-food" <c:if test="${group.packageList.size()>4}" >style="min-height:368px;"</c:if>>
 								<c:forEach items="${group.packageList}" var="pkg">
-									<div class="food-item" title="${pkg.foodName }" data-group="${group.id}" data-foodname="${pkg.foodName }" data-foodid="${pkg.id }" data-price="${pkg.currentPrice }">
+									<div class="food-item  <c:if test='${ pkg.stock<=0}'>drop</c:if>" title="${pkg.foodName }" data-group="${group.id}" data-foodname="${pkg.foodName }" data-foodid="${pkg.id }" data-price="${pkg.currentPrice }">
 										<img src="${webRoot}/${pkg.image }" class="food-pic" />
 										<div class="package-food-list">
 											<div class="package-content">
-												<p class="pakage-name">${pkg.foodName }</p>
+												<p class="pakage-name">${pkg.foodName }<c:if test='${ pkg.stock<=0}'>[缺货]</c:if></p>
 												<c:forEach items="${pkg.items }" var="item">
 													<p class="food-name">${item.foodName }</p>
 												</c:forEach>
@@ -174,6 +174,6 @@
 
 	<script type="text/javascript" src="${webRoot}/web/js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="${webRoot}/dwr/interface/OrderAction.js?20130729"></script>
-	<script type="text/javascript" src="${webRoot}/web/order/js/order.js?20130731"></script>
+	<script type="text/javascript" src="${webRoot}/web/order/js/order.js?20130803"></script>
 </body>
 </html>
