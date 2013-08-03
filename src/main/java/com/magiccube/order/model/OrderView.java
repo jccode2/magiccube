@@ -64,6 +64,8 @@ public class OrderView extends BaseVO {
 	//例如"001"表示只有首次订餐优惠
 	private String discountCode;
 	
+	private String exceptionDesc;
+	
 	/**
 	 * 备注信息
 	 */
@@ -193,6 +195,14 @@ public class OrderView extends BaseVO {
 			}
 		}
 		return amount;
+	}
+
+	public String getExceptionDesc() {
+		return exceptionDesc;
+	}
+
+	public void setExceptionDesc(String exceptionDesc) {
+		this.exceptionDesc = exceptionDesc;
 	}
 	
 }

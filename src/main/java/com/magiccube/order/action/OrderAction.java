@@ -107,6 +107,17 @@ public class OrderAction extends OrderStatePublisher {
 	public boolean updateOrderStatus(int id, int status) {
 		return orderService.updateOrderStatus(id, status);
 	}
+	
+	/**
+	 * 更新exception desc并设置为异常
+	 * @param orderId
+	 * @param exceptionDesc
+	 * @return
+	 */
+	public boolean updateExceptionDetailAndAsException(int orderId, String exceptionDesc) {
+		int ret = orderService.updateExceptionDetailAndAsException(orderId, exceptionDesc);
+		return ret > 0;
+	}
 
 	/**
 	 * 根据条件查询订单列表

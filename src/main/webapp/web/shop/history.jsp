@@ -84,18 +84,25 @@
 										</p>
 									</div>
 									<div class="food-expand">
-										<ul class="plate-list">
-										<c:forEach items="${order.plateList }" var="plate">
-											<li>
-												<ul class="food-list">
-													<c:forEach items="${plate.foodList }" var="food">
-													<li>${food.food } <c:if test="${food.amount > 1}">x${food.amount }</c:if></li>
-													</c:forEach>
-													<li><span class="price">￥${plate.price }</span></li>
-												</ul>
-											</li>
-										</c:forEach>
-										</ul>
+										<div>
+											<ul class="plate-list">
+											<c:forEach items="${order.plateList }" var="plate">
+												<li>
+													<ul class="food-list">
+														<c:forEach items="${plate.foodList }" var="food">
+														<li>${food.food } <c:if test="${food.amount > 1}">x${food.amount }</c:if></li>
+														</c:forEach>
+														<li><span class="price">￥${plate.price }</span></li>
+													</ul>
+												</li>
+											</c:forEach>
+											</ul>
+										</div>
+										<div class="exception-desc">
+											<c:if test="${not empty order.exceptionDesc and order.orderStatus == 2}">
+											异常描述:&nbsp;${order.exceptionDesc }
+											</c:if>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -115,6 +122,20 @@
 				<div id="page"></div>
 			</div>
 		</div>
+        
+		<div class="modal hide fade" id="exception_detail_dlg">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3>异常描述</h3>
+            </div>
+            <div class="modal-body">
+                <textarea row="3" style="width:97%;" id="exception_detail_area"></textarea>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn" data-dismiss="modal">关闭</a>
+                <a href="#" class="btn btn-primary" id="btn_save_exception">保存</a>
+            </div>
+        </div>
 
 		<script src="${webRoot}/web/seajs/sea.js" data-config="${webRoot}/web/js/config" data-main="${webRoot}/web/js/shop.history"></script>
 	</body>

@@ -165,7 +165,8 @@ UNLOCK TABLES;
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,NULL,'SuperAdmin','110','SuperAdmin@1000funs.com','hello',NULL,NULL,1,'深圳市福田区景田路110号',NULL,3,NULL,NULL),(2,NULL,'张三','13512312312','zhangshan@1000funs.com','hello',NULL,NULL,1,'深圳市福田区景田路110号',NULL,1,NULL,NULL),(3,NULL,'路人甲','13669877898','jia@163.com','hello',NULL,NULL,1,'深圳市福田区景田路112号',NULL,0,NULL,NULL),(4,NULL,'路人乙','13362377128','yie@163.com','hello',NULL,NULL,1,'深圳市福田区景田布尾村10号',NULL,0,NULL,NULL),(5,NULL,'路人丙','13511211311','bin@163.com','hello',NULL,NULL,1,'深圳市福田区景田区香梅北武警大厦',NULL,0,NULL,NULL),(6,NULL,'ksfifa',NULL,'','6272004',0,0,0,NULL,'2013-04-11 00:09:34',0,0,NULL);
+-- (SuperAdmin,hello)
+INSERT INTO `users` VALUES (1,NULL,'SuperAdmin','110','SuperAdmin@1000funs.com','5d41402abc4b2a76b9719d911017c592',NULL,NULL,1,'深圳市福田区景田路110号',NULL,3,NULL,NULL),(2,NULL,'张三','13512312312','zhangshan@1000funs.com','hello',NULL,NULL,1,'深圳市福田区景田路110号',NULL,1,NULL,NULL),(3,NULL,'路人甲','13669877898','jia@163.com','hello',NULL,NULL,1,'深圳市福田区景田路112号',NULL,0,NULL,NULL),(4,NULL,'路人乙','13362377128','yie@163.com','hello',NULL,NULL,1,'深圳市福田区景田布尾村10号',NULL,0,NULL,NULL),(5,NULL,'路人丙','13511211311','bin@163.com','hello',NULL,NULL,1,'深圳市福田区景田区香梅北武警大厦',NULL,0,NULL,NULL),(6,NULL,'ksfifa',NULL,'','6272004',0,0,0,NULL,'2013-04-11 00:09:34',0,0,NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

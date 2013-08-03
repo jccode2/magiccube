@@ -88,6 +88,7 @@ CREATE  TABLE IF NOT EXISTS `1000funs`.`orders` (
   `sender_id` INT NULL ,
   `payment_type` INT NULL COMMENT '0: cash\\n1: online' ,
   `total_price` DOUBLE NULL COMMENT 'current total price' ,
+  `exception_desc` VARCHAR(200) NULL COMMENT 'exception description' ,
   `deleted` TINYINT(1) NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;

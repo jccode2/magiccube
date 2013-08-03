@@ -54,6 +54,7 @@ public class OrderVO extends BaseVO {
 	//自右到左：第一位表示首次订餐优惠，第二位表示订餐5份以上优惠，第三位表示10点半前下单优惠
 	//例如"001"表示只有首次订餐优惠
 	private String discountCode;
+	private String exceptionDesc;
 	
 	public int getId() {
 		return id;
@@ -187,6 +188,10 @@ public class OrderVO extends BaseVO {
 	public void setDiscountCode(String discountCode) {
 		this.discountCode = discountCode;
 	}
-	
-	
+	public String getExceptionDesc() {
+		return exceptionDesc;
+	}
+	public void setExceptionDesc(String exceptionDesc) {
+		this.exceptionDesc = exceptionDesc;
+	}
 }

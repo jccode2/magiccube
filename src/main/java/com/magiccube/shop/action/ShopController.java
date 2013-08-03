@@ -347,6 +347,17 @@ public class ShopController {
 	}
 	
 	/**
+	 * 标记Order为异常状态
+	 * @param id
+	 * @param exceptionDesc
+	 * @return
+	 */
+	@RequestMapping(value="/order/{id}", method=RequestMethod.PUT, params="exceptionDesc")
+	public @ResponseBody boolean markOrderAsException(@PathVariable int id, @RequestParam String exceptionDesc) {
+		return orderAction.updateExceptionDetailAndAsException(id, exceptionDesc);
+	}
+	
+	/**
 	 * 是否自动出单(更新配置项信息)
 	 * @param value true/false 表示开启 or 关闭.
 	 * @return true-开启成功; false-开启失败;

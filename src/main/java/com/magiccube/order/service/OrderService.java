@@ -155,6 +155,16 @@ public class OrderService extends BaseService {
 	}
 	
 	/**
+	 * 更新exception desc并设置为异常
+	 * @param orderId
+	 * @param exceptionDesc
+	 * @return
+	 */
+	public int updateExceptionDetailAndAsException(int orderId, String exceptionDesc) {
+		return orderDAO.updateExceptionDetailAndAsException(orderId, exceptionDesc);
+	}
+	
+	/**
 	 * 根据订单ID获取一个订单详情(包括相应食物列表)
 	 * @param orderId
 	 * @return
