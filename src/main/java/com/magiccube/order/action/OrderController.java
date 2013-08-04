@@ -55,11 +55,12 @@ public class OrderController {
 		//model.addAttribute("groupFoods", groupFoods); //暂时屏蔽自由配餐
 		//判断是否在服务时间以及判断是否是午餐时间还是晚餐时间
 		GregorianCalendar curDate = new GregorianCalendar();
+		if(isClosingTime(curDate)) {
+			return "order/no-service";
+		}
+		
 		int hour = curDate.get(GregorianCalendar.HOUR_OF_DAY);
 		int minute = curDate.get(GregorianCalendar.MINUTE);
-		if(hour > 19 || hour < 9) {
-			//return "order/no-service";
-		}
 		
 		Boolean isLunchTime = hour <= 11 ? true : false; //是否午餐时间
 		Boolean isDinnerTime = (hour >=13 && hour<= 19) ? true : false; //是否晚餐时间
@@ -77,4 +78,19 @@ public class OrderController {
 
 		return "order/order-main";
 	}
+	
+	/**
+	 * 判断是否打烊时间
+	 * 
+	 * @return
+	 */
+	private boolean isClosingTime(GregorianCalendar curDate) {
+		int day = curDate.get(GregorianCalendar.DAY_OF_WEEK);
+		int hour = curDate.get(GregorianCalendar.HOUR_OF_DAY);
+		if(hour >= 20 || hour < 8||day == GregorianCalendar.SUNDAY) {
+			return true;
+		}
+		return false;
+	}
+	
 }
