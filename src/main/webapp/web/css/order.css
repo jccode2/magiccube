@@ -291,6 +291,7 @@ body {
 }
 .querybar {
   height: 42px;
+  padding-right: 5px;
 }
 .querybar form {
   margin-bottom: 0px;
