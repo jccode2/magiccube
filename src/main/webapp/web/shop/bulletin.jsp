@@ -16,6 +16,9 @@
 				/*padding: 50px 0px;*/
 				/*background-color: #f5f5f5;*/
 			}
+            i {
+                cursor:pointer;
+            }
 		</style>
 	</head>
 	<body>
@@ -39,13 +42,13 @@
                 <td>优惠一:10点半前订餐送水果一份</td>
                 <td>1</td>
                 <td><input type="checkbox" name="enable" value="1" /></td>
-                <td><i class="icon-ok"></i><i class="icon-remove"></i></td>
+                <td><i class="icon-edit"></i>&nbsp;<i class="icon-remove"></i></td>
             </tr>
             <tr>
                 <td>优惠二:团体10份以上，每份减1元</td>
                 <td>2</td>
                 <td><input type="checkbox" name="enable" value="1" /></td>
-                <td><i class="icon-ok"></i><i class="icon-remove"></i></td>
+                <td><i class="icon-ok"></i>&nbsp;<i class="icon-remove"></i></td>
             </tr>
         </table>
 
