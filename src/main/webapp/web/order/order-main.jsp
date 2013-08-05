@@ -174,6 +174,6 @@
 
 	<script type="text/javascript" src="${webRoot}/web/js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="${webRoot}/dwr/interface/OrderAction.js?20130729"></script>
-	<script type="text/javascript" src="${webRoot}/web/order/js/order.js?20130803"></script>
+	<script type="text/javascript" src="${webRoot}/web/order/js/order.js?20130805"></script>
 </body>
 </html>

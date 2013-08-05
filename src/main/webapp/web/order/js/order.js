@@ -375,14 +375,13 @@ $(document).ready(function() {
 		if(name=='') {
 			$('#name').attr('title','请输入你的姓名').tooltip('show');
 			return;
-		} else {
-			orderVO.address = orderVO.address + '（' + name + '）';
 		}
 		
 		if(orderVO.address=='') {
 			$('#address').attr('title','请输入你的地址').tooltip('show');
 			return;
 		}
+		
 		
 		if(orderVO.address.length > 20) {
 			$('#address').tooltip('destroy').tooltip({
@@ -397,6 +396,8 @@ $(document).ready(function() {
 			}).tooltip('show');
 			return;
 		}
+		
+		orderVO.address = orderVO.address + '（' + name + '）';
 		
 		for(var i=0; i < orderData.plateList.length; i++){
 			var plate = orderData.plateList[i];
