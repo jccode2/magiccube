@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.magiccube.bulletin">
+
+	<insert id="insertBulletin" parameterType="com.magiccube.bulletin.model.BulletinVO" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO bulletin(content,sort,enable,deleted) VALUES
+		(#{content},#{sort},#{enable},false)
+	</insert>
+	
+	<update id="updateBulletin" parameterType="com.magiccube.bulletin.model.BulletinVO">
+		update bulletin 
+		<set>
+			<if test="content != null">content=#{content},</if>
+			<if test="sort != null">sort=#{sort},</if>
+			<if test="enable != null">enable=#{enable}</if>
+		</set>
+		where id = #{id};
+	</update>
+	
+	<update id="deleteBulletin" parameterType="int">
+		UPDATE bulletin set deleted = true where id = #{id};
+	</update>
+
+    <select id="findBulletin" parameterType="int" resultType="com.magiccube.bulletin.model.BulletinVO">
+        select * from bulletin where id = #{id}
+    </select>
+
+    <select id="findAllBulletins" resultType="com.magiccube.bulletin.model.BulletinVO">
+        select * from bulletin where deleted = false;
+    </select>
+
+    <select id="findAllEnableBulletins" resultType="com.magiccube.bulletin.model.BulletinVO">
+        select * from bulletin where deleted = false and enable = true;
+    </select>
+    		
+</mapper>
