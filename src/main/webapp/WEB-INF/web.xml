@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	id="WebApp_ID" version="2.5">
-	
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+
 	<display-name>1000funs</display-name>
-	
+
 	<welcome-file-list>
 		<welcome-file>/web/index.jsp</welcome-file>
 	</welcome-file-list>
-	
+
 	<!-- spring的监听以及配置文件加载信息 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<!-- 上面配置的spring配置文件的路径，区分大小写 -->
 		<param-value>classpath:config/spring/applicationContext.xml</param-value>
 	</context-param>
-	
+
 	<filter>
 		<filter-name>charsetFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -29,21 +27,19 @@
 		<filter-name>charsetFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
+
 	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener
-		</listener-class>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	
+
 	<listener>
-        <listener-class>com.magiccube.core.springmvc.ApplicationContextInitor</listener-class>
-    </listener>
+		<listener-class>com.magiccube.core.springmvc.ApplicationContextInitor</listener-class>
+	</listener>
 
 	<!-- spring mvc 配置 -->
 	<servlet>
 		<servlet-name>springmvc</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet
-		</servlet-class>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>classpath:config/spring/servlet-config.xml</param-value>
@@ -77,7 +73,7 @@
 		<servlet-name>FoodTest</servlet-name>
 		<url-pattern>/test/food/*</url-pattern>
 	</servlet-mapping>
-	
+
 	<!-- 配置TestServlet -->
 	<servlet>
 		<servlet-name>AddressTest</servlet-name>
@@ -87,7 +83,7 @@
 		<servlet-name>AddressTest</servlet-name>
 		<url-pattern>/test/address/*</url-pattern>
 	</servlet-mapping>
-	
+
 	<!-- 配置TestServlet -->
 	<servlet>
 		<servlet-name>LoginTest</servlet-name>
@@ -97,7 +93,7 @@
 		<servlet-name>LoginTest</servlet-name>
 		<url-pattern>/test/login/*</url-pattern>
 	</servlet-mapping>
-	
+
 	<!-- 配置TestPackageServlet -->
 	<servlet>
 		<servlet-name>PackageTest</servlet-name>
@@ -116,6 +112,16 @@
 		<url-pattern>/test/order/*</url-pattern>
 	</servlet-mapping>
 
+	<!-- jpa for v2 -->
+	<filter>
+		<filter-name>openEntityManagerInViewFilter</filter-name>
+		<filter-class>org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>openEntityManagerInViewFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!-- jpa for v2 end -->
 	
 	<error-page>
 		<error-code>404</error-code>
@@ -129,7 +135,7 @@
 		<exception-type>java.lang.Throwable</exception-type>
 		<location>/web/error/500.jsp</location>
 	</error-page>
-	
+
 	<resource-ref>
 		<description>DB connection</description>
 		<res-ref-name>jdbc/1000funs</res-ref-name>
