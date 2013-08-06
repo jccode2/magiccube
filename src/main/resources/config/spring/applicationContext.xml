@@ -117,8 +117,15 @@
 	<bean id="ConfigService" class="com.magiccube.config.service.ConfigService">
 		<property name="configDAO" ref="ConfigDAOImpl" />
 	</bean>
-
-	<!-- AOP和事务配置 -->
-	<import resource="aop-config.xml" />
-
+	
+	<bean id="BulletinDAOImpl" class="com.magiccube.bulletin.action.BulletinDAO">
+	    <property name="sqlSessionTemplate" ref="sqlSession" />
+	</bean>
+	<bean id="BulletinService" class="com.magiccube.bulletin.service.BulletinService">   
+		<property name="bulletinDAO" ref="BulletinDAOImpl" />
+	</bean>
+	
+	<!-- AOP和事务配置  -->
+	<import resource="aop-config.xml"/>
+	
 </beans>
