@@ -13,8 +13,10 @@
 	<context:component-scan base-package="com.magiccube.*" />
     <mvc:annotation-driven />
 	<mvc:resources mapping="/web/**" location="/web/" />
-    
 	
+	<!-- favicon.ico 特殊处理 -->
+	<mvc:resources mapping="/favicon.ico" location="/favicon.ico" />
+    
 	<!-- SpringMVC配置 -->
 	<bean class="com.magiccube.core.springmvc.ChristControllerHandlerMapping" />
 	<bean id="viewNameTranslator" class="com.magiccube.core.springmvc.ChristRequestToViewNameTranslator"/>
