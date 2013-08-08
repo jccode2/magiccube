@@ -89,7 +89,7 @@
 		<property name="configDAO" ref="ConfigDAOImpl" />
 	</bean>
 	
-	<bean id="BulletinDAOImpl" class="com.magiccube.bulletin.action.BulletinDAO">
+	<bean id="BulletinDAOImpl" class="com.magiccube.bulletin.dao.BulletinDAO">
 	    <property name="sqlSessionTemplate" ref="sqlSession" />
 	</bean>
 	<bean id="BulletinService" class="com.magiccube.bulletin.service.BulletinService">   

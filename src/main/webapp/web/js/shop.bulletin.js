@@ -10,10 +10,12 @@ define(function(require, exports, module) {
 	var Init = (function($) {
 
         function getRowContent($tr) {
-            var content = $(".content input", $tr).val(),
-                sort = $(".sort input", $tr).val(),
+            var id = $tr.attr("id") || 0, 
+                content = $(".content input", $tr).val(),
+                sort = $(".sort input", $tr).val() || 0,
                 enable = $(":checkbox", $tr).is(":checked");
             return {
+                "id": id, 
                 "content": content,
                 "sort": sort,
                 "enable": enable
@@ -33,17 +35,27 @@ define(function(require, exports, module) {
         function saveOneRow($btn) {
             var $tr = $btn.closest("tr"), 
                 vo = getRowContent($tr);
-            console.log(vo);
-            // save to db.
             
+            var fieldsToChecked = [
+                $(".content input", $tr), 
+                $(".sort input", $tr)
+            ];
+            if(!$.validation().check(fieldsToChecked)) {
+                return ;
+            }
 
-            $(".content", $tr).html(vo.content);
-            $(".sort", $tr).html(vo.sort);
-            $(".enable :checkbox", $tr).attr("disabled", "disabled");
+            // save to db.
+            saveBulletin(vo, function() {
+                
+                $(".content", $tr).html(vo.content);
+                $(".sort", $tr).html(vo.sort);
+                $(".enable :checkbox", $tr).attr("disabled", "disabled");
 
-            // change btn style
-            $(".btn-save", $tr).removeClass().addClass("icon-edit btn-edit");
+                // change btn style
+                $(".btn-save", $tr).removeClass().addClass("icon-edit btn-edit");
+            });
         }
+
 
         function editOneRow($btn) {
             var $tr = $btn.closest("tr");
@@ -56,6 +68,14 @@ define(function(require, exports, module) {
             // change btn style
             $(".btn-edit", $tr).removeClass().addClass("icon-ok btn-save");
         }
+
+        function saveBulletin(vo, callback) {
+            var url = webRoot + "/shop/bulletin";
+            $.post(url, vo, callback, "json").fail(function(xhr) {
+                alert("save failed. error msg:\n" + xhr.responseText);
+            });
+        }
+
 
 		
 		return {
