@@ -124,16 +124,38 @@
 			return this;
 		}, 
 
-		check: function() {
+		/**
+		 * do check. 
+		 * 
+		 * @param items optional. if null, will traverse document. else, only check the items provided.
+		 * @returns true - if checked pass. else, return false, and show tooltips.
+		 */
+		check: function(items) {
 			// $(validate_selector).trigger("validate");
 			var pass = true;
-			$(validate_selector).each(function (idx, el) {
-				if(!_doValidate(el)) pass = false;
-			});
+			
+			// traverse document
+			if(!items) {
+				$(validate_selector).each(function (idx, el) {
+					if(!_doValidate(el)) pass = false;
+				});
+			}
+			// traverse the items provided.
+			else {
+				var el;
+				for(var i=0, len=items.length; i < len; i++) {
+					el = items[i];
+					if(!_doValidate(el)) pass = false;
+				}
+			}
 			return pass;
 		}
 	};
 
+	/**
+	 * 
+	 * @param el
+	 */
 	function _doValidate(el) {
 		var $el = $(el);
 		if(!_isPass($el)) {
@@ -149,6 +171,7 @@
 	/**
 	 * check whether pass the validation
 	 * @param  {jQuery} $el 
+	 * @param rule optional
 	 * @return {boolean}     pass:true; nopass:false;
 	 */
 	function _isPass($el) {

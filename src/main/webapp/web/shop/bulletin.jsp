@@ -79,8 +79,8 @@
 
         <script id="tpl_edit_row" type="text/script">
             <tr>
-                <td class="content"><input type="text" name="content" value="" /></td>
-                <td class="sort"><input type="text" name="sort" value="" /></td>
+                <td class="content"><input type="text" name="content" value="" data-toggle="tooltip" data-original-title="内容不能为空" data-validate="not_null"/></td>
+                <td class="sort"><input type="text" name="sort" value="" data-toggle="tooltip" data-original-title="排序不能为空" data-validate="not_null"/></td>
                 <td class="enable"><input type="checkbox" name="enable" value="1" /></td>
                 <td><i class="icon-ok btn-save"></i>&nbsp;<i class="icon-remove btn-remove"></i></td>
             </tr>
