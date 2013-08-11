@@ -29,7 +29,21 @@ define(function(require, exports, module) {
         }
 
         function deleteOneRow($btn) {
-            $btn.closest("tr").remove();
+            var $tr = $btn.closest("tr"),
+                id = $tr.attr("id");
+            if(id) {
+                // delete from db
+                var url = webRoot + "/shop/bulletin/" + id;
+                $.ajax({
+                    "url": url,
+                    "type": "delete"
+                })
+                .done(function(){
+                    $tr.remove();
+                });
+            } else {
+                $tr.remove();
+            }
         }
 
         function saveOneRow($btn) {
@@ -45,8 +59,9 @@ define(function(require, exports, module) {
             }
 
             // save to db.
-            saveBulletin(vo, function() {
-                
+            saveBulletin(vo, function(data) {
+
+                $tr.attr("id", data);
                 $(".content", $tr).html(vo.content);
                 $(".sort", $tr).html(vo.sort);
                 $(".enable :checkbox", $tr).attr("disabled", "disabled");

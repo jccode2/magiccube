@@ -40,7 +40,8 @@
 				</div>
 			</div>
 		</div>
-        <table id="bulletin_list" class="table table-striped bulletin-list">
+		
+		<table id="bulletin_list" class="table table-striped bulletin-list">
             <thead>
                 <tr>
                     <th>内容</th>
@@ -50,38 +51,29 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td class="content">优惠一:10点半前订餐送水果一份</td>
-                    <td class="sort">1</td>
-                    <td class="enable"><input type="checkbox" name="enable" value="1" disabled checked/></td>
+            	<c:forEach items="${bulletinList }" var="bulletin">
+            	<tr id="${bulletin.id }">
+            		<td class="content">${bulletin.content }</td>
+                    <td class="sort">${bulletin.sort }</td>
+                    <td class="enable"><input type="checkbox" name="enable" value="1" disabled 
+                    	<c:if test="${bulletin.enable }">checked</c:if> /></td>
                     <td><i class="icon-edit btn-edit"></i>&nbsp;<i class="icon-remove btn-remove"></i></td>
-                </tr>
-                <tr>
-                    <td class="content">优惠二:团体10份以上，每份减1元</td>
-                    <td>2</td>
-                    <td class="enable"><input type="checkbox" name="enable" value="1" disabled/></td>
-                    <td><i class="icon-ok btn-save"></i>&nbsp;<i class="icon-remove btn-remove"></i></td>
-                </tr>
-                <tr>
-                    <td class="content"><input type="text" name="content" value="" /></td>
-                    <td class="sort"><input type="text" name="sort" value="" /></td>
-                    <td class="enable"><input type="checkbox" name="enable" value="1" /></td>
-                    <td><i class="icon-ok btn-save"></i>&nbsp;<i class="icon-remove btn-remove"></i></td>
-                </tr>
-                <tr>
-                    <td class="content">优惠二:团体10份以上，每份减1元</td>
-                    <td>2</td>
-                    <td class="enable"><input type="checkbox" name="enable" value="1" disabled/></td>
-                    <td><i class="icon-ok btn-save"></i>&nbsp;<i class="icon-remove btn-remove"></i></td>
-                </tr>
+            	</tr>
+            	</c:forEach>
+            	
+            	<c:if test="${fn:length(bulletinList) < 1}"><!-- empty -->
+            	<tr>
+            		<td colspan="4" style="text-align: center;">本列表暂无记录</td>
+            	</tr>
+            	</c:if>
             </tbody>
         </table>
-
+        
         <script id="tpl_edit_row" type="text/script">
             <tr>
                 <td class="content"><input type="text" name="content" value="" data-toggle="tooltip" data-original-title="内容不能为空" data-validate="not_null"/></td>
-                <td class="sort"><input type="text" name="sort" value="" data-toggle="tooltip" data-original-title="排序不能为空" data-validate="not_null"/></td>
-                <td class="enable"><input type="checkbox" name="enable" value="1" /></td>
+                <td class="sort"><input type="text" name="sort" value="1" data-toggle="tooltip" data-original-title="排序不能为空" data-validate="not_null"/></td>
+                <td class="enable"><input type="checkbox" name="enable" value="1" checked/></td>
                 <td><i class="icon-ok btn-save"></i>&nbsp;<i class="icon-remove btn-remove"></i></td>
             </tr>
         </script>

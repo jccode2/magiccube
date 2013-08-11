@@ -1,7 +1,5 @@
 package com.magiccube.bulletin.model;
 
-import javax.validation.constraints.NotNull;
-
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.magiccube.core.base.model.BaseVO;

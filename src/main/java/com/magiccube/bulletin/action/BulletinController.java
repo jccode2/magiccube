@@ -34,16 +34,32 @@ public class BulletinController {
 		return "shop/bulletin";
 	}
 	
+	/**
+	 * insert or update
+	 * 
+	 * @param bulletinVO
+	 * @return id, when success; 0, when fail.
+	 */
 	@RequestMapping(value="", method=RequestMethod.POST)
-	public @ResponseBody boolean saveBulletin(@Valid BulletinVO bulletinVO) {
-		System.out.println(bulletinVO);
-		return false;
+	public @ResponseBody int saveBulletin(@Valid BulletinVO bulletinVO) {
+		
+		// insert
+		if(bulletinVO.getId() == 0) {
+			return bulletinService.insertBulletin(bulletinVO);
+		}
+		// update
+		else {
+			if(bulletinService.updateBulletin(bulletinVO) != 0) 
+				return bulletinVO.getId();
+		}
+		
+		// fail
+		return 0;
 	}
 	
-	@RequestMapping(value="", method=RequestMethod.DELETE)
+	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public @ResponseBody boolean deleteBulletin(@PathVariable int id) {
-		
-		return false;
+		return bulletinService.deleteBulletin(id) > 0;
 	}
 
 	public BulletinService getBulletinService() {
