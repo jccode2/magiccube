@@ -89,11 +89,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-struts</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
@@ -324,6 +319,18 @@
 	</build>
 
 	<repositories>
+		<repository>
+			<id>central</id>
+			<name>Central Repository</name>
+			<url>http://repo.maven.apache.org/maven2</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>Thirdparty On 1000funs Server</id>
+			<url>http://42.96.134.221:8081/nexus/content/repositories/thirdparty</url>
+		</repository>
 		<repository>
 			<id>oss-sonatype-snapshots</id>
 			<name>DWR repository</name>
