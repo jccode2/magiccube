@@ -78,7 +78,7 @@
 						<ul class="nav nav-list">
 							<li class="nav-header">订单管理</li>
 							<li class="active"><a href="${webRoot}/shop/todo">未处理</a></li>
-							<li><a href="${webRoot}/shop/history">已处理</a></li>
+							<li><a href="${webRoot}/shop/history?fromMenu=true">已处理</a></li>
 							<li class="nav-header">餐点管理</li>
 							<li><a href="${webRoot}/shop/group">分类管理</a></li>
 							<li><a href="${webRoot}/shop/food">食物管理</a></li>

@@ -16,13 +16,19 @@ define(function(require, exports, module) {
 	function init() {
 		// button group init
 		var status = $("#orderStatus").val();
-		$(".btn-group > button[value='"+status+"']").addClass("active");
+		$("#btn-group-status > button[value='"+status+"']").addClass("active");
+		
+		var startDate = $("#startDate").val(),
+			endDate = $("#endDate").val();
+		$("#btn-group-date > button[value='"+
+				((!startDate && !endDate) ? "" : startDate+"~"+endDate)
+				+"']").addClass("active");
 	}
 	
 	function initEvent() {
 		$("#page").pagination({
 			className: "pagination-right", 
-			num: 10,
+			num: 20,
 			page: $("#pageNo").val(), 
 			count: $("#pageCount").val(), 
 			callback: function (current_page, new_page) {
@@ -32,8 +38,23 @@ define(function(require, exports, module) {
 			refresh: false
 		});
 		
-		$(".btn-group").buttonGroup().change(function(e) {
+		$("#btn-group-status").buttonGroup().change(function(e) {
 			$("#orderStatus").val(this.val());
+			$("#orderQueryForm").submit();
+		});
+		
+		$("#btn-group-date").buttonGroup().change(function(e) {
+			var v = this.val(), 
+				startDate, 
+				endDate;
+			if(v == "") {
+				startDate = endDate = "";
+			} else {
+				startDate = v.split("~")[0];
+				endDate = v.split("~")[1];
+			}
+			$("#startDate").val(startDate);
+			$("#endDate").val(endDate);
 			$("#orderQueryForm").submit();
 		});
 		

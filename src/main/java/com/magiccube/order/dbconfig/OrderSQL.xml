@@ -67,18 +67,31 @@
 		order by o.id desc, i.plate, f.food_name
 	</select>
 	
-	<!-- 根据shopId查询某个店铺的待处理的订单列表总数 -->
-	<select id="queryOrdersCount" parameterType="com.magiccube.order.model.OrderQueryCondition" resultType="int">
-		select count(0) 
-		  from orders 
-		 where deleted = false and shop_id = #{shopId} <!-- and user_id = #{userId}  -->
-		   and order_status in 
-		   	  <foreach collection="orderStatusList" item="item" index="index" open="(" close=")" separator=",">
+	
+	<sql id="queryOrdersWithFoodByPageWhereClause">
+	     and order_status in
+			  <foreach collection="orderStatusList" item="item" index="index" open="(" close=")" separator=",">
 			  	#{item}
 			  </foreach>
 			<if test="keyword != null and keyword != ''">
 				and concat(ifnull(address,''),ifnull(contact,''),ifnull(phone,''),ifnull(id,''),ifnull(user_remark,'')) like concat('%',#{keyword},'%')
 			</if>
+			<if test="startDate != null or endDate != null">
+			    <if test="startDate != null">
+			        <![CDATA[ and create_time >= #{startDate} ]]>
+			    </if>
+			    <if test="endDate != null">
+			        <![CDATA[ and create_time <= #{endDate} ]]>
+			    </if>
+			</if>
+	</sql>
+	
+	<!-- 根据shopId查询某个店铺的待处理的订单列表总数 -->
+	<select id="queryOrdersCount" parameterType="com.magiccube.order.model.OrderQueryCondition" resultType="int">
+		select count(0) 
+		  from orders 
+		 where deleted = false and shop_id = #{shopId} <!-- and user_id = #{userId}  -->
+		   <include refid="queryOrdersWithFoodByPageWhereClause" />
 	</select>
 	
 	<!-- 根据shopId查询某个店铺的订单列表(分页查询)(连同食物一起查出来) -->
@@ -88,13 +101,8 @@
 		     (select * from orders 
 		     	where deleted = false 
 		     		and shop_id = #{shopId} <!-- and user_id = #{userId} -->
-			     	 and order_status in
-					  <foreach collection="orderStatusList" item="item" index="index" open="(" close=")" separator=",">
-					  	#{item}
-					  </foreach>
-				<if test="keyword != null and keyword != ''">
-					and concat(ifnull(address,''),ifnull(contact,''),ifnull(phone,''),ifnull(id,''),ifnull(user_remark,'')) like concat('%',#{keyword},'%')
-				</if>
+			     	<include refid="queryOrdersWithFoodByPageWhereClause" />
+				
 				order by id desc 
 		     	limit #{pageFrom}, #{pageSize}
 		     ) o, 

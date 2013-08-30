@@ -2,6 +2,7 @@ package com.magiccube.order.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import com.magiccube.core.base.model.QueryVO;
@@ -12,6 +13,8 @@ public class OrderQueryCondition extends QueryVO {
 	private int shopId;
 	private int itemType;
 	private String keyword;
+	private Date startDate;
+	private Date endDate;
 	private List<Integer> orderStatusList = new ArrayList<Integer>();
 	
 	public OrderQueryCondition() {
@@ -49,5 +52,21 @@ public class OrderQueryCondition extends QueryVO {
 	}
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 }

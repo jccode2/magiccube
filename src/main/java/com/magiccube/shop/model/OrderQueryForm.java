@@ -1,7 +1,10 @@
 package com.magiccube.shop.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.magiccube.core.base.action.QueryForm;
 
@@ -10,6 +13,10 @@ public class OrderQueryForm extends QueryForm {
 	private String keyword;
 	private int overtime;
 	private String orderStatus;
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	private Date startDate;
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	private Date endDate;
 	
 	public String getKeyword() {
 		return keyword;
@@ -38,6 +45,18 @@ public class OrderQueryForm extends QueryForm {
 			ret.add(Integer.parseInt(item));
 		}
 		return ret;
+	}
+	public Date getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+	public Date getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 	@Override
 	public String toString() {

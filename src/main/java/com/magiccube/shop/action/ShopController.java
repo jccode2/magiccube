@@ -1,5 +1,8 @@
 package com.magiccube.shop.action;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -160,7 +163,13 @@ public class ShopController {
 	}
 	
 	@RequestMapping("/history")
-	public String toHistory(Model model, @ModelAttribute OrderQueryForm queryForm) {
+	public String toHistory(Model model, @ModelAttribute OrderQueryForm queryForm, @RequestParam(required=false) boolean fromMenu) {
+		if(fromMenu) {
+			// set default value
+			Date[] today = getTodayStartEndTime();
+			queryForm.setStartDate(today[0]);
+			queryForm.setEndDate(today[1]);
+		}
 		
 		if(queryForm == null) {
 			print("go into history. queryForm = null");
@@ -604,6 +613,23 @@ public class ShopController {
 		return json;
 	}
 	
+	
+	private Date[] getTodayStartEndTime() {
+		Date[] ret = new Date[2];
+		Calendar c = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		c.set(Calendar.HOUR, 0);
+		c.set(Calendar.MINUTE, 0);
+		c.set(Calendar.SECOND, 0);
+		ret[0] = c.getTime();
+		
+		c.set(Calendar.HOUR, 23);
+		c.set(Calendar.MINUTE, 59);
+		c.set(Calendar.SECOND, 59);
+		ret[1] = c.getTime();
+		
+		return ret;
+	}
 	
 	/////////////////////////  TEST ///////////////
 	

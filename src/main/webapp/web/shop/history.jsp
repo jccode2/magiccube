@@ -1,8 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ include file="/web/inc/head.jsp" %>
+
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Calendar" %>
+<%
+	Calendar c = Calendar.getInstance();
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	String today = sdf.format(c.getTime());
+	c.add(Calendar.DATE, -1);
+	String yesterday = sdf.format(c.getTime());
+	c.add(Calendar.DATE, -1);
+	String theDayBeforeYesterday = sdf.format(c.getTime());
+%>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -21,7 +35,7 @@
 		<div class="row-fluid container-fixed">
 			<div class="span12">
 				<div class="querybar">
-					<form:form method="post" modelAttribute="orderQueryForm" cssClass="form-search">
+					<form:form method="post" modelAttribute="orderQueryForm" cssClass="form-search" action="${webRoot }/shop/history">
 					<div class="row-fluid">
 						<div class="span4">
 							<div class="input-prepend">
@@ -31,13 +45,19 @@
 							</div>
 						</div>
 						<div class="span4">
-							<div class="btn-group" data-toggle="buttons-radio">
+							<div id="btn-group-date" class="btn-group" data-toggle="buttons-radio">
+								<button type="button" class="btn " value="<%=today %> 00:00:00~<%=today %> 23:59:59">最近一天</button>
+								<button type="button" class="btn " value="<%=yesterday %> 00:00:00~<%=today %> 23:59:59">最近两天</button>
+								<button type="button" class="btn " value="<%=theDayBeforeYesterday %> 00:00:00~<%=today %> 23:59:59">最近三天</button>
+								<button type="button" class="btn " value="">全部</button>
+							</div>
+						</div>
+						<div class="span4">
+							<div id="btn-group-status" class="btn-group" data-toggle="buttons-radio">
 								<button type="button" class="btn " value="1,2,3">全部</button>
 								<button type="button" class="btn " value="1,3">正常</button>
 								<button type="button" class="btn " value="2">异常</button>
 							</div>
-						</div>
-						<div class="span4">
 						</div>
 					</div>
 					
@@ -45,6 +65,8 @@
 					<form:hidden path="pageSize"/>
 					<form:hidden path="pageCount"/>
 					<form:hidden path="orderStatus"/>
+					<form:hidden path="startDate"/>
+					<form:hidden path="endDate"/>
 					</form:form>
 				</div>
 				
