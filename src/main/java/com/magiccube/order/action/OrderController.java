@@ -16,10 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.magiccube.address.model.RegionVO;
 import com.magiccube.address.service.AddressService;
-import com.magiccube.food.model.FoodQueryCondition;
-import com.magiccube.food.model.GroupFoods;
+import com.magiccube.common.action.CommonAction;
+import com.magiccube.common.util.EnvUtils;
 import com.magiccube.food.model.GroupPackages;
 import com.magiccube.food.service.FoodService;
+import com.magiccube.user.model.UserVO;
 
 /**
  * 
@@ -53,9 +54,11 @@ public class OrderController {
 //		List<GroupFoods> groupFoods = foodService
 //				.queryAvailableGroupAndFoods(new FoodQueryCondition(1, 1));
 		//model.addAttribute("groupFoods", groupFoods); //暂时屏蔽自由配餐
+		
+		UserVO currUser = EnvUtils.getUser();
 		//判断是否在服务时间以及判断是否是午餐时间还是晚餐时间
 		GregorianCalendar curDate = new GregorianCalendar();
-		if(isClosingTime(curDate)) {
+		if(isClosingTime(curDate) && (currUser == null || currUser.getUserType()==UserVO.TYPE_CONSUMER)) {
 			return "order/no-service";
 		}
 		

@@ -1,11 +1,9 @@
 package com.magiccube.common.action;
 
-import org.directwebremoting.WebContext;
-import org.directwebremoting.WebContextFactory;
 import org.directwebremoting.annotations.RemoteMethod;
 import org.directwebremoting.annotations.RemoteProxy;
 
-import com.magiccube.common.model.EnvironmentInfoVO;
+import com.magiccube.common.util.EnvUtils;
 import com.magiccube.core.base.action.BaseAction;
 import com.magiccube.user.model.UserVO;
 
@@ -22,7 +20,6 @@ public class CommonAction extends BaseAction {
 	 */
 	@RemoteMethod
 	public UserVO getUser(){
-		WebContext objWebContext = WebContextFactory.get();
-		return ((EnvironmentInfoVO)objWebContext.getSession().getAttribute("environmentInfo")).getUser();
+		return EnvUtils.getUser();
 	}
 }
