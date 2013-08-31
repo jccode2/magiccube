@@ -27,11 +27,11 @@
     </select>
 
     <select id="findAllBulletins" resultType="com.magiccube.bulletin.model.BulletinVO">
-        select * from bulletin where deleted = false order by sort desc;
+        select * from bulletin where deleted = false order by sort asc;
     </select>
 
     <select id="findAllEnableBulletins" resultType="com.magiccube.bulletin.model.BulletinVO">
-        select * from bulletin where deleted = false and enable = true order by sort desc;
+        select * from bulletin where deleted = false and enable = true order by sort asc;
     </select>
     		
 </mapper>
