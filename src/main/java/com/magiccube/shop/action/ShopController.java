@@ -176,7 +176,7 @@ public class ShopController {
 			queryForm = new OrderQueryForm();
 		}
 		if(queryForm.getPageNo() == 0) queryForm.setPageNo(1);
-		if(queryForm.getPageSize() == 0) queryForm.setPageSize(QueryForm.SIZE_DEFAULT);
+		queryForm.setPageSize(6);
 		if(queryForm.getOrderStatus() == null) queryForm.setOrderStatus(
 				OrderVO.ORDER_STATUS_DEALED+","+
 					OrderVO.ORDER_STATUS_EXCEPTION+","+
