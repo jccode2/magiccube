@@ -2,6 +2,8 @@
 
 body {
 	background: url("./images/background.png");
+	background-size: 200%;
+	background-repeat: repeat-y;
 }
 
 .container,.navbar-static-top .container,.navbar-fixed-top .container,.navbar-fixed-bottom .container
