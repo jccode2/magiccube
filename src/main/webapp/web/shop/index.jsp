@@ -87,6 +87,7 @@
 							<li class="nav-header">店铺管理</li>
 							<li><a href="#">基本信息</a></li>
 							<li><a href="${webRoot}/shop/bulletin">公告管理</a></li>
+							<li><a href="${webRoot}/shop/config">配置管理</a></li>
 							<li class="nav-header">评价管理</li>
 							<li><a href="#">查看评价</a></li>
 							<li class="nav-header">测试</li>

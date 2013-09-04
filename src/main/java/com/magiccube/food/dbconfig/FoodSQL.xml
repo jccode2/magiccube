@@ -192,6 +192,7 @@
 		    join food_group g ON (fs.group_id = g.id)
 		where
 		    fs.deleted = false and f.deleted = false and g.deleted = false
+		    and fs.droped != 1
 		    and shop_id = #{shopId} and f.type = #{type}
 		order by g.sort asc, f.food_name asc;
 	</select>

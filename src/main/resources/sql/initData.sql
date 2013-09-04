@@ -180,3 +180,13 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2013-05-18 23:41:14
+
+--開業時間和打烊時間
+LOCK TABLES `config` WRITE;
+
+INSERT INTO `config` VALUES ('closing-time','20:00','java.lang.String'),('open-t
+ime','08:00','java.lang.String'),(
+'sunday-close','1','java.lang.String');
+
+UNLOCK TABLES;
+

@@ -49,6 +49,21 @@ public class ConfigService {
 	}
 	
 	/**
+	 * 保存配置項，如果存在則update，否則insert
+	 * @param configVO
+	 * @return
+	 */
+	public ConfigVO saveConfig(ConfigVO configVO) {
+		ConfigVO config = configDAO.getConfig(configVO.getName());
+		if(config==null) {
+			this.insertConfig(configVO);
+		} else {
+			this.updateConfig(configVO);
+		} 
+		return configVO;
+	}
+	
+	/**
 	 * 获取一个配置值,如果不存在,则使用defaultValue新增一个并返回
 	 * @param key
 	 * @param defaultValue

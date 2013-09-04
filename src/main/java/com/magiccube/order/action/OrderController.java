@@ -18,6 +18,8 @@ import com.magiccube.address.model.RegionVO;
 import com.magiccube.address.service.AddressService;
 import com.magiccube.common.action.CommonAction;
 import com.magiccube.common.util.EnvUtils;
+import com.magiccube.config.model.ConfigVO;
+import com.magiccube.config.service.ConfigService;
 import com.magiccube.food.model.GroupPackages;
 import com.magiccube.food.service.FoodService;
 import com.magiccube.user.model.UserVO;
@@ -36,6 +38,9 @@ public class OrderController {
 
 	@Resource
 	FoodService foodService;
+	
+	@Resource
+	private ConfigService configService;
 
 	@RequestMapping("")
 	public String main(Model model, HttpServletRequest request) {
@@ -58,7 +63,7 @@ public class OrderController {
 		UserVO currUser = EnvUtils.getUser();
 		//判断是否在服务时间以及判断是否是午餐时间还是晚餐时间
 		GregorianCalendar curDate = new GregorianCalendar();
-		if(isClosingTime(curDate) && (currUser == null || currUser.getUserType()==UserVO.TYPE_CONSUMER)) {
+		if(isClosingTime(model, curDate) && (currUser == null || currUser.getUserType()==UserVO.TYPE_CONSUMER)) {
 			return "order/no-service";
 		}
 		
@@ -87,10 +92,35 @@ public class OrderController {
 	 * 
 	 * @return
 	 */
-	private boolean isClosingTime(GregorianCalendar curDate) {
+	private boolean isClosingTime(Model model, GregorianCalendar curDate) {
 		int day = curDate.get(GregorianCalendar.DAY_OF_WEEK);
 		int hour = curDate.get(GregorianCalendar.HOUR_OF_DAY);
-		if(hour >= 20 || hour < 8||day == GregorianCalendar.SUNDAY) {
+		int minute = curDate.get(GregorianCalendar.MINUTE);
+		
+		ConfigVO openConfig = configService.getConfig("open-time");
+		ConfigVO closeConfig = configService.getConfig("closing-time");
+		ConfigVO sundayCloseConfig = configService.getConfig("sunday-close");
+		
+		model.addAttribute("openTime",openConfig.getValue());
+		model.addAttribute("closingTime",closeConfig.getValue());
+		Boolean sundayClose = (sundayCloseConfig == null || sundayCloseConfig.getValue() != null) ? true : false; // 默认星期天不营业
+		model.addAttribute("sundayClose",sundayClose); 
+		
+		if(day == GregorianCalendar.SUNDAY && sundayClose) {
+			return true;
+		}
+		
+		int configOpenHour = Integer.parseInt(openConfig.getValue().substring(0, 2));
+		int configOpenMinute = Integer.parseInt(openConfig.getValue().substring(3));
+		
+		if( hour < configOpenHour || (hour==configOpenHour && minute < configOpenMinute)) {
+			return true;
+		}
+		
+		int configCloseHour = Integer.parseInt(closeConfig.getValue().substring(0, 2));
+		int configCloseMinute = Integer.parseInt(closeConfig.getValue().substring(3));
+		
+		if( hour > configCloseHour || (hour==configCloseHour && minute>configCloseMinute)) {
 			return true;
 		}
 		return false;
