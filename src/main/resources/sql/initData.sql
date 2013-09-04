@@ -184,9 +184,7 @@ UNLOCK TABLES;
 --開業時間和打烊時間
 LOCK TABLES `config` WRITE;
 
-INSERT INTO `config` VALUES ('closing-time','20:00','java.lang.String'),('open-t
-ime','08:00','java.lang.String'),(
-'sunday-close','1','java.lang.String');
+INSERT INTO `config` VALUES ('closing-time','20:00','java.lang.String'),('open-time','08:00','java.lang.String'),('sunday-close','1','java.lang.String');
 
 UNLOCK TABLES;
 
