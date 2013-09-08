@@ -61,6 +61,14 @@
                     			</td>
                     		</tr>
                     		</c:forEach>
+                    		
+                    		<c:if test="${fn:length(quantities) < 1}"><!-- empty -->
+							<tr>
+								<td class="center">
+									暂无记录
+								</td>
+							</tr>
+							</c:if>
                     	</table>
                     	
                     </div>

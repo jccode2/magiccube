@@ -689,18 +689,19 @@ public class ShopController {
 	
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
 	public String toDashboard(Model model) {
-//		Date[] todays = getTodayStartEndTime();
+		Date[] todays = getTodayStartEndTime();
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Date[] todays = null;
-		try {
-			todays = new Date[] {
-					sdf.parse("2013-08-05"), 
-					sdf.parse("2013-08-06")
-			};
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+//		test
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//		Date[] todays = null;
+//		try {
+//			todays = new Date[] {
+//					sdf.parse("2013-08-05"), 
+//					sdf.parse("2013-08-06")
+//			};
+//		} catch (ParseException e) {
+//			e.printStackTrace();
+//		}
 		
 		List<QuantityPerFoodVO> quantities = statService.queryQuantityPerFood(1, todays[0], todays[1]);
 		
