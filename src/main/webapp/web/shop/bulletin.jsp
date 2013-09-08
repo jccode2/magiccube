@@ -79,6 +79,5 @@
         </script>
 
 		<script src="${webRoot}/web/seajs/sea.js" data-config="${webRoot}/web/js/config" data-main="${webRoot}/web/js/shop.bulletin"></script>
-        <script src="http://localhost:8009/swank-js/swank-js-inject.js"></script>
 	</body>
 </html>

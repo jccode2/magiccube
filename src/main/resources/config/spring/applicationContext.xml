@@ -125,6 +125,13 @@
 		<property name="bulletinDAO" ref="BulletinDAOImpl" />
 	</bean>
 	
+	<bean id="StatDAOImpl" class="com.magiccube.stat.dao.StatDAO">
+	    <property name="sqlSessionTemplate" ref="sqlSession" />
+	</bean>
+	<bean id="StatService" class="com.magiccube.stat.service.StatService">
+	    <property name="statDAO" ref="StatDAOImpl"></property>
+	</bean>
+	
 	<!-- AOP和事务配置  -->
 	<import resource="aop-config.xml"/>
 	

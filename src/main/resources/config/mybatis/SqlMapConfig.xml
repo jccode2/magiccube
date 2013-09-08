@@ -25,6 +25,7 @@
 		<mapper resource="com/magiccube/address/dbconfig/AddressSQL.xml" />	<!-- @author Xingling -->
 		<mapper resource="com/magiccube/config/dbconfig/ConfigSQL.xml" />
 		<mapper resource="com/magiccube/bulletin/dbconfig/BulletinSQL.xml" />
+		<mapper resource="com/magiccube/stat/dbconfig/StatSQL.xml" />
 
 	</mappers>
 

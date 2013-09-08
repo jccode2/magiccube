@@ -8,15 +8,7 @@ define(function (require, exports, module) {
 
 	jQuery(function () {
 		
-		$(".sidebar .nav > li").click(function() {
-			var $this = $(this);
-			$this.addClass("active").siblings().removeClass("active");
-			setFrameURL($this.children("a").attr("href"));
-			return false;
-		})
-
-		// 选中第一个.
-		.eq(1).click();
+		initMenuEvent();
 
 		initHeight();
 		
@@ -27,6 +19,24 @@ define(function (require, exports, module) {
 		$(window).bind("resize", initHeight);
 
 	});
+	
+	function initMenuEvent() {
+		$(".sidebar .nav > li").click(function() {
+			var $this = $(this);
+			$this.addClass("active").siblings().removeClass("active");
+			setFrameURL($this.children("a").attr("href"));
+			return false;
+		});
+
+		$("#to_dashboard").click(function() {
+			$(".sidebar .nav > li").removeClass("active");
+			setFrameURL($(this).attr("href"));
+			return false;
+		})
+		
+		// 默认选中
+		.click();
+	}
 
 	function setFrameURL (url) {
 		$("#mainFrame").attr("src", url);

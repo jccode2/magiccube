@@ -20,7 +20,7 @@
 			<div class="navbar-inner">
 				<div class="container-fluid">
 
-					<a href="#" class="brand">店铺管理</a>
+					<a id="to_dashboard" href="${webRoot}/shop/dashboard" class="brand">店铺管理</a>
 					<ul class="nav">
 						<li><a href="#">关于</a></li>
 					</ul>
@@ -77,7 +77,7 @@
 					<div class="sidebar">
 						<ul class="nav nav-list">
 							<li class="nav-header">订单管理</li>
-							<li class="active"><a href="${webRoot}/shop/todo">未处理</a></li>
+							<li class=""><a href="${webRoot}/shop/todo">未处理</a></li>
 							<li><a href="${webRoot}/shop/history?fromMenu=true">已处理</a></li>
 							<li class="nav-header">餐点管理</li>
 							<li><a href="${webRoot}/shop/group">分类管理</a></li>

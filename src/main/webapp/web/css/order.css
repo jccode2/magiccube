@@ -289,6 +289,9 @@ body {
 .container-fixed {
   margin-left: 0px;
 }
+.breadcrumb {
+  margin-bottom: 10px;
+}
 .querybar {
   height: 42px;
   padding-right: 5px;

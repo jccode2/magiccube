@@ -1,9 +1,12 @@
 package com.magiccube.shop.action;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -53,37 +56,54 @@ import com.magiccube.shop.model.FoodReShopForm;
 import com.magiccube.shop.model.GroupForm;
 import com.magiccube.shop.model.OrderQueryForm;
 import com.magiccube.shop.util.ShopUtil;
+import com.magiccube.stat.action.FoodBean;
+import com.magiccube.stat.action.GroupBean;
+import com.magiccube.stat.model.QuantityPerFoodVO;
+import com.magiccube.stat.service.StatService;
 import com.magiccube.user.action.UserAction;
 import com.magiccube.user.model.UserVO;
 
 /**
  * 店铺管理控制器
  * 
- * function method url --------- ------ -------- 主页 GET /shop 订单管理待处理 GET
- * /shop/todo 订单管理已处理 GET /shop/history 配餐模式 GET /shop/catering 套餐模式 GET
- * /shop/package
+ * function method url 
+ * --------- ------ -------- 
+ * 主页 GET /shop 
+ * 订单管理待处理 GET /shop/todo 
+ * 订单管理已处理 GET /shop/history 
+ * 配餐模式 GET /shop/catering 
+ * 套餐模式 GET /shop/package
  * 
- * 分类管理 GET /shop/group 新增分类 POST /shop/group 获取一个group GET /shop/group/{id}
- * 删除一个group DELETE /shop/group/{id} 更新一个group POST /shop/group/{id} 更新订单状态 PUT
- * /shop/group/{id}?status={value}
+ * 分类管理 GET /shop/group 
+ * 新增分类 POST /shop/group 
+ * 获取一个group GET /shop/group/{id}
+ * 删除一个group DELETE /shop/group/{id} 
+ * 更新一个group POST /shop/group/{id} 
+ * 更新订单状态 PUT /shop/group/{id}?status={value}
  * 
- * 食物管理 GET /shop/food 获取食物列表(json) GET + produces /shop/food 新增食物 POST
- * /shop/food 获取食物 GET /shop/food/{id} 删除食物 DELETE /shop/food/{id} 更新食物 POST
- * /shop/food/{id}
+ * 食物管理 GET /shop/food 
+ * 获取食物列表(json) GET + produces /shop/food 
+ * 新增食物 POST /shop/food 
+ * 获取食物 GET /shop/food/{id} 
+ * 删除食物 DELETE /shop/food/{id} 
+ * 更新食物 POST /shop/food/{id}
  * 
- * 更新是否自动出单 PUT /shop/autoprint/{value} 出单 PUT /shop/issue/{id}
+ * 更新是否自动出单 PUT /shop/autoprint/{value} 
+ * 出单 PUT /shop/issue/{id}
  * 
- * 新增/更新食物关联 POST /shop/foodreshop 删除食物关联 DELETE /shop/foodreshop/{id}
+ * 新增/更新食物关联 POST /shop/foodreshop 
+ * 删除食物关联 DELETE /shop/foodreshop/{id}
  * 更新食物/套餐上下架 PUT /shop/foodreshop/{id}?droped={droped}
  * 
- * 新增套餐 POST /shop/package 删除套餐 DELETE /shop/package/{id} 获取套餐 GET
- * /shop/package/{id}
+ * 新增套餐 POST /shop/package 
+ * 删除套餐 DELETE /shop/package/{id} 
+ * 获取套餐 GET /shop/package/{id}
  * 
- * 检测电话号码状态 GET /shop/phonestate?phone={phone} 批量检测电话号码状态 POST
- * /shop/phonestates?phones={phone1,phone2}
+ * 检测电话号码状态 GET /shop/phonestate?phone={phone} 
+ * 批量检测电话号码状态 POST /shop/phonestates?phones={phone1,phone2}
  * 
  * 店铺基本数据 GET /shop/shopdata
- * 
+ * 店长工作台 GET /shop/dashboard
  * 
  * @author jcchen
  * 
@@ -123,6 +143,9 @@ public class ShopController {
 	 */
 	@Autowired
 	private ConfigService configService;
+	
+	@Autowired
+	private StatService statService;
 
 	// Invoked on every request
 	/**
@@ -662,6 +685,63 @@ public class ShopController {
 
 		String json = JsonUtil.objectToJson(ret);
 		return json;
+	}
+	
+	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+	public String toDashboard(Model model) {
+//		Date[] todays = getTodayStartEndTime();
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date[] todays = null;
+		try {
+			todays = new Date[] {
+					sdf.parse("2013-08-05"), 
+					sdf.parse("2013-08-06")
+			};
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		List<QuantityPerFoodVO> quantities = statService.queryQuantityPerFood(1, todays[0], todays[1]);
+		
+		LinkedHashMap<GroupBean, List<FoodBean>> rets = new LinkedHashMap<GroupBean, List<FoodBean>>();
+		if(quantities.size() > 0) {
+			// 取出总数: 第一位
+			QuantityPerFoodVO quantityPerFood = quantities.get(0);
+			GroupBean group = new GroupBean(0, "合计");
+			List<FoodBean> foods = new ArrayList<FoodBean>();
+			FoodBean food = new FoodBean();
+			food.setId(0);
+			food.setFoodName("合计");
+			food.setType(0);
+			food.setImage("");
+			food.setAmount(quantityPerFood.getAmount());
+			foods.add(food);
+			rets.put(group, foods);
+			
+			for(int i=1, len=quantities.size(); i<len; i++) {
+				quantityPerFood = quantities.get(i);
+				group = new GroupBean(quantityPerFood.getGroupId(), quantityPerFood.getGroupName());
+				foods = rets.get(group);
+				if(foods == null) {
+					foods = new ArrayList<FoodBean>();
+					rets.put(group, foods);
+				}
+				
+				food = new FoodBean();
+				food.setId(quantityPerFood.getFoodId());
+				food.setFoodName(quantityPerFood.getFoodName());
+				food.setType(quantityPerFood.getFoodType());
+				food.setImage(quantityPerFood.getFoodImage());
+				food.setAmount(quantityPerFood.getAmount());
+				
+				foods.add(food);
+			}
+		}
+		
+		
+		model.addAttribute("quantities", rets);
+		return "shop/dashboard";
 	}
 
 	private Date[] getTodayStartEndTime() {

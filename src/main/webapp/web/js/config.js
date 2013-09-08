@@ -31,6 +31,10 @@ seajs.config({
 		'bootstrap.extension' : {
 			src: 'js/jquery.bootstrap.extension.js', 
 			deps: ['jquery']
+		}, 
+		'charisma' : {
+			src: 'js/charisma_part.js', 
+			deps: ['jquery']
 		}
 	}
 

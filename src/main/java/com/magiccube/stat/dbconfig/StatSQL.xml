@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.magiccube.stat">
+
+    <!-- 各类食物的销售情况报表 -->
+    <select id="quantityPerFood" parameterType="java.util.HashMap" resultType="com.magiccube.stat.model.QuantityPerFoodVO">
+		SELECT f.food_id,
+		       f.group_id,
+		       f.food_name,
+		       s.amount,
+		       f.food_type,
+		       f.group_name,
+		       f.food_image
+		FROM
+		  (SELECT i.item_id,
+		          sum(i.amount) AS amount
+		   FROM orders o,
+		               order_item i
+		   WHERE o.deleted = FALSE
+		     AND o.order_status != 2
+		     <if test="startTime != null">
+		     AND o.create_time &gt;= #{startTime}
+		     </if>
+		     <if test="endTime != null">
+		     AND o.create_time &lt;= #{endTime}
+		     </if>
+		     AND o.id = i.order_id
+		   GROUP BY i.item_id WITH ROLLUP) AS s
+		LEFT JOIN
+		  (SELECT *
+		   FROM V_SHOP_FOOD
+		   <where>
+		       <if test="shopId != null">
+		           shop_id = #{shopId}
+		       </if>
+		   </where>
+		   ) f ON s.item_id = f.food_id 
+		ORDER BY f.group_sort ASC, f.food_name ASC
+    </select>
+    		
+</mapper>
