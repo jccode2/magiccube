@@ -6,6 +6,7 @@
 <title>选择食物</title>
 <%@ include file="/web/inc/nav.jsp"%>
 <link rel="stylesheet" href="${webRoot}/web/order/css/order.css" />
+<script src="${webRoot}/web/order/js/slide.js" type="text/javascript"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -20,10 +21,24 @@
 <body>
 	<div class="container order-content">
 		<div class="container order-ad">
+			<div class="ad-flash">
+			<div id="focusViwer">
+			<div id="imgADPlayer"></div> 
+			<script> 
+			PImgPlayer.addItem( "<a href=# target=_blank style=color:#000;text-decoration:none;></a>", "#", "${webRoot}/web/order/css/images/1000funs-11.jpg"); 		
+			PImgPlayer.addItem( "<a href=# target=_blank style=color:#000;text-decoration:none;></a>", "#", "${webRoot}/web/order/css/images/1000funs-22.jpg"); 		
+			PImgPlayer.addItem( "<a href=# target=_blank style=color:#000;text-decoration:none;></a>", "#", "${webRoot}/web/order/css/images/1000funs-33.jpg"); 		
+			
+			PImgPlayer.init( "imgADPlayer", 750, 151+24 );   
+			</script>
+			</div>
+			</div>
+			<!--
 			<div class="ad-content">
 				<p>优惠1：订餐满5份，每份优惠一元</p>
 				<P>优惠2：10:30前下单，送新鲜水果一份</P>
 			</div>
+			-->
 		</div>
 		<div class="row-fluid">
 			<div class="span8 food-panel">

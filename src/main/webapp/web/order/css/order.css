@@ -19,7 +19,7 @@ body {
 
 .order-ad {
 	height: 150px;
-	background: url("./images/logo.png") 50px 30px no-repeat;
+	background: url("./images/logo.png") 20px 30px no-repeat;
 	background-color: rgba(81, 173, 12, .4);
 	margin-bottom: 2px;
 }
@@ -34,6 +34,15 @@ body {
 	padding-left: 160px;
 	font-weight: bold;
 	background: url("./images/laba.png") 100px 58px no-repeat;
+}
+
+.order-ad .ad-flash {
+	text-align: left;
+	color: white;
+	margin-left: 92px;
+	height: 100%;
+	padding: 0px 0;
+	padding-left: 160px;
 }
 
 
