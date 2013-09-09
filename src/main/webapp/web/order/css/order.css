@@ -428,6 +428,10 @@ body {
 	cursor: pointer;
 }
 
+.plate-panel .tuancan {
+	
+}
+
 .plate-panel .submit-order:HOVER {
 	background: url("./images/submit-order-hover.png");
 }
@@ -440,6 +444,7 @@ body {
 .order {
 	width: 956px;
 	left: 35%;
+	top: 37%;
 	background: none;
 }
 
@@ -450,6 +455,7 @@ body {
 
 .order .order-plate-list {
 	background-color: white;
+	max-height: 550px;
 }
 
 .order .order-plate-item, .order .order-plate-null {

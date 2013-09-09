@@ -5,7 +5,7 @@
 <head>
 <title>选择食物</title>
 <%@ include file="/web/inc/nav.jsp"%>
-<link rel="stylesheet" href="${webRoot}/web/order/css/order.css" />
+<link rel="stylesheet" href="${webRoot}/web/order/css/order.css?20130910" />
 <script src="${webRoot}/web/order/js/slide.js" type="text/javascript"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -111,6 +111,9 @@
 				</div>
 				<div class="add-plate"></div>
 				<div class="submit-order"></div>
+				<div class="tuancan">
+					<img src="${webRoot}/web/order/css/images/tuancan.jpg" style="width:320px;margin-left:3px;margin-top: 5px;"></img>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -189,6 +192,6 @@
 
 	<script type="text/javascript" src="${webRoot}/web/js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="${webRoot}/dwr/interface/OrderAction.js?20130729"></script>
-	<script type="text/javascript" src="${webRoot}/web/order/js/order.js?20130805"></script>
+	<script type="text/javascript" src="${webRoot}/web/order/js/order.js?20130910"></script>
 </body>
 </html>
