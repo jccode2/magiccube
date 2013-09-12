@@ -1,5 +1,6 @@
 package com.magiccube.shop.action;
 
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -396,13 +397,15 @@ public class ShopController {
 	 * @param id
 	 * @param exceptionDesc
 	 * @return
+	 * @throws UnsupportedEncodingException 
 	 */
 	@RequestMapping(value = "/order/{id}", method = RequestMethod.PUT, params = "exceptionDesc")
 	public @ResponseBody
 	boolean markOrderAsException(@PathVariable int id,
-			@RequestParam String exceptionDesc) {
+			@RequestParam String exceptionDesc) throws UnsupportedEncodingException {
+		String expDesc = new String(exceptionDesc.getBytes("ISO-8859-1"), "UTF-8");
 		return orderAction.updateExceptionDetailAndAsException(id,
-				exceptionDesc);
+				expDesc);
 	}
 
 	/**
