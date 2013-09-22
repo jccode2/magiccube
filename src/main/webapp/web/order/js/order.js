@@ -390,9 +390,9 @@ $(document).ready(function() {
 			return;
 		}
 		
-		if(orderVO.userRemark.length > 20) {
+		if(orderVO.userRemark.length > 30) {
 			$('#remark').tooltip('destroy').tooltip({
-				title: '备注最多输入20个字符'
+				title: '备注最多输入30个字符'
 			}).tooltip('show');
 			return;
 		}

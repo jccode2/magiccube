@@ -814,7 +814,7 @@ public class ShopController {
 		
 		model.addAttribute(
 				"sundayClose",
-				(sundayCloseConfig == null || sundayCloseConfig.getValue() != null) ? true
+				(sundayCloseConfig == null || "1".equals(sundayCloseConfig.getValue())) ? true
 						: false); // 默认星期天不营业
 		return "shop/config";
 	}

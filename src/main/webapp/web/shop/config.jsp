@@ -34,7 +34,7 @@ body {
 			<p>
 			打烊时间：<input id="closing-time"  name="closing-time" class="time-input" value="${closingTime}" >&nbsp;(格式：20:00)</p>
 		
-			<p><span>星期天不营业：</span><input type="checkbox" value="1" name="sunday-close" id="sunday-close" style="vertical-align: text-bottom;"
+			<p><span>星期天不营业：</span><input type="checkbox" name="sunday-close" id="sunday-close" style="vertical-align: text-bottom;"
 			 <c:if test="${sundayClose}" >checked="checked"</c:if> /></p>
 			<button type="button" class="btn" id="save_business_time" data-toggle="button">保存</button>
 			
@@ -53,7 +53,7 @@ body {
 			var config = {
 				openTime: $('#open-time').val(),
 				closingTime: $('#closing-time').val(),
-				sundayClose: $('#sunday-close').val()
+				sundayClose: $('#sunday-close').attr("checked") ? "1" : "0"
 			};
 			
 			ShopConfigAction.setBusTime(config, function(msg){

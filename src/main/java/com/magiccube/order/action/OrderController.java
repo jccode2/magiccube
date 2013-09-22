@@ -103,7 +103,7 @@ public class OrderController {
 		
 		model.addAttribute("openTime",openConfig.getValue());
 		model.addAttribute("closingTime",closeConfig.getValue());
-		Boolean sundayClose = (sundayCloseConfig == null || sundayCloseConfig.getValue() != null) ? true : false; // 默认星期天不营业
+		Boolean sundayClose = (sundayCloseConfig == null || "1".equals(sundayCloseConfig.getValue())) ? true : false; // 默认星期天不营业
 		model.addAttribute("sundayClose",sundayClose); 
 		
 		if(day == GregorianCalendar.SUNDAY && sundayClose) {
