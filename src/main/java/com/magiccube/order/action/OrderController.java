@@ -64,7 +64,7 @@ public class OrderController {
 		//判断是否在服务时间以及判断是否是午餐时间还是晚餐时间
 		GregorianCalendar curDate = new GregorianCalendar();
 		if(isClosingTime(model, curDate) && (currUser == null || currUser.getUserType()==UserVO.TYPE_CONSUMER)) {
-//			return "order/no-service";
+			return "order/no-service";
 		}
 		
 		int hour = curDate.get(GregorianCalendar.HOUR_OF_DAY);
